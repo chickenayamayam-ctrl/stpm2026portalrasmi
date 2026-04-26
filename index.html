@@ -541,7 +541,7 @@ document.head.appendChild(s);
     </div>
     <div class="hero-stats">
       <div class="hs"><div class="hs-n" id="hs-members">—</div><div class="hs-l">Ahli</div></div>
-      <div class="hs"><div class="hs-n" id="hs-nota">0</div><div class="hs-l">Nota</div></div>
+      <div class="hs"><div class="hs-n">2</div><div class="hs-l">Alat</div></div>
       <div class="hs"><div class="hs-n" id="hs-ann">0</div><div class="hs-l">Pengumuman</div></div>
       <div class="hs"><div class="hs-n" id="hs-semester">3</div><div class="hs-l">Semester</div></div>
     </div>
@@ -563,7 +563,7 @@ document.head.appendChild(s);
 
   <div class="stats-row">
     <div class="sc"><div class="sc-ico" style="background:#dbeafe">👥</div><div><div class="sc-n" id="s-members">—</div><div class="sc-l">Ahli Aktif</div></div></div>
-    <div class="sc"><div class="sc-ico" style="background:#dcfce7">📝</div><div><div class="sc-n" id="s-nota">0</div><div class="sc-l">Nota Dikongsi</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#dcfce7">🎓</div><div><div class="sc-n">2</div><div class="sc-l">Alat Pelajar</div></div></div>
     <div class="sc"><div class="sc-ico" style="background:#fff7ed">📢</div><div><div class="sc-n" id="s-ann">0</div><div class="sc-l">Pengumuman</div></div></div>
     <div class="sc"><div class="sc-ico" style="background:#ccfbf1">⏳</div><div><div class="sc-n" id="s-hari">—</div><div class="sc-l">Hari ke Sem 2</div></div></div>
   </div>
@@ -619,46 +619,77 @@ document.head.appendChild(s);
 
   <!-- CGPA CALCULATOR -->
   <div id="tool-cgpa" class="tab-content active">
-    <div class="nota-form" style="margin-bottom:16px">
-      <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px">🧮 Kalkulator CGPA STPM</div>
-      <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Masukkan gred untuk setiap subjek. Min 3, Max 5 subjek.</p>
-      <div id="cgpa-subjects"></div>
-      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-        <button class="btn btn-o btn-sm" onclick="addCgpaSubj()">+ Tambah Subjek</button>
-        <button class="btn btn-d btn-sm" onclick="removeCgpaSubj()">- Kurang Subjek</button>
+    
+    <!-- SEM TABS -->
+    <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-p btn-sm" id="cgpa-sem-btn-1" onclick="setCgpaSem(1)">📚 Semester 1</button>
+      <button class="btn btn-o btn-sm" id="cgpa-sem-btn-2" onclick="setCgpaSem(2)">📚 Semester 2</button>
+      <button class="btn btn-o btn-sm" id="cgpa-sem-btn-3" onclick="setCgpaSem(3)">📚 Semester 3</button>
+      <button class="btn btn-o btn-sm" id="cgpa-sem-btn-all" onclick="setCgpaSem('all')" style="background:var(--navy);color:#fff">🎓 PNGK Keseluruhan</button>
+    </div>
+
+    <!-- PER SEM INPUT -->
+    <div id="cgpa-sem-panel">
+      <div class="nota-form" style="margin-bottom:16px">
+        <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px">🧮 Kalkulator PNGK — <span id="cgpa-sem-label">Semester 1</span></div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:4px">Formula: <strong>Jumlah NGMP 4 Mata Pelajaran Terbaik ÷ 4</strong></p>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Masuk semua subjek — sistem akan ambil <strong>4 terbaik</strong> secara automatik.</p>
+        <div id="cgpa-subjects"></div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <button class="btn btn-o btn-sm" onclick="addCgpaSubj()">+ Tambah Subjek</button>
+          <button class="btn btn-d btn-sm" onclick="removeCgpaSubj()">- Kurang</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-p" onclick="calcCGPA()">🧮 Kira PNGK Semester</button>
+          <button class="btn btn-o" onclick="resetCGPA()">Reset</button>
+        </div>
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-p" onclick="calcCGPA()">🧮 Kira CGPA</button>
-        <button class="btn btn-o" onclick="resetCGPA()">Reset</button>
+
+      <!-- SEM RESULT -->
+      <div id="cgpa-result" style="display:none;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius);padding:24px;color:#fff;text-align:center;margin-bottom:16px">
+        <div style="font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">PNGK <span id="cgpa-result-sem-label">Semester 1</span></div>
+        <div id="cgpa-value" style="font-size:56px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;color:var(--primary4)">0.00</div>
+        <div id="cgpa-grade" style="font-size:15px;font-weight:700;margin-top:8px"></div>
+        <div style="font-size:11px;opacity:.45;margin-top:4px">4 mata pelajaran terbaik diambil kira</div>
+        <div id="cgpa-breakdown" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;opacity:.7;text-align:left"></div>
+        <button onclick="saveSemResult()" class="btn" style="margin-top:14px;background:rgba(108,99,255,.3);color:#fff;border:1px solid rgba(108,99,255,.4)">💾 Simpan untuk Kira Keseluruhan</button>
       </div>
     </div>
-    <!-- RESULT -->
-    <div id="cgpa-result" style="display:none;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius);padding:24px;color:#fff;text-align:center;margin-bottom:16px">
-      <div style="font-size:12px;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">CGPA Kamu</div>
-      <div id="cgpa-value" style="font-size:56px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;color:var(--primary4)">0.00</div>
-      <div id="cgpa-grade" style="font-size:16px;font-weight:700;margin-top:8px"></div>
-      <div id="cgpa-breakdown" style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;opacity:.7;text-align:left"></div>
-      <button onclick="screenshotCGPA()" class="btn" style="margin-top:16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)">📸 Screenshot Keputusan</button>
+
+    <!-- OVERALL PNGK -->
+    <div id="cgpa-overall-panel" style="display:none">
+      <div class="nota-form" style="margin-bottom:16px">
+        <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:12px">🎓 PNGK Keseluruhan</div>
+        <div id="overall-sem-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+        <button class="btn btn-p" onclick="calcOverall()">🧮 Kira PNGK Keseluruhan</button>
+      </div>
+      <div id="overall-result" style="display:none;background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:var(--radius);padding:28px;color:#fff;text-align:center;margin-bottom:16px">
+        <div style="font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">PNGK Keseluruhan STPM</div>
+        <div id="overall-value" style="font-size:64px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1">0.00</div>
+        <div id="overall-grade" style="font-size:16px;font-weight:700;margin-top:10px"></div>
+        <div id="overall-breakdown" style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:12px;opacity:.75;text-align:left"></div>
+        <button onclick="screenshotCGPA()" class="btn" style="margin-top:14px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)">📸 Screenshot Keputusan</button>
+      </div>
     </div>
+
     <!-- GRED TABLE -->
     <div class="nota-form">
       <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">📊 Jadual Gred STPM</div>
       <div style="overflow-x:auto">
         <table class="tbl">
-          <thead><tr><th>Gred</th><th>Markah (%)</th><th>Nilai Gred</th><th>Tafsiran</th></tr></thead>
+          <thead><tr><th>Gred</th><th>Nilai Gred</th><th>Tafsiran</th></tr></thead>
           <tbody>
-            <tr><td><strong>A+</strong></td><td>90 – 100</td><td style="color:var(--green);font-weight:800">4.00</td><td>Cemerlang Tinggi</td></tr>
-            <tr><td><strong>A</strong></td><td>80 – 89</td><td style="color:var(--green);font-weight:800">4.00</td><td>Cemerlang</td></tr>
-            <tr><td><strong>A-</strong></td><td>70 – 79</td><td style="color:var(--primary);font-weight:800">3.67</td><td>Cemerlang Rendah</td></tr>
-            <tr><td><strong>B+</strong></td><td>65 – 69</td><td style="color:var(--primary);font-weight:800">3.33</td><td>Baik Tinggi</td></tr>
-            <tr><td><strong>B</strong></td><td>60 – 64</td><td style="color:var(--primary);font-weight:800">3.00</td><td>Baik</td></tr>
-            <tr><td><strong>B-</strong></td><td>55 – 59</td><td style="color:var(--orange);font-weight:800">2.67</td><td>Baik Rendah</td></tr>
-            <tr><td><strong>C+</strong></td><td>50 – 54</td><td style="color:var(--orange);font-weight:800">2.33</td><td>Memuaskan Tinggi</td></tr>
-            <tr><td><strong>C</strong></td><td>45 – 49</td><td style="color:var(--orange);font-weight:800">2.00</td><td>Memuaskan</td></tr>
-            <tr><td><strong>C-</strong></td><td>40 – 44</td><td style="color:var(--red);font-weight:800">1.67</td><td>Memuaskan Rendah</td></tr>
-            <tr><td><strong>D</strong></td><td>35 – 39</td><td style="color:var(--red);font-weight:800">1.33</td><td>Lulus</td></tr>
-            <tr><td><strong>E</strong></td><td>30 – 34</td><td style="color:var(--red);font-weight:800">1.00</td><td>Lulus Rendah</td></tr>
-            <tr><td><strong>F</strong></td><td>0 – 29</td><td style="color:var(--red);font-weight:800">0.00</td><td>Gagal</td></tr>
+            <tr><td><strong>A</strong></td><td style="color:var(--green);font-weight:800">4.00</td><td>Cemerlang</td></tr>
+            <tr><td><strong>A-</strong></td><td style="color:var(--green);font-weight:800">3.67</td><td>Cemerlang</td></tr>
+            <tr><td><strong>B+</strong></td><td style="color:var(--primary);font-weight:800">3.33</td><td>Baik</td></tr>
+            <tr><td><strong>B</strong></td><td style="color:var(--primary);font-weight:800">3.00</td><td>Baik</td></tr>
+            <tr><td><strong>B-</strong></td><td style="color:var(--primary);font-weight:800">2.67</td><td>Baik</td></tr>
+            <tr><td><strong>C+</strong></td><td style="color:var(--orange);font-weight:800">2.33</td><td>Kepujian (Lulus Penuh)</td></tr>
+            <tr><td><strong>C</strong></td><td style="color:var(--orange);font-weight:800">2.00</td><td>Kepujian (Lulus Penuh)</td></tr>
+            <tr><td><strong>C-</strong></td><td style="color:var(--red);font-weight:800">1.67</td><td>Lulus Sebahagian</td></tr>
+            <tr><td><strong>D+</strong></td><td style="color:var(--red);font-weight:800">1.33</td><td>Lulus Sebahagian</td></tr>
+            <tr><td><strong>D</strong></td><td style="color:var(--red);font-weight:800">1.00</td><td>Lulus Sebahagian</td></tr>
+            <tr><td><strong>F</strong></td><td style="color:var(--red);font-weight:800">0.00</td><td>Gagal</td></tr>
           </tbody>
         </table>
       </div>
@@ -1786,54 +1817,129 @@ function toolTab(t){
 }
 
 // ===== CGPA CALCULATOR =====
-const GRED_VALS={'A+':4.00,'A':4.00,'A-':3.67,'B+':3.33,'B':3.00,'B-':2.67,'C+':2.33,'C':2.00,'C-':1.67,'D':1.33,'E':1.00,'F':0.00};
+// ===== CGPA CALCULATOR (Multi-Semester) =====
+const GRED_VALS={'A':4.00,'A-':3.67,'B+':3.33,'B':3.00,'B-':2.67,'C+':2.33,'C':2.00,'C-':1.67,'D+':1.33,'D':1.00,'F':0.00};
 const GRED_OPTS=Object.keys(GRED_VALS);
-let cgpaSubjCount=4;
+let cgpaSubjCount=5;
+let curCgpaSem=1;
+let semResults={1:null,2:null,3:null}; // store PNGK per sem
+
+function setCgpaSem(sem){
+  curCgpaSem=sem;
+  // Update buttons
+  ['1','2','3','all'].forEach(s=>{
+    const btn=document.getElementById(`cgpa-sem-btn-${s}`);
+    if(!btn)return;
+    btn.className=`btn btn-sm ${s==sem?'btn-p':'btn-o'}`;
+    if(s==='all')btn.style.background=s==sem?'var(--navy)':'';
+    if(s==='all')btn.style.color=s==sem?'#fff':'';
+  });
+  const semPanel=document.getElementById('cgpa-sem-panel');
+  const overallPanel=document.getElementById('cgpa-overall-panel');
+  if(sem==='all'){
+    semPanel.style.display='none';
+    overallPanel.style.display='block';
+    renderOverallList();
+  } else {
+    semPanel.style.display='block';
+    overallPanel.style.display='none';
+    document.getElementById('cgpa-sem-label').textContent=`Semester ${sem}`;
+    document.getElementById('cgpa-result-sem-label').textContent=`Semester ${sem}`;
+    document.getElementById('cgpa-result').style.display='none';
+    buildCgpaSubjects();
+  }
+}
 
 function buildCgpaSubjects(){
   const c=document.getElementById('cgpa-subjects');if(!c)return;
   c.innerHTML='';
   for(let i=0;i<cgpaSubjCount;i++){
-    c.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 120px;gap:8px;margin-bottom:10px;align-items:center">
+    c.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 140px;gap:8px;margin-bottom:8px;align-items:center">
       <input placeholder="Nama subjek (cth: Pengajian Am)" id="cs-name-${i}" style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;width:100%"/>
-      <select id="cs-grade-${i}" style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
-        ${GRED_OPTS.map(g=>`<option value="${g}">${g} (${GRED_VALS[g].toFixed(2)})</option>`).join('')}
+      <select id="cs-grade-${i}" style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff;width:100%">
+        ${GRED_OPTS.map(g=>`<option value="${g}">${g} — ${GRED_VALS[g].toFixed(2)}</option>`).join('')}
       </select>
     </div>`;
   }
 }
 buildCgpaSubjects();
 
-function addCgpaSubj(){if(cgpaSubjCount<5){cgpaSubjCount++;buildCgpaSubjects();}}
-function removeCgpaSubj(){if(cgpaSubjCount>3){cgpaSubjCount--;buildCgpaSubjects();}}
+function addCgpaSubj(){if(cgpaSubjCount<8){cgpaSubjCount++;buildCgpaSubjects();}}
+function removeCgpaSubj(){if(cgpaSubjCount>4){cgpaSubjCount--;buildCgpaSubjects();}}
 
 function calcCGPA(){
-  let total=0,count=0;
-  const breakdown=[];
+  const all=[];
   for(let i=0;i<cgpaSubjCount;i++){
     const name=document.getElementById(`cs-name-${i}`)?.value.trim()||`Subjek ${i+1}`;
     const grade=document.getElementById(`cs-grade-${i}`)?.value||'C';
-    const val=GRED_VALS[grade]||0;
-    total+=val;count++;
-    breakdown.push({name,grade,val});
+    const val=GRED_VALS[grade]??0;
+    all.push({name,grade,val});
   }
-  const cgpa=(total/count).toFixed(2);
-  const gradeLabel=cgpa>=3.67?'🌟 Cemerlang':cgpa>=3.00?'✅ Baik':cgpa>=2.00?'👍 Memuaskan':'⚠️ Perlu Usaha';
-  document.getElementById('cgpa-value').textContent=cgpa;
+  // Sort by val descending, take top 4
+  const sorted=[...all].sort((a,b)=>b.val-a.val);
+  const top4=sorted.slice(0,4);
+  const total=top4.reduce((a,b)=>a+b.val,0);
+  const pngk=(total/4).toFixed(2);
+  const gradeLabel=pngk>=3.67?'🌟 Cemerlang':pngk>=2.67?'✅ Baik':pngk>=2.00?'📜 Kepujian (Lulus Penuh)':pngk>=1.00?'⚠️ Lulus Sebahagian':'❌ Gagal';
+
+  document.getElementById('cgpa-value').textContent=pngk;
   document.getElementById('cgpa-grade').textContent=gradeLabel;
-  document.getElementById('cgpa-breakdown').innerHTML=breakdown.map(b=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.1)"><span>${b.name}</span><span>${b.grade} — ${b.val.toFixed(2)}</span></div>`).join('');
+  document.getElementById('cgpa-breakdown').innerHTML=
+    `<div style="margin-bottom:8px;font-weight:700;font-size:11px;opacity:.5;text-transform:uppercase;letter-spacing:.5px">4 Terbaik yang dikira:</div>`+
+    top4.map(b=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span>✅ ${b.name}</span><span style="font-family:'JetBrains Mono',monospace">${b.grade} — ${b.val.toFixed(2)}</span></div>`).join('')+
+    `<div style="margin-top:8px;font-size:11px;opacity:.4;font-style:italic">Tidak dikira: `+sorted.slice(4).map(b=>b.name).join(', ')+(sorted.length>4?'':'—')+`</div>`+
+    `<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid rgba(255,255,255,.15);margin-top:6px;font-weight:700"><span>PNGK Semester ${curCgpaSem}</span><span style="font-family:'JetBrains Mono',monospace;color:var(--primary4)">${pngk}</span></div>`;
+
   document.getElementById('cgpa-result').style.display='block';
+  // Auto-save result
+  semResults[curCgpaSem]={pngk:parseFloat(pngk),subjects:all,top4};
+}
+
+function saveSemResult(){
+  if(!semResults[curCgpaSem]){calcCGPA();}
+  showToast(`✓ PNGK Semester ${curCgpaSem} (${semResults[curCgpaSem].pngk.toFixed(2)}) disimpan! Pergi tab Keseluruhan.`);
 }
 
 function resetCGPA(){
   document.getElementById('cgpa-result').style.display='none';
+  semResults[curCgpaSem]=null;
   buildCgpaSubjects();
 }
 
+function renderOverallList(){
+  const c=document.getElementById('overall-sem-list');if(!c)return;
+  c.innerHTML=[1,2,3].map(s=>`
+    <div style="background:#fff;border:var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;background:var(--primary3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">📚</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">Semester ${s}</div>
+        <div style="font-size:12px;color:var(--muted)">${semResults[s]?`PNGK: ${semResults[s].pngk.toFixed(2)} — ${semResults[s].top4?.length||4} subjek terbaik`:'Belum dikira'}</div>
+      </div>
+      <div style="font-size:20px;font-weight:900;font-family:'JetBrains Mono',monospace;color:${semResults[s]?'var(--primary)':'var(--muted2)'}">
+        ${semResults[s]?semResults[s].pngk.toFixed(2):'—'}
+      </div>
+      ${!semResults[s]?`<button class="btn btn-o btn-sm" onclick="setCgpaSem(${s})">Kira →</button>`:'<span style="color:var(--green);font-size:18px">✅</span>'}
+    </div>`).join('');
+}
+
+function calcOverall(){
+  const filled=Object.entries(semResults).filter(([,v])=>v!==null);
+  if(filled.length===0){alert('Sila kira PNGK sekurang-kurangnya 1 semester dulu!');return}
+  const total=filled.reduce((a,[,v])=>a+v.pngk,0);
+  const overall=(total/filled.length).toFixed(2);
+  const gradeLabel=overall>=3.67?'🌟 Cemerlang':overall>=2.67?'✅ Baik':overall>=2.00?'📜 Kepujian (Lulus Penuh)':overall>=1.00?'⚠️ Lulus Sebahagian':'❌ Gagal';
+
+  document.getElementById('overall-value').textContent=overall;
+  document.getElementById('overall-grade').textContent=gradeLabel;
+  document.getElementById('overall-breakdown').innerHTML=
+    filled.map(([s,v])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span>Semester ${s}</span><span style="font-family:'JetBrains Mono',monospace">${v.pngk.toFixed(2)}</span></div>`).join('')+
+    `<div style="display:flex;justify-content:space-between;padding:8px 0;margin-top:6px;font-weight:800;font-size:14px"><span>PNGK Keseluruhan</span><span style="font-family:'JetBrains Mono',monospace">${overall}</span></div>`+
+    `<div style="font-size:10px;opacity:.5;margin-top:4px">(${filled.map(([s])=>`Sem ${s}`).join(' + ')}) ÷ ${filled.length} = ${overall}</div>`;
+  document.getElementById('overall-result').style.display='block';
+}
+
 function screenshotCGPA(){
-  const el=document.getElementById('cgpa-result');
-  el.style.borderRadius='16px';
-  alert('Tips: Tekan Cmd+Shift+4 (Mac) atau Windows+Shift+S (Windows) untuk screenshot bahagian keputusan!');
+  alert('Tips: Tekan Cmd+Shift+4 (Mac) atau Windows+Shift+S (Windows) untuk screenshot keputusan!');
 }
 
 // ===== STUDY PLANNER =====
