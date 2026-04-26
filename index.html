@@ -2033,7 +2033,8 @@ function toggleMusicPlayer(){
 }
 
 setTimeout(()=>{
-  document.getElementById('music-status').textContent='Klik ▶️ untuk play';
+  const ms=document.getElementById('music-status');
+  if(ms)ms.textContent='Klik ▶️ untuk play';
 },1000);
 let viewerCount=1;
 function simulateViewers(){
