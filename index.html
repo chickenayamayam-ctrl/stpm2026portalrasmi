@@ -478,7 +478,7 @@ document.head.appendChild(s);
   <nav class="h-nav" id="main-nav">
     <button class="nav-btn active" onclick="goTo('home')">Laman Utama</button>
     <button class="nav-btn" onclick="goTo('pengumuman')">Pengumuman</button>
-    <button class="nav-btn" onclick="goTo('nota')">Nota & Bahan</button>
+    <button class="nav-btn" onclick="goTo('nota')">🎓 Alat Pelajar</button>
     <button class="nav-btn" onclick="goTo('jadual')">Jadual</button>
     <button class="nav-btn" onclick="goTo('pautan')">Pautan</button>
     <button class="nav-btn" onclick="goTo('ahli')">Ahli</button>
@@ -536,7 +536,7 @@ document.head.appendChild(s);
     <p class="hero-sub">Platform rasmi group Telegram <strong>@stpm20266</strong> — pengumuman, nota, jadual peperiksaan dan bahan pembelajaran STPM.</p>
     <div class="hero-btns">
       <a href="https://t.me/stpm20266" target="_blank" class="hbtn hbtn-w">📱 Join Telegram</a>
-      <button class="hbtn hbtn-g" onclick="goTo('nota')">📚 Bahan Belajar</button>
+      <button class="hbtn hbtn-g" onclick="goTo('nota')">🧮 Alat Pelajar</button>
       <button class="hbtn hbtn-g" onclick="goTo('jadual')">📅 Jadual Exam</button>
     </div>
     <div class="hero-stats">
@@ -574,7 +574,7 @@ document.head.appendChild(s);
   <div class="sec-hdr" style="margin-top:6px"><div class="sec-title">Akses Pantas</div></div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:11px;margin-bottom:22px">
     <div class="quick-card" onclick="goTo('pengumuman')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">📢</div><h4>Pengumuman</h4><p>Info terkini admin</p></div>
-    <div class="quick-card" onclick="goTo('nota')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)">📚</div><h4>Nota & Bahan</h4><p>Koleksi nota subjek</p></div>
+    <div class="quick-card" onclick="goTo('nota')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)">🧮</div><h4>Alat Pelajar</h4><p>CGPA & Jadual Belajar</p></div>
     <div class="quick-card" onclick="goTo('jadual')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">📅</div><h4>Jadual Exam</h4><p>Tarikh peperiksaan</p></div>
     <div class="quick-card" onclick="goTo('pautan')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🔗</div><h4>Pautan Berguna</h4><p>MPM, UPU & lain</p></div>
     <div class="quick-card" onclick="goTo('ahli')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">👥</div><h4>Admin & Mod</h4><p>Hubungi pentadbir</p></div>
@@ -609,80 +609,106 @@ document.head.appendChild(s);
 <!-- NOTA -->
 <div id="sec-nota" class="section">
 <div class="con">
-  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Nota & Bahan</span></div>
-  <div class="ph"><h2>Nota & Bahan Pembelajaran</h2><p>Koleksi nota, fail, gambar dan bahan dikuruskan oleh admin — <strong>64 subjek STPM</strong></p></div>
-  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah nota dengan text, fail, gambar dan link.</div>
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Alat Pelajar</span></div>
+  <div class="ph"><h2>🎓 Alat Pelajar STPM</h2><p>Kalkulator CGPA & Penjana Jadual Belajar automatik</p></div>
+
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="ntTab('subj')">Mengikut Subjek</button>
-    <button class="tab-btn" onclick="ntTab('all')">Semua Nota</button>
-    <button class="tab-btn admin-only" onclick="ntTab('add')">+ Tambah Nota</button>
+    <button class="tab-btn active" onclick="toolTab('cgpa')">🧮 Kalkulator CGPA</button>
+    <button class="tab-btn" onclick="toolTab('jadual')">📅 Jana Jadual Belajar</button>
   </div>
-  <div id="nt-subj" class="tab-content active" id="nt-subj"></div>
-  <div id="nt-all" class="tab-content">
-    <div class="sw"><span class="si">🔍</span><input placeholder="Cari nota atau subjek..." oninput="filterNota(this.value)"/></div>
-    <div id="nota-list" style="display:flex;flex-direction:column;gap:7px"></div>
-  </div>
-  <div id="nt-add" class="tab-content admin-only block">
+
+  <!-- CGPA CALCULATOR -->
+  <div id="tool-cgpa" class="tab-content active">
+    <div class="nota-form" style="margin-bottom:16px">
+      <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px">🧮 Kalkulator CGPA STPM</div>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Masukkan gred untuk setiap subjek. Min 3, Max 5 subjek.</p>
+      <div id="cgpa-subjects"></div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick="addCgpaSubj()">+ Tambah Subjek</button>
+        <button class="btn btn-d btn-sm" onclick="removeCgpaSubj()">- Kurang Subjek</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-p" onclick="calcCGPA()">🧮 Kira CGPA</button>
+        <button class="btn btn-o" onclick="resetCGPA()">Reset</button>
+      </div>
+    </div>
+    <!-- RESULT -->
+    <div id="cgpa-result" style="display:none;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius);padding:24px;color:#fff;text-align:center;margin-bottom:16px">
+      <div style="font-size:12px;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">CGPA Kamu</div>
+      <div id="cgpa-value" style="font-size:56px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1;color:var(--primary4)">0.00</div>
+      <div id="cgpa-grade" style="font-size:16px;font-weight:700;margin-top:8px"></div>
+      <div id="cgpa-breakdown" style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;opacity:.7;text-align:left"></div>
+      <button onclick="screenshotCGPA()" class="btn" style="margin-top:16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)">📸 Screenshot Keputusan</button>
+    </div>
+    <!-- GRED TABLE -->
     <div class="nota-form">
-      <div class="form-row">
-        <div class="fg"><label>Kategori Subjek</label>
-          <select id="nt-cat" onchange="updateSubjList()">
-            <option value="">-- Pilih Kategori --</option>
-            <option value="teras">Teras / Wajib</option>
-            <option value="bahasa">Bahasa & Kesusasteraan</option>
-            <option value="islam">Pengajian Islam</option>
-            <option value="sosial">Sains Sosial & Kemanusiaan</option>
-            <option value="sains">Sains & Matematik</option>
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">📊 Jadual Gred STPM</div>
+      <div style="overflow-x:auto">
+        <table class="tbl">
+          <thead><tr><th>Gred</th><th>Markah (%)</th><th>Nilai Gred</th><th>Tafsiran</th></tr></thead>
+          <tbody>
+            <tr><td><strong>A+</strong></td><td>90 – 100</td><td style="color:var(--green);font-weight:800">4.00</td><td>Cemerlang Tinggi</td></tr>
+            <tr><td><strong>A</strong></td><td>80 – 89</td><td style="color:var(--green);font-weight:800">4.00</td><td>Cemerlang</td></tr>
+            <tr><td><strong>A-</strong></td><td>70 – 79</td><td style="color:var(--primary);font-weight:800">3.67</td><td>Cemerlang Rendah</td></tr>
+            <tr><td><strong>B+</strong></td><td>65 – 69</td><td style="color:var(--primary);font-weight:800">3.33</td><td>Baik Tinggi</td></tr>
+            <tr><td><strong>B</strong></td><td>60 – 64</td><td style="color:var(--primary);font-weight:800">3.00</td><td>Baik</td></tr>
+            <tr><td><strong>B-</strong></td><td>55 – 59</td><td style="color:var(--orange);font-weight:800">2.67</td><td>Baik Rendah</td></tr>
+            <tr><td><strong>C+</strong></td><td>50 – 54</td><td style="color:var(--orange);font-weight:800">2.33</td><td>Memuaskan Tinggi</td></tr>
+            <tr><td><strong>C</strong></td><td>45 – 49</td><td style="color:var(--orange);font-weight:800">2.00</td><td>Memuaskan</td></tr>
+            <tr><td><strong>C-</strong></td><td>40 – 44</td><td style="color:var(--red);font-weight:800">1.67</td><td>Memuaskan Rendah</td></tr>
+            <tr><td><strong>D</strong></td><td>35 – 39</td><td style="color:var(--red);font-weight:800">1.33</td><td>Lulus</td></tr>
+            <tr><td><strong>E</strong></td><td>30 – 34</td><td style="color:var(--red);font-weight:800">1.00</td><td>Lulus Rendah</td></tr>
+            <tr><td><strong>F</strong></td><td>0 – 29</td><td style="color:var(--red);font-weight:800">0.00</td><td>Gagal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- STUDY PLANNER -->
+  <div id="tool-jadual" class="tab-content">
+    <div class="nota-form" style="margin-bottom:16px">
+      <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px">📅 Penjana Jadual Belajar Automatik</div>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Pilih subjek kamu (4-5 subjek), AI akan jana jadual belajar minggu ini berdasarkan kesusahan subjek.</p>
+
+      <div class="fg"><label>Pilih Subjek Kamu (min 4, max 5)</label>
+        <div id="subj-picker" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:6px"></div>
+      </div>
+
+      <div class="form-row" style="margin-top:12px">
+        <div class="fg"><label>Masa Belajar Sehari (jam)</label>
+          <select id="sp-hours" style="width:100%;border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+            <option value="2">2 jam</option>
+            <option value="3" selected>3 jam</option>
+            <option value="4">4 jam</option>
+            <option value="5">5 jam</option>
+            <option value="6">6 jam</option>
           </select>
         </div>
-        <div class="fg"><label>Subjek</label>
-          <select id="nt-subj-sel">
-            <option value="">-- Pilih Kategori Dulu --</option>
+        <div class="fg"><label>Fokus Utama</label>
+          <select id="sp-focus" style="width:100%;border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+            <option value="balance">Seimbang semua subjek</option>
+            <option value="weak">Lebih fokus subjek susah</option>
+            <option value="exam">Fokus subjek exam dekat</option>
           </select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="fg"><label>Tajuk Nota</label><input id="nt-title" placeholder="Cth: Bab 3 — Permintaan & Penawaran"/></div>
-        <div class="fg"><label>Jenis Bahan</label>
-          <select id="nt-type"><option>Nota</option><option>Soalan Latihan</option><option>Ringkasan</option><option>Soalan Peperiksaan Lalu</option><option>Mindmap</option><option>Rujukan</option><option>Lain-lain</option></select>
+
+      <button class="btn btn-p" onclick="generateSchedule()" style="margin-top:4px">✨ Jana Jadual Belajar</button>
+    </div>
+
+    <!-- GENERATED SCHEDULE -->
+    <div id="schedule-result" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div class="sec-title">📅 Jadual Belajar Minggu Ini</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-o btn-sm" onclick="screenshotSchedule()">📸 Screenshot</button>
+          <button class="btn btn-p btn-sm" onclick="generateSchedule()">🔄 Jana Semula</button>
         </div>
       </div>
-      <div class="fg"><label>Kandungan Teks (optional)</label><textarea id="nt-body" placeholder="Taip atau paste nota, poin penting, penjelasan...&#10;&#10;Boleh guna:&#10;📌 Poin penting&#10;✅ Konsep yang perlu tahu&#10;❗ Perhatian / peringatan"></textarea></div>
-
-      <!-- LINK -->
-      <div class="fg"><label>🔗 Link Tambahan (optional)</label>
-        <div style="display:flex;gap:8px;margin-bottom:6px">
-          <input id="nt-link-url" placeholder="https://drive.google.com/..." style="flex:1;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
-          <input id="nt-link-label" placeholder="Label (cth: Nota PDF)" style="width:160px;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
-          <button class="btn btn-o btn-sm" onclick="addLink()" style="flex-shrink:0">+ Add</button>
-        </div>
-        <div id="links-preview" class="attach-preview"></div>
-      </div>
-
-      <!-- FILE UPLOAD -->
-      <div class="fg"><label>📎 Fail (PDF, DOC, PPT, dll — max 10MB setiap fail)</label>
-        <div class="upload-area">
-          <input type="file" id="nt-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip" onchange="handleFiles(this)"/>
-          <div class="upload-icon">📎</div>
-          <p><strong>Klik untuk pilih fail</strong> atau seret ke sini<br><span style="font-size:11px;color:var(--muted2)">PDF, Word, PowerPoint, Excel, ZIP — max 10MB</span></p>
-        </div>
-        <div id="files-preview" class="attach-preview"></div>
-      </div>
-
-      <!-- IMAGE UPLOAD -->
-      <div class="fg"><label>🖼️ Gambar / Screenshot (JPG, PNG, GIF — max 5MB setiap gambar)</label>
-        <div class="upload-area">
-          <input type="file" id="nt-images" multiple accept="image/*" onchange="handleImages(this)"/>
-          <div class="upload-icon">🖼️</div>
-          <p><strong>Klik untuk pilih gambar</strong> atau seret ke sini<br><span style="font-size:11px;color:var(--muted2)">JPG, PNG, GIF, WebP — max 5MB</span></p>
-        </div>
-        <div id="imgs-preview" class="img-preview-grid"></div>
-      </div>
-
-      <div class="fg"><label>Penyumbang</label><input id="nt-author" placeholder="Nama atau @username admin"/></div>
-      <div class="form-actions">
-        <button class="btn btn-p" onclick="saveNota()">💾 Simpan Nota</button>
-        <button class="btn btn-o" onclick="ntTab('all')">Batal</button>
+      <div id="schedule-grid" style="display:grid;gap:10px"></div>
+      <div style="margin-top:14px;background:var(--primary3);border-radius:10px;padding:13px 16px;font-size:12.5px;color:var(--primary)">
+        💡 <strong>Tips:</strong> Jadual ini dicadangkan berdasarkan kesusahan subjek STPM. Sesuaikan ikut keperluan kamu!
       </div>
     </div>
   </div>
@@ -1747,14 +1773,194 @@ function viewAnn(id){
     </div>`);
 }
 
-// ===== NOTA — SUBJEK LIST =====
-const SUBJ_MAP={
-  teras:['900 Pengajian Am','MUET'],
-  bahasa:['910 Bahasa Melayu','911 Bahasa Cina','912 Bahasa Tamil','913 Bahasa Arab','920 Literature in English','922 Kesusasteraan Melayu Komunikatif'],
-  islam:['930 Syariah','931 Usuluddin','932 Tahfiz Al-Quran'],
-  sosial:['940 Sejarah','942 Geografi','944 Ekonomi','946 Pengajian Perniagaan','948 Perakaunan','970 Seni Visual','966 Sains Sukan'],
-  sains:['950 Mathematics (M)','954 Mathematics (T)','958 ICT','960 Physics','962 Chemistry','964 Biology']
-};
+// ===== ALAT PELAJAR =====
+function toolTab(t){
+  document.querySelectorAll('#sec-nota .tab-btn').forEach((b,i)=>b.classList.toggle('active',['cgpa','jadual'][i]===t));
+  ['tool-cgpa','tool-jadual'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active')});
+  const el=document.getElementById('tool-'+t);if(el)el.classList.add('active');
+  if(t==='jadual')buildSubjPicker();
+}
+
+// ===== CGPA CALCULATOR =====
+const GRED_VALS={'A+':4.00,'A':4.00,'A-':3.67,'B+':3.33,'B':3.00,'B-':2.67,'C+':2.33,'C':2.00,'C-':1.67,'D':1.33,'E':1.00,'F':0.00};
+const GRED_OPTS=Object.keys(GRED_VALS);
+let cgpaSubjCount=4;
+
+function buildCgpaSubjects(){
+  const c=document.getElementById('cgpa-subjects');if(!c)return;
+  c.innerHTML='';
+  for(let i=0;i<cgpaSubjCount;i++){
+    c.innerHTML+=`<div style="display:grid;grid-template-columns:1fr 120px;gap:8px;margin-bottom:10px;align-items:center">
+      <input placeholder="Nama subjek (cth: Pengajian Am)" id="cs-name-${i}" style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;width:100%"/>
+      <select id="cs-grade-${i}" style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+        ${GRED_OPTS.map(g=>`<option value="${g}">${g} (${GRED_VALS[g].toFixed(2)})</option>`).join('')}
+      </select>
+    </div>`;
+  }
+}
+buildCgpaSubjects();
+
+function addCgpaSubj(){if(cgpaSubjCount<5){cgpaSubjCount++;buildCgpaSubjects();}}
+function removeCgpaSubj(){if(cgpaSubjCount>3){cgpaSubjCount--;buildCgpaSubjects();}}
+
+function calcCGPA(){
+  let total=0,count=0;
+  const breakdown=[];
+  for(let i=0;i<cgpaSubjCount;i++){
+    const name=document.getElementById(`cs-name-${i}`)?.value.trim()||`Subjek ${i+1}`;
+    const grade=document.getElementById(`cs-grade-${i}`)?.value||'C';
+    const val=GRED_VALS[grade]||0;
+    total+=val;count++;
+    breakdown.push({name,grade,val});
+  }
+  const cgpa=(total/count).toFixed(2);
+  const gradeLabel=cgpa>=3.67?'🌟 Cemerlang':cgpa>=3.00?'✅ Baik':cgpa>=2.00?'👍 Memuaskan':'⚠️ Perlu Usaha';
+  document.getElementById('cgpa-value').textContent=cgpa;
+  document.getElementById('cgpa-grade').textContent=gradeLabel;
+  document.getElementById('cgpa-breakdown').innerHTML=breakdown.map(b=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.1)"><span>${b.name}</span><span>${b.grade} — ${b.val.toFixed(2)}</span></div>`).join('');
+  document.getElementById('cgpa-result').style.display='block';
+}
+
+function resetCGPA(){
+  document.getElementById('cgpa-result').style.display='none';
+  buildCgpaSubjects();
+}
+
+function screenshotCGPA(){
+  const el=document.getElementById('cgpa-result');
+  el.style.borderRadius='16px';
+  alert('Tips: Tekan Cmd+Shift+4 (Mac) atau Windows+Shift+S (Windows) untuk screenshot bahagian keputusan!');
+}
+
+// ===== STUDY PLANNER =====
+const SUBJEK_LIST=[
+  {code:'900',name:'Pengajian Am',diff:3,icon:'📖'},
+  {code:'MUET',name:'MUET',diff:3,icon:'🇬🇧'},
+  {code:'910',name:'Bahasa Melayu',diff:2,icon:'🌺'},
+  {code:'911',name:'Bahasa Cina',diff:3,icon:'🀄'},
+  {code:'912',name:'Bahasa Tamil',diff:3,icon:'🏵️'},
+  {code:'920',name:'Literature in English',diff:3,icon:'📚'},
+  {code:'940',name:'Sejarah',diff:4,icon:'📜'},
+  {code:'942',name:'Geografi',diff:3,icon:'🌏'},
+  {code:'944',name:'Ekonomi',diff:4,icon:'📊'},
+  {code:'946',name:'Pengajian Perniagaan',diff:3,icon:'💼'},
+  {code:'948',name:'Perakaunan',diff:5,icon:'🧮'},
+  {code:'950',name:'Mathematics (M)',diff:4,icon:'📏'},
+  {code:'954',name:'Mathematics (T)',diff:5,icon:'📐'},
+  {code:'958',name:'ICT',diff:3,icon:'💻'},
+  {code:'960',name:'Physics',diff:5,icon:'⚛️'},
+  {code:'962',name:'Chemistry',diff:5,icon:'⚗️'},
+  {code:'964',name:'Biology',diff:4,icon:'🧬'},
+  {code:'966',name:'Sains Sukan',diff:3,icon:'⚽'},
+  {code:'970',name:'Seni Visual',diff:2,icon:'🎨'},
+  {code:'930',name:'Syariah',diff:3,icon:'⚖️'},
+  {code:'931',name:'Usuluddin',diff:3,icon:'🕌'},
+];
+const DAYS=['Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu','Ahad'];
+const DAY_ICONS=['📅','📅','📅','📅','🕌','📚','😴'];
+let selectedSubjects=[];
+
+function buildSubjPicker(){
+  const c=document.getElementById('subj-picker');if(!c)return;
+  c.innerHTML=SUBJEK_LIST.map(s=>`
+    <div onclick="toggleSubj('${s.code}')" id="sp-${s.code}" style="background:#fff;border:1.5px solid var(--gray3);border-radius:10px;padding:10px 12px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px">
+      <span style="font-size:18px">${s.icon}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</div>
+        <div style="font-size:10px;color:var(--muted)">Kesusahan: ${'⭐'.repeat(s.diff)}</div>
+      </div>
+      <span id="sp-check-${s.code}" style="font-size:16px;display:none">✅</span>
+    </div>`).join('');
+}
+
+function toggleSubj(code){
+  const idx=selectedSubjects.indexOf(code);
+  if(idx>=0){
+    selectedSubjects.splice(idx,1);
+    document.getElementById(`sp-${code}`).style.borderColor='var(--gray3)';
+    document.getElementById(`sp-${code}`).style.background='#fff';
+    document.getElementById(`sp-check-${code}`).style.display='none';
+  } else {
+    if(selectedSubjects.length>=5){showToast('⚠️ Max 5 subjek!');return}
+    selectedSubjects.push(code);
+    document.getElementById(`sp-${code}`).style.borderColor='var(--primary)';
+    document.getElementById(`sp-${code}`).style.background='var(--primary3)';
+    document.getElementById(`sp-check-${code}`).style.display='inline';
+  }
+}
+
+function generateSchedule(){
+  if(selectedSubjects.length<4){alert('Sila pilih sekurang-kurangnya 4 subjek!');return}
+  const hours=parseInt(document.getElementById('sp-hours').value)||3;
+  const focus=document.getElementById('sp-focus').value;
+  const subjects=selectedSubjects.map(code=>SUBJEK_LIST.find(s=>s.code===code)).filter(Boolean);
+
+  // Calculate time allocation based on difficulty
+  const totalDiff=subjects.reduce((a,b)=>a+b.diff,0);
+  const schedule=DAYS.map((day,di)=>{
+    // Sunday = rest day
+    if(di===6)return{day,icon:DAY_ICONS[di],slots:[{name:'Rehat & Ulang Kaji Ringkas',icon:'😴',duration:1,color:'var(--gray2)',textColor:'var(--muted)'}]};
+
+    // Friday shorter
+    const dayHours=di===4?Math.max(1,hours-1):hours;
+    let slots=[];
+    let remaining=dayHours*60; // in minutes
+
+    // Assign subjects based on day rotation + difficulty
+    const daySubjects=[...subjects].sort((a,b)=>{
+      if(focus==='weak')return b.diff-a.diff;
+      if(focus==='exam')return b.diff-a.diff;
+      // Balance — rotate
+      return (a.diff+di)%(subjects.length)-(b.diff+di)%(subjects.length);
+    });
+
+    const subjectsPerDay=Math.min(daySubjects.length,di===4?2:3);
+    const selectedForDay=daySubjects.slice(0,subjectsPerDay);
+
+    selectedForDay.forEach((s,i)=>{
+      const weight=focus==='weak'?s.diff:1;
+      const totalWeight=selectedForDay.reduce((a,b)=>a+(focus==='weak'?b.diff:1),0);
+      const mins=Math.round((weight/totalWeight)*remaining/selectedForDay.length*(i===selectedForDay.length-1?selectedForDay.length:1));
+      const duration=Math.max(30,Math.min(120,Math.round(remaining/subjectsPerDay/30)*30));
+      const colors=['var(--primary3)','var(--green2)','var(--orange2)','#dbeafe','#fce7f3'];
+      const textColors=['var(--primary)','var(--green)','var(--orange)','#1d4ed8','#be185d'];
+      slots.push({name:s.name,icon:s.icon,duration,color:colors[i%colors.length],textColor:textColors[i%textColors.length],diff:s.diff});
+    });
+
+    // Add break
+    if(dayHours>=3)slots.splice(Math.floor(slots.length/2),0,{name:'Rehat',icon:'☕',duration:15,color:'var(--gray2)',textColor:'var(--muted)'});
+
+    return{day,icon:DAY_ICONS[di],slots};
+  });
+
+  // Render
+  document.getElementById('schedule-result').style.display='block';
+  document.getElementById('schedule-grid').innerHTML=schedule.map(d=>`
+    <div style="background:#fff;border:var(--border);border-radius:var(--radius);overflow:hidden">
+      <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px">${d.icon}</span>
+        <span style="font-size:13px;font-weight:700">${d.day}</span>
+      </div>
+      <div style="padding:12px;display:flex;flex-direction:column;gap:7px">
+        ${d.slots.map(s=>`<div style="background:${s.color};border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">${s.icon}</span>
+          <div style="flex:1">
+            <div style="font-size:12.5px;font-weight:700;color:${s.textColor}">${s.name}</div>
+            <div style="font-size:10.5px;color:var(--muted2);margin-top:1px">${s.duration} minit${s.diff?` · Kesusahan: ${'⭐'.repeat(s.diff)}`:''}</div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  document.getElementById('schedule-result').scrollIntoView({behavior:'smooth'});
+}
+
+function screenshotSchedule(){
+  alert('Tips: Tekan Cmd+Shift+4 (Mac) atau Windows+Shift+S (Windows) untuk screenshot jadual belajar kamu!');
+}
+
+function renderNota(){toolTab('cgpa');buildCgpaSubjects();}
+renderNota();
 function updateSubjList(){
   const cat=document.getElementById('nt-cat').value;
   const sel=document.getElementById('nt-subj-sel');
@@ -1781,43 +1987,58 @@ function renderLinkPreview(){
 }
 function removeLink(i){tempLinks.splice(i,1);renderLinkPreview()}
 
-function handleFiles(input){
-  Array.from(input.files).forEach(f=>{
-    if(f.size>10*1024*1024){alert(`${f.name} terlalu besar (max 10MB)`);return}
-    const reader=new FileReader();
-    reader.onload=e=>tempFiles.push({name:f.name,size:f.size,type:f.type,data:e.target.result});
-    reader.onloadend=renderFilesPreview;
-    reader.readAsDataURL(f);
-  });
-  input.value='';
+// ===== GOOGLE DRIVE HELPERS =====
+function convertGDriveLink(url){
+  // Convert sharing link to direct/preview link
+  const match=url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if(match){
+    return {
+      view:`https://drive.google.com/file/d/${match[1]}/view`,
+      preview:`https://drive.google.com/thumbnail?id=${match[1]}&sz=w400`,
+      id:match[1]
+    };
+  }
+  return null;
+}
+function addGDriveFile(){
+  const url=document.getElementById('nt-gdrive-url').value.trim();
+  const label=document.getElementById('nt-gdrive-label').value.trim()||'Fail Google Drive';
+  if(!url){alert('Sila masukkan link Google Drive!');return}
+  const parsed=convertGDriveLink(url);
+  const finalUrl=parsed?parsed.view:url;
+  tempFiles.push({name:label,url:finalUrl,type:'gdrive',size:0,data:null});
+  document.getElementById('nt-gdrive-url').value='';
+  document.getElementById('nt-gdrive-label').value='';
+  renderFilesPreview();
+}
+function addGDriveImg(){
+  const url=document.getElementById('nt-gimg-url').value.trim();
+  const label=document.getElementById('nt-gimg-label').value.trim()||'Gambar';
+  if(!url){alert('Sila masukkan link Google Drive!');return}
+  const parsed=convertGDriveLink(url);
+  const viewUrl=parsed?parsed.view:url;
+  const previewUrl=parsed?parsed.preview:url;
+  tempImages.push({name:label,url:viewUrl,preview:previewUrl,type:'gdrive',data:null});
+  document.getElementById('nt-gimg-url').value='';
+  document.getElementById('nt-gimg-label').value='';
+  renderImgsPreview();
 }
 function renderFilesPreview(){
   document.getElementById('files-preview').innerHTML=tempFiles.map((f,i)=>`
     <div class="ap-item">
-      <span style="font-size:16px">${fileIcon(f.name)}</span>
+      <span style="font-size:16px">${f.type==='gdrive'?'📎':fileIcon(f.name)}</span>
       <span class="ap-name">${f.name}</span>
-      <span class="ap-size">${(f.size/1024).toFixed(0)}KB</span>
+      <span style="font-size:10px;color:var(--muted2)">Google Drive</span>
       <button onclick="removeFile(${i})">✕</button>
     </div>`).join('');
 }
 function removeFile(i){tempFiles.splice(i,1);renderFilesPreview()}
-function fileIcon(name){const ext=name.split('.').pop().toLowerCase();return{pdf:'📄',doc:'📝',docx:'📝',ppt:'📊',pptx:'📊',xls:'📋',xlsx:'📋',txt:'📃',zip:'🗜️'}[ext]||'📎'}
 
-function handleImages(input){
-  Array.from(input.files).forEach(f=>{
-    if(f.size>5*1024*1024){alert(`${f.name} terlalu besar (max 5MB)`);return}
-    const reader=new FileReader();
-    reader.onload=e=>tempImages.push({name:f.name,data:e.target.result});
-    reader.onloadend=renderImgsPreview;
-    reader.readAsDataURL(f);
-  });
-  input.value='';
-}
 function renderImgsPreview(){
   document.getElementById('imgs-preview').innerHTML=tempImages.map((img,i)=>`
-    <div class="img-thumb">
-      <img src="${img.data}" alt="${img.name}" onclick="openLB('${img.data}')"/>
-      <button onclick="removeImg(${i})">✕</button>
+    <div class="img-thumb" style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:var(--gray2);display:flex;align-items:center;justify-content:center">
+      ${img.preview?`<img src="${img.preview}" alt="${img.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div style="display:none;flex-direction:column;align-items:center;gap:4px;padding:8px"><span style='font-size:24px'>🖼️</span><span style='font-size:10px;color:var(--muted);text-align:center'>${img.name}</span></div>`:`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px"><span style='font-size:24px'>🖼️</span><span style='font-size:10px;color:var(--muted);text-align:center'>${img.name}</span></div>`}
+      <button onclick="removeImg(${i})" style="position:absolute;top:3px;right:3px;background:rgba(239,68,68,.9);border:none;color:#fff;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center">✕</button>
     </div>`).join('');
 }
 function removeImg(i){tempImages.splice(i,1);renderImgsPreview()}
@@ -1843,7 +2064,7 @@ function saveNota(){
   };
   store.nota.push(nota);save();
   // Reset
-  ['nt-title','nt-body','nt-author','nt-link-url','nt-link-label'].forEach(id=>document.getElementById(id).value='');
+  ['nt-title','nt-body','nt-author','nt-link-url','nt-link-label','nt-gdrive-url','nt-gdrive-label','nt-gimg-url','nt-gimg-label'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
   document.getElementById('nt-cat').value='';document.getElementById('nt-subj-sel').innerHTML='<option>-- Pilih Kategori Dulu --</option>';
   tempLinks=[];tempFiles=[];tempImages=[];
   ['links-preview','files-preview','imgs-preview'].forEach(id=>document.getElementById(id).innerHTML='');
@@ -1907,7 +2128,6 @@ function renderNotaAll(f=''){
   }).join('');
 }
 function filterNota(v){renderNotaAll(v)}
-function renderNota(){renderSubjGroups();renderNotaAll()}
 function deleteNota(id){
   if(!isAdmin||!confirm('Padam nota ini?'))return;
   const n=store.nota.find(x=>x.id===id);
@@ -1921,11 +2141,19 @@ function viewNota(id){
   }
   if(n.images&&n.images.length){
     html+=`<div class="nota-view-section"><div class="nota-view-section-title">🖼️ Gambar (${n.images.length})</div>
-    <div class="nota-images">${n.images.map(img=>`<img src="${img.data}" alt="${img.name}" onclick="openLB('${img.data}')" title="${img.name}"/>`).join('')}</div></div>`;
+    <div class="nota-images">${n.images.map(img=>{
+      if(img.type==='gdrive'||img.url){
+        const preview=img.preview||img.url;
+        return `<a href="${img.url||img.data}" target="_blank" style="display:block;border-radius:10px;overflow:hidden;border:var(--border);background:var(--gray2)">
+          <img src="${preview}" alt="${img.name}" style="width:100%;border-radius:10px" onerror="this.parentElement.innerHTML='<div style=\\'padding:20px;text-align:center\\'><div style=\\'font-size:28px\\'>🖼️</div><div style=\\'font-size:11px;color:var(--muted)\\'>${img.name}</div></div>'" title="${img.name}"/>
+        </a>`;
+      }
+      return `<img src="${img.data}" alt="${img.name}" onclick="openLB('${img.data}')" title="${img.name}"/>`;
+    }).join('')}</div></div>`;
   }
   if(n.files&&n.files.length){
     html+=`<div class="nota-view-section"><div class="nota-view-section-title">📎 Fail (${n.files.length})</div>
-    <div class="attach-list">${n.files.map(f=>`<div class="attach-item"><span class="attach-icon">${fileIcon(f.name)}</span><a href="${f.data}" download="${f.name}">${f.name}</a><span class="attach-type">${(f.size/1024).toFixed(0)}KB</span></div>`).join('')}</div></div>`;
+    <div class="attach-list">${n.files.map(f=>`<div class="attach-item"><span class="attach-icon">${f.type==='gdrive'?'📎':fileIcon(f.name)}</span><a href="${f.url||f.data}" target="_blank" rel="noopener">${f.name}</a><span class="attach-type">${f.type==='gdrive'?'Google Drive':((f.size/1024).toFixed(0)+'KB')}</span></div>`).join('')}</div></div>`;
   }
   if(n.links&&n.links.length){
     html+=`<div class="nota-view-section"><div class="nota-view-section-title">🔗 Link (${n.links.length})</div>
