@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✦ STPM 2026 Kohort Baharu — Portal Rasmi</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#6c63ff;--primary2:#574fd6;--primary3:#ede9ff;--primary4:#a89dff;
+  --accent:#ff6584;--accent2:#ff8fab;
+  --mint:#00c9a7;--mint2:#e0faf5;
+  --sun:#ffbe0b;--sun2:#fff8e1;
+  --navy:#1a1a2e;--navy2:#16213e;--navy3:#0f3460;
+  --white:#ffffff;--gray:#f7f8fc;--gray2:#eef0f8;--gray3:#dde1f0;
+  --text:#1a1a2e;--muted:#6b7280;--muted2:#9ca3af;
+  --green:#10b981;--green2:#d1fae5;
+  --red:#ef4444;--red2:#fee2e2;
+  --orange:#f59e0b;--orange2:#fef3c7;
+  --shadow:0 2px 8px rgba(108,99,255,.08),0 8px 24px rgba(108,99,255,.06);
+  --shadow2:0 16px 48px rgba(108,99,255,.15);
+  --radius:16px;--radius2:10px;--radius3:24px;
+  --border:1px solid var(--gray3);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--gray);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* TOPBAR */
+.topbar{background:var(--navy);color:rgba(255,255,255,.65);font-size:11.5px;padding:6px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar-l{display:flex;gap:16px;align-items:center}
+.live-dot{width:6px;height:6px;background:#10b981;border-radius:50%;display:inline-block;animation:pulse 2s infinite;margin-right:3px;box-shadow:0 0 0 2px rgba(16,185,129,.2)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.topbar-r{display:flex;gap:6px;align-items:center}
+.tplink{color:rgba(255,255,255,.6);text-decoration:none;font-size:11px;padding:3px 10px;border:1px solid rgba(255,255,255,.12);border-radius:20px;transition:.2s;background:none;cursor:pointer;font-family:inherit}
+.tplink:hover{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+.admin-pill{background:rgba(255,190,11,.12) !important;border:1px solid rgba(255,190,11,.3) !important;color:#ffbe0b !important}
+
+/* HEADER */
+.header{background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(108,99,255,.08);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(108,99,255,.08)}
+.h-brand{display:flex;align-items:center;gap:12px}
+.h-logo{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 4px 14px rgba(108,99,255,.35)}
+.h-title{font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.3px}
+.h-sub{font-size:11px;color:var(--muted);margin-top:1px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.3px}
+.badge-blue{background:var(--primary3);color:var(--primary)}
+.badge-gold{background:var(--sun2);color:#d97706;display:none}
+.h-nav{display:flex;gap:1px;flex-wrap:wrap}
+.nav-btn{background:none;border:none;padding:7px 12px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;transition:.2s;letter-spacing:-.1px}
+.nav-btn:hover{background:var(--primary3);color:var(--primary)}
+.nav-btn.active{background:var(--primary3);color:var(--primary)}
+.tg-btn{background:linear-gradient(135deg,#2AABEE,#229ED9);color:#fff;border:none;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'Outfit',sans-serif;text-decoration:none;flex-shrink:0;transition:.2s;letter-spacing:-.1px}
+.tg-btn:hover{opacity:.9;transform:translateY(-1px)}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:5px;flex-direction:column;gap:5px}
+.ham span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;transition:.3s}
+
+/* MARQUEE */
+.mq{background:linear-gradient(90deg,var(--navy2),var(--navy3),var(--primary2));padding:8px 0;overflow:hidden}
+.mq-track{display:flex;animation:mq 45s linear infinite;white-space:nowrap}
+.mq-track:hover{animation-play-state:paused}
+.mq-item{padding:0 36px;font-size:12px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px;font-weight:500}
+.mq-dot{width:4px;height:4px;background:var(--primary4);border-radius:50%}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.section{display:none;animation:fi .25s ease}
+.section.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.con{max-width:1080px;margin:0 auto;padding:28px 20px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 50%,var(--navy3) 100%);border-radius:var(--radius3);padding:40px 36px;color:#fff;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(108,99,255,.3) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;left:30%;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,201,167,.15) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,.2);border:1px solid rgba(108,99,255,.35);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:14px;color:var(--primary4)}
+.hero h1{font-size:30px;font-weight:900;line-height:1.2;margin-bottom:10px;letter-spacing:-.5px}
+.hero h1 span{background:linear-gradient(135deg,var(--primary4),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:13.5px;opacity:.75;max-width:460px;margin-bottom:22px;line-height:1.75}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.hbtn{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;letter-spacing:-.1px}
+.hbtn-w{background:#fff;color:var(--primary2)}.hbtn-w:hover{background:var(--primary3);transform:translateY(-1px)}
+.hbtn-g{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}.hbtn-g:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:28px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
+.hs-n{font-size:22px;font-weight:900;line-height:1}
+.hs-l{font-size:10px;opacity:.5;margin-top:3px;text-transform:uppercase;letter-spacing:.8px;font-weight:600}
+
+/* STAT CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
+.sc{background:#fff;border:var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:12px;transition:.2s;cursor:default}
+.sc:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.sc-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sc-n{font-size:20px;font-weight:800;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+.sc-l{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500}
+
+/* COUNTDOWN */
+.cd-card{background:linear-gradient(135deg,var(--navy2),var(--navy3));border-radius:var(--radius);padding:20px 24px;color:#fff;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border:1px solid rgba(108,99,255,.2)}
+.cd-info .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;opacity:.5;margin-bottom:3px;font-weight:600}
+.cd-info .nm{font-size:14px;font-weight:700}
+.cd-info .dt{font-size:11px;opacity:.5;margin-top:2px}
+.cd-timer{display:flex;gap:8px}
+.cdu{text-align:center;background:rgba(108,99,255,.2);border:1px solid rgba(108,99,255,.3);border-radius:10px;padding:10px 14px;min-width:54px}
+.cdu-n{font-size:24px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace}
+.cdu-l{font-size:9px;opacity:.5;text-transform:uppercase;letter-spacing:.8px;margin-top:3px;font-weight:600}
+
+/* SEC HDR */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
+.sec-title::before{content:'';width:3px;height:16px;background:linear-gradient(var(--primary),var(--mint));border-radius:2px;display:inline-block}
+.sbtn{background:var(--primary3);color:var(--primary);border:none;padding:7px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:5px}
+.sbtn:hover{background:#d8d3ff;transform:translateY(-1px)}
+.sbtn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}
+.sbtn.primary:hover{opacity:.9;transform:translateY(-1px)}
+.sbtn.danger{background:var(--red2);color:var(--red)}
+
+/* ANNOUNCEMENTS */
+.ann-list{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.ann-item{background:#fff;border:var(--border);border-radius:var(--radius);padding:16px;display:flex;gap:13px;align-items:flex-start;cursor:pointer;transition:.2s}
+.ann-item:hover{border-color:var(--primary4);box-shadow:var(--shadow);transform:translateY(-1px)}
+.ann-item.pinned{border-left:3px solid var(--primary)}
+.ann-emoji{width:48px;height:48px;border-radius:12px;background:var(--primary3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ann-body{flex:1;min-width:0}
+.ann-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px;align-items:center}
+.atag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
+.atag.blue{background:var(--primary3);color:var(--primary)}
+.atag.green{background:var(--green2);color:var(--green)}
+.atag.orange{background:var(--orange2);color:var(--orange)}
+.atag.red{background:var(--red2);color:var(--red)}
+.atag.teal{background:var(--mint2);color:var(--mint)}
+.pin-badge{background:var(--primary);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
+.ann-title{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ann-preview{font-size:12px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ann-meta{display:flex;justify-content:space-between;margin-top:6px}
+.ann-date,.ann-views{font-size:11px;color:var(--muted2)}
+
+/* SUBJECT GROUPS */
+.subj-group{margin-bottom:24px}
+.subj-group-title{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;padding-bottom:7px;border-bottom:var(--border);display:flex;align-items:center;gap:6px}
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:11px}
+.subj-card{background:#fff;border:var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.subj-card:hover{border-color:var(--primary4);box-shadow:var(--shadow);transform:translateY(-3px)}
+.subj-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0}
+.subj-icon{font-size:26px;margin-bottom:8px;display:block}
+.subj-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.subj-card .subj-code{font-size:10px;color:var(--muted2);margin-bottom:3px;font-family:'JetBrains Mono',monospace;font-weight:500}
+.subj-card p{font-size:11.5px;color:var(--muted)}
+.subj-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:var(--border)}
+
+/* NOTA CARDS */
+.nota-card{background:#fff;border:var(--border);border-radius:var(--radius2);padding:12px 14px;display:flex;align-items:center;gap:10px;transition:.2s}
+.nota-card:hover{border-color:var(--primary4);box-shadow:var(--shadow);transform:translateY(-1px)}
+.nota-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nota-info{flex:1;min-width:0;cursor:pointer}
+.nota-title{font-size:13px;font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nota-sub{font-size:11px;color:var(--muted2);margin-top:2px}
+.nota-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--primary3);color:var(--primary);flex-shrink:0;white-space:nowrap}
+
+/* ATTACH */
+.attach-list{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.attach-item{display:flex;align-items:center;gap:10px;background:var(--gray2);border-radius:10px;padding:10px 13px;font-size:13px}
+.attach-item a{color:var(--primary);text-decoration:none;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attach-item a:hover{text-decoration:underline}
+.attach-icon{font-size:18px;flex-shrink:0}
+.attach-type{font-size:10px;color:var(--muted);flex-shrink:0}
+.nota-images{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px;margin-top:10px}
+.nota-images img{width:100%;border-radius:10px;cursor:pointer;transition:.2s;border:var(--border)}
+.nota-images img:hover{opacity:.9;transform:scale(1.03)}
+.nota-view-body{font-size:13.5px;line-height:1.8;color:var(--text);white-space:pre-line}
+.nota-view-section{margin-bottom:16px}
+.nota-view-section-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px;padding-bottom:6px;border-bottom:var(--border)}
+
+/* FORMS */
+.nota-form{background:#fff;border:var(--border);border-radius:var(--radius);padding:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.fg{margin-bottom:11px}
+.fg label{font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg textarea,.fg select{width:100%;border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:.2s;color:var(--text);background:#fff}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--primary4);box-shadow:0 0 0 3px rgba(108,99,255,.1)}
+.fg textarea{min-height:90px;resize:vertical;line-height:1.6}
+.upload-area{border:2px dashed var(--gray3);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.2s;background:#fafbff;position:relative}
+.upload-area:hover{border-color:var(--primary4);background:var(--primary3)}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-area .upload-icon{font-size:26px;margin-bottom:7px}
+.upload-area p{font-size:12px;color:var(--muted)}
+.upload-area strong{color:var(--primary)}
+.attach-preview{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.ap-item{display:flex;align-items:center;gap:9px;background:var(--gray2);border-radius:8px;padding:8px 11px;font-size:12px}
+.ap-item .ap-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--navy);font-weight:600}
+.ap-item button{background:var(--red2);border:none;color:var(--red);border-radius:6px;padding:2px 8px;cursor:pointer;font-size:11px}
+.img-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;margin-top:8px}
+.img-thumb{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1}
+.img-thumb img{width:100%;height:100%;object-fit:cover}
+.img-thumb button{position:absolute;top:3px;right:3px;background:rgba(239,68,68,.9);border:none;color:#fff;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;border:var(--border)}
+.tbl thead{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
+.tbl th{padding:12px 15px;font-size:11.5px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.8px}
+.tbl td{padding:12px 15px;font-size:13px;border-bottom:var(--border)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--primary3)}
+.status{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;letter-spacing:.3px}
+.status.akan{background:var(--primary3);color:var(--primary)}
+.status.tamat{background:var(--gray2);color:var(--muted)}
+.status.soon{background:var(--sun2);color:#d97706}
+
+/* PAUTAN */
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+.pl-card{background:#fff;border:var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:.2s;text-decoration:none;display:block}
+.pl-card:hover{border-color:var(--primary4);box-shadow:var(--shadow);transform:translateY(-3px)}
+.pl-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 9px;transition:.2s}
+.pl-card:hover .pl-icon{transform:scale(1.1)}
+.pl-card h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.pl-card p{font-size:11px;color:var(--muted)}
+
+/* AHLI */
+.ahli-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
+.ahli-card{background:#fff;border:var(--border);border-radius:var(--radius);padding:16px;text-align:center;transition:.2s}
+.ahli-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.ahli-av{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 9px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.ahli-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.ahli-tg{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.ahli-role{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px;letter-spacing:.3px}
+
+/* BOT */
+.bot-wrap{background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:var(--radius);padding:26px;color:#fff;margin-bottom:20px;border:1px solid rgba(108,99,255,.2)}
+.bot-cmds{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:16px}
+.bot-cmd{background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.2);border-radius:10px;padding:11px 13px;display:flex;gap:8px;transition:.2s}
+.bot-cmd:hover{background:rgba(108,99,255,.2)}
+.cmd-n{font-size:12px;font-weight:700;color:var(--primary4);font-family:'JetBrains Mono',monospace;margin-bottom:3px}
+.cmd-d{font-size:11px;opacity:.6;line-height:1.4}
+
+/* TABS */
+.tab-bar{display:flex;gap:3px;background:var(--gray2);border-radius:12px;padding:4px;margin-bottom:18px;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:65px;background:none;border:none;padding:8px 12px;border-radius:9px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;white-space:nowrap}
+.tab-btn.active{background:#fff;color:var(--primary);box-shadow:0 2px 8px rgba(108,99,255,.12)}
+.tab-content{display:none}.tab-content.active{display:block}
+
+/* SEARCH */
+.sw{position:relative;margin-bottom:14px}
+.sw input{width:100%;border:1.5px solid var(--gray3);border-radius:12px;padding:10px 14px 10px 38px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:.2s;background:#fff}
+.sw input:focus{border-color:var(--primary4);box-shadow:0 0 0 3px rgba(108,99,255,.1)}
+.si{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted2)}
+
+/* ADMIN ONLY */
+.admin-only{display:none}
+body.admin .admin-only{display:flex}
+body.admin .admin-only.block{display:block}
+body.admin .admin-only.grid{display:grid}
+.card-admin{display:none;gap:5px;flex-shrink:0}
+body.admin .card-admin{display:flex}
+.admin-notice{background:linear-gradient(135deg,#fef9e7,#fef3c7);border:1px solid #fbbf24;border-radius:10px;padding:11px 15px;margin-bottom:16px;display:none;align-items:center;gap:9px;font-size:13px;font-weight:600;color:#92400e}
+body.admin .admin-notice{display:flex}
+
+/* LOGIN MODAL */
+.login-ov{position:fixed;inset:0;background:rgba(26,26,46,.75);z-index:900;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.login-ov.open{display:flex}
+.login-box{background:#fff;border-radius:24px;padding:36px;width:100%;max-width:380px;box-shadow:0 24px 64px rgba(108,99,255,.2);animation:lb .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes lb{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:none}}
+.login-logo{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;box-shadow:0 8px 20px rgba(108,99,255,.35)}
+.login-box h2{text-align:center;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.login-box p{text-align:center;font-size:12px;color:var(--muted);margin-bottom:22px}
+.login-input{width:100%;border:1.5px solid var(--gray3);border-radius:12px;padding:12px 14px;font-size:13.5px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:10px;transition:.2s}
+.login-input:focus{border-color:var(--primary4);box-shadow:0 0 0 3px rgba(108,99,255,.1)}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;letter-spacing:-.1px}
+.login-btn:hover{opacity:.9;transform:translateY(-1px)}
+.login-err{background:var(--red2);color:var(--red);border-radius:10px;padding:9px 13px;font-size:12px;font-weight:600;margin-bottom:10px;display:none;text-align:center}
+.login-cancel{width:100%;background:none;border:none;color:var(--muted);font-size:12px;margin-top:12px;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.login-cancel:hover{color:var(--text)}
+
+/* VIEW MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(26,26,46,.45);z-index:500;display:none;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(4px)}
+.modal-ov.open{display:flex}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;animation:mi .22s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mi{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.modal-hdr{padding:18px 22px 15px;border-bottom:var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:sticky;top:0;background:#fff;z-index:1;border-radius:20px 20px 0 0}
+.modal-hdr h3{font-size:15px;font-weight:800;color:var(--navy);line-height:1.3}
+.modal-x{background:var(--gray2);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.modal-x:hover{background:var(--gray3)}
+.modal-body{padding:18px 22px 24px}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--navy);color:#fff;padding:11px 16px;border-radius:14px;font-size:13px;font-weight:600;display:none;align-items:center;gap:7px;z-index:1000;box-shadow:var(--shadow2);animation:toastIn .3s cubic-bezier(.34,1.56,.64,1)}
+.toast.show{display:flex}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(26,26,46,.92);z-index:800;display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:12px;box-shadow:var(--shadow2)}
+
+/* WELCOME MODAL */
+#welcome-modal .login-box{border-radius:24px}
+
+/* BC */
+.bc{font-size:11px;color:var(--muted2);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.ph{margin-bottom:22px}
+.ph h2{font-size:21px;font-weight:900;color:var(--navy);letter-spacing:-.4px}
+.ph p{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:10px;font-size:12.5px;font-weight:700;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:5px}
+.btn-p{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}.btn-p:hover{opacity:.9;transform:translateY(-1px)}
+.btn-o{background:#fff;color:var(--primary);border:1.5px solid var(--primary3)}.btn-o:hover{background:var(--primary3)}
+.btn-d{background:var(--red2);color:var(--red)}.btn-d:hover{background:#fecaca}
+.btn-sm{padding:5px 11px;font-size:11.5px}
+.form-actions{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+
+/* QUICK ACCESS CARDS */
+.quick-card{background:#fff;border:var(--border);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;transition:.2s;text-decoration:none;display:block;position:relative;overflow:hidden}
+.quick-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--primary3),transparent);opacity:0;transition:.3s}
+.quick-card:hover{border-color:var(--primary4);box-shadow:var(--shadow);transform:translateY(-3px)}
+.quick-card:hover::before{opacity:1}
+.quick-card-icon{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;transition:.2s;position:relative}
+.quick-card:hover .quick-card-icon{transform:scale(1.1) rotate(-3deg)}
+.quick-card h4{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:2px;position:relative}
+.quick-card p{font-size:11px;color:var(--muted);position:relative}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-state .ei{font-size:44px;margin-bottom:12px;display:block}
+.empty-state p{font-size:13px;max-width:260px;margin:0 auto;line-height:1.6}
+
+/* NOTIF PANEL */
+#notif-panel{border-radius:16px !important;box-shadow:var(--shadow2) !important}
+
+/* SEARCH MODAL */
+#search-modal .modal{border-radius:20px}
+
+/* GAP-2 */
+.gap-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* FEEDBACK STARS */
+.fb-star{filter:grayscale(1);transition:.2s}
+.fb-star:hover{transform:scale(1.2)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted2)}
+
+@media(max-width:768px){
+  .h-nav{display:none}.h-nav.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);border-bottom:var(--border);padding:8px;gap:2px;box-shadow:0 8px 24px rgba(108,99,255,.1);z-index:100}
+  .ham{display:flex}.form-row{grid-template-columns:1fr}
+  .hero h1{font-size:22px}.hero{padding:24px 18px;border-radius:var(--radius)}
+  .topbar{flex-direction:column;gap:4px;text-align:center}
+  .cd-card{flex-direction:column}.gap-2{grid-template-columns:1fr}
+  .hero-stats{gap:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-ov" id="login-ov">
+  <div class="login-box">
+    <div class="login-logo">S</div>
+    <h2>Log Masuk Admin</h2>
+    <p>Portal STPM 2026 Kohort Baharu<br>Pentadbir sahaja dibenarkan</p>
+    <div class="login-err" id="login-err">Username atau password tidak sah.</div>
+    <input class="login-input" id="l-u" type="text" placeholder="Username" autocomplete="username"/>
+    <input class="login-input" id="l-p" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Log Masuk</button>
+    <button class="login-cancel" onclick="closeLogin()">Batal — Sambung sebagai Pengunjung</button>
+  </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-ov" id="view-modal" onclick="closeVM(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <h3 id="vm-title">—</h3>
+      <button class="modal-x" onclick="closeVM()">✕</button>
+    </div>
+    <div class="modal-body" id="vm-body"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-l">
+    <span><span class="live-dot"></span>Portal Aktif</span>
+    <span id="top-date"></span>
+    <span>Ahli: <strong id="top-members" style="color:#fff">—</strong></span>
+    <span>👁 <strong id="top-viewers" style="color:#fff">1</strong> online</span>
+  </div>
+  <div class="topbar-r">
+    <button class="tplink" onclick="openSearch()" style="display:flex;align-items:center;gap:5px">🔍 Cari</button>
+    <button class="tplink" onclick="openQR()" style="display:flex;align-items:center;gap:5px">📲 QR</button>
+    <a href="https://t.me/stpm20266" target="_blank" class="tplink">Telegram</a>
+    <a href="https://portal.mpm.edu.my" target="_blank" class="tplink">Portal MPM</a>
+    <button class="tplink admin-pill" id="admin-topbtn" onclick="logoutAdmin()" style="display:none">👑 Admin — Log Keluar</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="main-header">
+  <div class="h-brand">
+    <div class="h-logo">✦</div>
+    <div>
+      <div class="h-title">STPM 2026 Kohort Baharu</div>
+      <div class="h-sub">
+        <span>@stpm20266</span>
+        <span class="badge badge-blue">Sem 1–3</span>
+        <span class="badge badge-gold admin-only" id="admin-badge">👑 Admin Mode</span>
+      </div>
+    </div>
+  </div>
+  <nav class="h-nav" id="main-nav">
+    <button class="nav-btn active" onclick="goTo('home')">Laman Utama</button>
+    <button class="nav-btn" onclick="goTo('pengumuman')">Pengumuman</button>
+    <button class="nav-btn" onclick="goTo('nota')">Nota & Bahan</button>
+    <button class="nav-btn" onclick="goTo('jadual')">Jadual</button>
+    <button class="nav-btn" onclick="goTo('pautan')">Pautan</button>
+    <button class="nav-btn" onclick="goTo('ahli')">Ahli</button>
+    <button class="nav-btn" onclick="goTo('bot')">Bot</button>
+    <button class="nav-btn" onclick="goTo('feedback')">💬 Feedback</button>
+    <button class="nav-btn admin-only" onclick="goTo('settings')" style="color:#b45309;background:#fef3c7">⚙️ Settings</button>
+    <button class="nav-btn admin-only" onclick="goTo('activitylog')" style="color:#0d9488;background:#ccfbf1">📋 Log</button>
+    <button class="nav-btn admin-only" onclick="goTo('stats')" style="color:#7c3aed;background:#ede9fe">📊 Statistik</button>
+  </nav>
+  <div style="display:flex;gap:7px;align-items:center">
+    <!-- NOTIF BELL -->
+    <button onclick="toggleNotifPanel()" style="position:relative;background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;transition:.2s" title="Notifikasi" id="notif-bell-btn">
+      <span style="font-size:20px">🔔</span>
+      <span id="notif-badge" style="display:none;position:absolute;top:2px;right:2px;background:var(--red);color:#fff;font-size:9px;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1" id="notif-count">0</span>
+    </button>
+    <a class="tg-btn" href="https://t.me/stpm20266" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.56-.45.7-.91.43l-2.52-1.86-1.22 1.17c-.13.13-.25.25-.51.25l.18-2.57 4.64-4.2c.2-.18-.04-.28-.31-.1L7.11 15.3l-2.48-.77c-.54-.17-.55-.54.11-.8l9.69-3.74c.45-.16.85.11.71.81z"/></svg>
+      Join
+    </a>
+    <button class="ham" onclick="document.getElementById('main-nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+
+  <!-- NOTIF PANEL -->
+  <div id="notif-panel" style="display:none;position:absolute;top:100%;right:16px;width:320px;background:#fff;border:1px solid var(--gray3);border-radius:12px;box-shadow:var(--shadow2);z-index:300;overflow:hidden">
+    <div style="padding:14px 16px;border-bottom:1px solid var(--gray3);display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:14px;font-weight:700;color:var(--navy)">🔔 Notifikasi</span>
+      <button onclick="markAllRead()" style="font-size:11px;color:var(--blue);background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600">Tandakan semua dibaca</button>
+    </div>
+    <div id="notif-list" style="max-height:320px;overflow-y:auto"></div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mq-item"><span class="mq-dot"></span>📢 Portal Rasmi STPM 2026 Kohort Baharu | @stpm20266</span>
+    <span class="mq-item"><span class="mq-dot"></span>📅 STPM Semester 2: 29 Jun 2026 — Bersedia!</span>
+    <span class="mq-item"><span class="mq-dot"></span>📅 STPM Semester 3: 17 November 2026</span>
+    <span class="mq-item"><span class="mq-dot"></span>📚 Nota & bahan dikuruskan oleh admin sahaja</span>
+    <span class="mq-item"><span class="mq-dot"></span>🤖 Bot Telegram: /nota, /jadual, /countdown</span>
+    <span class="mq-item"><span class="mq-dot"></span>📢 Portal Rasmi STPM 2026 Kohort Baharu | @stpm20266</span>
+    <span class="mq-item"><span class="mq-dot"></span>📅 STPM Semester 2: 29 Jun 2026 — Bersedia!</span>
+    <span class="mq-item"><span class="mq-dot"></span>📅 STPM Semester 3: 17 November 2026</span>
+    <span class="mq-item"><span class="mq-dot"></span>📚 Nota & bahan dikuruskan oleh admin sahaja</span>
+    <span class="mq-item"><span class="mq-dot"></span>🤖 Bot Telegram: /nota, /jadual, /countdown</span>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="sec-home" class="section active">
+<div class="con">
+  <div class="hero">
+    <div class="hero-tag">✦ Portal Rasmi</div>
+    <h1>STPM 2026<br><span>Kohort Baharu</span></h1>
+    <p class="hero-sub">Platform rasmi group Telegram <strong>@stpm20266</strong> — pengumuman, nota, jadual peperiksaan dan bahan pembelajaran STPM.</p>
+    <div class="hero-btns">
+      <a href="https://t.me/stpm20266" target="_blank" class="hbtn hbtn-w">📱 Join Telegram</a>
+      <button class="hbtn hbtn-g" onclick="goTo('nota')">📚 Bahan Belajar</button>
+      <button class="hbtn hbtn-g" onclick="goTo('jadual')">📅 Jadual Exam</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n" id="hs-members">—</div><div class="hs-l">Ahli</div></div>
+      <div class="hs"><div class="hs-n" id="hs-nota">0</div><div class="hs-l">Nota</div></div>
+      <div class="hs"><div class="hs-n" id="hs-ann">0</div><div class="hs-l">Pengumuman</div></div>
+      <div class="hs"><div class="hs-n" id="hs-semester">3</div><div class="hs-l">Semester</div></div>
+    </div>
+  </div>
+
+  <div class="cd-card">
+    <div class="cd-info">
+      <div class="lbl">Peperiksaan Seterusnya</div>
+      <div class="nm">STPM Semester 2 2026 (Bertulis)</div>
+      <div class="dt">29 Jun 2026</div>
+    </div>
+    <div class="cd-timer">
+      <div class="cdu"><div class="cdu-n" id="cd-d">--</div><div class="cdu-l">Hari</div></div>
+      <div class="cdu"><div class="cdu-n" id="cd-h">--</div><div class="cdu-l">Jam</div></div>
+      <div class="cdu"><div class="cdu-n" id="cd-m">--</div><div class="cdu-l">Minit</div></div>
+      <div class="cdu"><div class="cdu-n" id="cd-s">--</div><div class="cdu-l">Saat</div></div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="sc"><div class="sc-ico" style="background:#dbeafe">👥</div><div><div class="sc-n" id="s-members">—</div><div class="sc-l">Ahli Aktif</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#dcfce7">📝</div><div><div class="sc-n" id="s-nota">0</div><div class="sc-l">Nota Dikongsi</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#fff7ed">📢</div><div><div class="sc-n" id="s-ann">0</div><div class="sc-l">Pengumuman</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#ccfbf1">⏳</div><div><div class="sc-n" id="s-hari">—</div><div class="sc-l">Hari ke Sem 2</div></div></div>
+  </div>
+
+  <div class="sec-hdr"><div class="sec-title">Pengumuman Terkini</div><button class="sbtn" onclick="goTo('pengumuman')">Lihat Semua →</button></div>
+  <div id="home-ann" class="ann-list"></div>
+
+  <div class="sec-hdr" style="margin-top:6px"><div class="sec-title">Akses Pantas</div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:11px;margin-bottom:22px">
+    <div class="quick-card" onclick="goTo('pengumuman')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">📢</div><h4>Pengumuman</h4><p>Info terkini admin</p></div>
+    <div class="quick-card" onclick="goTo('nota')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)">📚</div><h4>Nota & Bahan</h4><p>Koleksi nota subjek</p></div>
+    <div class="quick-card" onclick="goTo('jadual')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">📅</div><h4>Jadual Exam</h4><p>Tarikh peperiksaan</p></div>
+    <div class="quick-card" onclick="goTo('pautan')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🔗</div><h4>Pautan Berguna</h4><p>MPM, UPU & lain</p></div>
+    <div class="quick-card" onclick="goTo('ahli')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">👥</div><h4>Admin & Mod</h4><p>Hubungi pentadbir</p></div>
+    <div class="quick-card" onclick="goTo('bot')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#d0faf5,#a5f3eb)">🤖</div><h4>Bot Telegram</h4><p>Coming soon</p></div>
+    <div class="quick-card" onclick="goTo('feedback')"><div class="quick-card-icon" style="background:linear-gradient(135deg,#fef3c7,#fed7aa)">💬</div><h4>Feedback</h4><p>Hantar cadangan</p></div>
+  </div>
+</div>
+</div>
+
+<!-- PENGUMUMAN -->
+<div id="sec-pengumuman" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Pengumuman</span></div>
+  <div class="ph"><h2>Pengumuman</h2><p>Maklumat dan kemas kini rasmi dari pentadbir kumpulan</p></div>
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah, pin dan padam pengumuman.</div>
+  <div style="display:flex;gap:9px;margin-bottom:13px;flex-wrap:wrap;align-items:center">
+    <div class="sw" style="flex:1;min-width:160px;margin-bottom:0"><span class="si">🔍</span><input placeholder="Cari pengumuman..." oninput="filterAnn(this.value)"/></div>
+    <button class="sbtn primary admin-only" onclick="openAnnForm()">+ Tambah Pengumuman</button>
+    <button class="sbtn admin-only" onclick="goTo('drafts')" style="background:#fef3c7;color:#b45309">📝 Draft</button>
+  </div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px">
+    <button class="sbtn" style="font-size:11px" onclick="setAnnTag('',this)">Semua</button>
+    <button class="sbtn" style="font-size:11px;background:var(--gray2);color:var(--muted)" onclick="setAnnTag('Umum',this)">Umum</button>
+    <button class="sbtn" style="font-size:11px;background:var(--red2);color:var(--red)" onclick="setAnnTag('Penting',this)">Penting</button>
+    <button class="sbtn" style="font-size:11px;background:#fef3c7;color:#b45309" onclick="setAnnTag('Peperiksaan',this)">Peperiksaan</button>
+    <button class="sbtn" style="font-size:11px;background:var(--green2);color:var(--green)" onclick="setAnnTag('Nota',this)">Nota</button>
+  </div>
+  <div id="ann-full" class="ann-list"></div>
+</div>
+</div>
+
+<!-- NOTA -->
+<div id="sec-nota" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Nota & Bahan</span></div>
+  <div class="ph"><h2>Nota & Bahan Pembelajaran</h2><p>Koleksi nota, fail, gambar dan bahan dikuruskan oleh admin — <strong>64 subjek STPM</strong></p></div>
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah nota dengan text, fail, gambar dan link.</div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="ntTab('subj')">Mengikut Subjek</button>
+    <button class="tab-btn" onclick="ntTab('all')">Semua Nota</button>
+    <button class="tab-btn admin-only" onclick="ntTab('add')">+ Tambah Nota</button>
+  </div>
+  <div id="nt-subj" class="tab-content active" id="nt-subj"></div>
+  <div id="nt-all" class="tab-content">
+    <div class="sw"><span class="si">🔍</span><input placeholder="Cari nota atau subjek..." oninput="filterNota(this.value)"/></div>
+    <div id="nota-list" style="display:flex;flex-direction:column;gap:7px"></div>
+  </div>
+  <div id="nt-add" class="tab-content admin-only block">
+    <div class="nota-form">
+      <div class="form-row">
+        <div class="fg"><label>Kategori Subjek</label>
+          <select id="nt-cat" onchange="updateSubjList()">
+            <option value="">-- Pilih Kategori --</option>
+            <option value="teras">Teras / Wajib</option>
+            <option value="bahasa">Bahasa & Kesusasteraan</option>
+            <option value="islam">Pengajian Islam</option>
+            <option value="sosial">Sains Sosial & Kemanusiaan</option>
+            <option value="sains">Sains & Matematik</option>
+          </select>
+        </div>
+        <div class="fg"><label>Subjek</label>
+          <select id="nt-subj-sel">
+            <option value="">-- Pilih Kategori Dulu --</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Tajuk Nota</label><input id="nt-title" placeholder="Cth: Bab 3 — Permintaan & Penawaran"/></div>
+        <div class="fg"><label>Jenis Bahan</label>
+          <select id="nt-type"><option>Nota</option><option>Soalan Latihan</option><option>Ringkasan</option><option>Soalan Peperiksaan Lalu</option><option>Mindmap</option><option>Rujukan</option><option>Lain-lain</option></select>
+        </div>
+      </div>
+      <div class="fg"><label>Kandungan Teks (optional)</label><textarea id="nt-body" placeholder="Taip atau paste nota, poin penting, penjelasan...&#10;&#10;Boleh guna:&#10;📌 Poin penting&#10;✅ Konsep yang perlu tahu&#10;❗ Perhatian / peringatan"></textarea></div>
+
+      <!-- LINK -->
+      <div class="fg"><label>🔗 Link Tambahan (optional)</label>
+        <div style="display:flex;gap:8px;margin-bottom:6px">
+          <input id="nt-link-url" placeholder="https://drive.google.com/..." style="flex:1;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+          <input id="nt-link-label" placeholder="Label (cth: Nota PDF)" style="width:160px;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+          <button class="btn btn-o btn-sm" onclick="addLink()" style="flex-shrink:0">+ Add</button>
+        </div>
+        <div id="links-preview" class="attach-preview"></div>
+      </div>
+
+      <!-- FILE UPLOAD -->
+      <div class="fg"><label>📎 Fail (PDF, DOC, PPT, dll — max 10MB setiap fail)</label>
+        <div class="upload-area">
+          <input type="file" id="nt-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.zip" onchange="handleFiles(this)"/>
+          <div class="upload-icon">📎</div>
+          <p><strong>Klik untuk pilih fail</strong> atau seret ke sini<br><span style="font-size:11px;color:var(--muted2)">PDF, Word, PowerPoint, Excel, ZIP — max 10MB</span></p>
+        </div>
+        <div id="files-preview" class="attach-preview"></div>
+      </div>
+
+      <!-- IMAGE UPLOAD -->
+      <div class="fg"><label>🖼️ Gambar / Screenshot (JPG, PNG, GIF — max 5MB setiap gambar)</label>
+        <div class="upload-area">
+          <input type="file" id="nt-images" multiple accept="image/*" onchange="handleImages(this)"/>
+          <div class="upload-icon">🖼️</div>
+          <p><strong>Klik untuk pilih gambar</strong> atau seret ke sini<br><span style="font-size:11px;color:var(--muted2)">JPG, PNG, GIF, WebP — max 5MB</span></p>
+        </div>
+        <div id="imgs-preview" class="img-preview-grid"></div>
+      </div>
+
+      <div class="fg"><label>Penyumbang</label><input id="nt-author" placeholder="Nama atau @username admin"/></div>
+      <div class="form-actions">
+        <button class="btn btn-p" onclick="saveNota()">💾 Simpan Nota</button>
+        <button class="btn btn-o" onclick="ntTab('all')">Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- JADUAL -->
+<div id="sec-jadual" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Jadual</span></div>
+  <div class="ph"><h2>Jadual Peperiksaan STPM 2026</h2><p>Tarikh peperiksaan rasmi Majlis Peperiksaan Malaysia</p></div>
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah tarikh peperiksaan dan kerja kursus.</div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="jdTab('rasmi')">Jadual Rasmi MPM</button>
+    <button class="tab-btn" onclick="jdTab('kk')">Kerja Kursus</button>
+    <button class="tab-btn admin-only" onclick="jdTab('add')">+ Tambah</button>
+  </div>
+  <div id="jd-rasmi" class="tab-content active" style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Peperiksaan</th><th>Tarikh</th><th>Masa</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>MUET Sesi 1 2026 (Speaking)</td><td>14 April 2026</td><td>—</td><td><span class="status tamat">✓ Selesai</span></td></tr>
+        <tr><td>MUET Sesi 1 2026 (Writing)</td><td>25 April 2026</td><td>—</td><td><span class="status tamat">✓ Selesai</span></td></tr>
+        <tr><td><strong>STPM Semester 2 2026 (Bertulis)</strong></td><td><strong>29 Jun 2026</strong></td><td>8:00 pagi</td><td><span class="status soon">⏳ Hampir</span></td></tr>
+        <tr><td>STPM Semester 3 2026 (ULBA)</td><td>27 Oktober 2026</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>STPM Semester 3 2026 (Bertulis)</td><td>17 November 2026</td><td>8:00 pagi</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>STPM Ulangan 1 2026 (Bertulis)</td><td>30 November 2026</td><td>8:00 pagi</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--muted2);margin-top:9px">* Semak <a href="https://portal.mpm.edu.my" target="_blank" style="color:var(--blue)">portal.mpm.edu.my</a> untuk pengesahan rasmi.</p>
+  </div>
+  <div id="jd-kk" class="tab-content" style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Subjek</th><th>Kerja Kursus</th><th>Tarikh Hantar</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>900 Pengajian Am</td><td>Kertas 2 — Esei & Analisis</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>960 Physics</td><td>Laporan Eksperimen</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>962 Chemistry</td><td>Kerja Amali</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>964 Biology</td><td>Kerja Kursus Lapangan</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>958 ICT</td><td>Projek ICT</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>970 Seni Visual</td><td>Kerja Studio / Portfolio</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+        <tr><td>966 Sains Sukan</td><td>Kerja Kursus Sukan</td><td>—</td><td><span class="status akan">📅 Akan Datang</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="jd-add" class="tab-content admin-only block">
+    <div class="nota-form" style="margin-bottom:16px">
+      <div class="form-row">
+        <div class="fg"><label>Nama Peperiksaan / Acara</label><input id="jd-name" placeholder="Cth: STPM Semester 2 (Bertulis)"/></div>
+        <div class="fg"><label>Tarikh</label><input type="date" id="jd-date"/></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Masa</label><input id="jd-time" placeholder="8:00 pagi"/></div>
+        <div class="fg"><label>Kategori</label>
+          <select id="jd-cat"><option>Peperiksaan Bertulis</option><option>Kerja Kursus</option><option>ULBA</option><option>MUET</option><option>Lain-lain</option></select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-p" onclick="saveJd()">Simpan</button>
+        <button class="btn btn-o" onclick="jdTab('rasmi')">Batal</button>
+      </div>
+    </div>
+    <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Nama</th><th>Tarikh</th><th>Masa</th><th>Kategori</th><th></th></tr></thead><tbody id="jd-custom-body"></tbody></table></div>
+  </div>
+</div>
+</div>
+
+<!-- PAUTAN -->
+<div id="sec-pautan" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Pautan Berguna</span></div>
+  <div class="ph"><h2>Pautan Berguna</h2><p>Link penting untuk pelajar STPM 2026</p></div>
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah pautan kumpulan.</div>
+  <div class="sec-hdr"><div class="sec-title">Portal Rasmi</div></div>
+  <div class="pl-grid" style="margin-bottom:24px">
+    <a href="https://portal.mpm.edu.my" target="_blank" class="pl-card"><div class="pl-icon" style="background:#dbeafe">🏛️</div><h4>Portal MPM</h4><p>Majlis Peperiksaan Malaysia</p></a>
+    <a href="https://mecea.mpm.edu.my/SS_STPM" target="_blank" class="pl-card"><div class="pl-icon" style="background:#dcfce7">📋</div><h4>Semak Keputusan STPM</h4><p>Rayuan semak semula</p></a>
+    <a href="https://muet.mpm.edu.my" target="_blank" class="pl-card"><div class="pl-icon" style="background:#fef3c7">🇬🇧</div><h4>Portal MUET</h4><p>Pendaftaran & keputusan</p></a>
+    <a href="https://online.mohe.gov.my/UPUOnlinev2/login" target="_blank" class="pl-card"><div class="pl-icon" style="background:#ede9fe">🎓</div><h4>UPU Online</h4><p>Permohonan masuk IPTA</p></a>
+    <a href="https://achievea.mpm.edu.my" target="_blank" class="pl-card"><div class="pl-icon" style="background:#fee2e2">⭐</div><h4>Achieve A</h4><p>Platform persediaan MPM</p></a>
+    <a href="https://t.me/stpm20266" target="_blank" class="pl-card"><div class="pl-icon" style="background:#e0f2fe">📱</div><h4>Telegram @stpm20266</h4><p>Kumpulan utama</p></a>
+  </div>
+  <div class="sec-hdr"><div class="sec-title">Pautan Kumpulan</div><button class="sbtn primary admin-only" onclick="togglePlForm()">+ Tambah Pautan</button></div>
+  <div id="pl-form" style="display:none;margin-bottom:14px">
+    <div class="nota-form">
+      <div class="form-row">
+        <div class="fg"><label>Nama</label><input id="pl-name" placeholder="Cth: Channel Nota Biology"/></div>
+        <div class="fg"><label>URL</label><input id="pl-url" placeholder="https://t.me/..."/></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Penerangan</label><input id="pl-desc" placeholder="Penerangan ringkas..."/></div>
+        <div class="fg"><label>Emoji Icon</label><input id="pl-icon" placeholder="📱" maxlength="4"/></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-p" onclick="savePautan()">Simpan</button>
+        <button class="btn btn-o" onclick="togglePlForm()">Batal</button>
+      </div>
+    </div>
+  </div>
+  <div id="custom-pl" class="pl-grid"></div>
+  <div id="pl-empty" style="display:none" class="empty-state"><div style="font-size:36px;margin-bottom:8px">🔗</div><p style="font-size:13px;color:var(--muted)">Tiada pautan tambahan lagi.</p></div>
+</div>
+</div>
+
+<!-- AHLI -->
+<div id="sec-ahli" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Ahli</span></div>
+  <div class="ph"><h2>Pentadbir & Moderator</h2><p>Hubungi admin atau mod untuk sebarang pertanyaan</p></div>
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tambah atau padam ahli pentadbiran.</div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="alTab('list')">Senarai</button>
+    <button class="tab-btn admin-only" onclick="alTab('add')">+ Tambah</button>
+  </div>
+  <div id="al-list" class="tab-content active"><div class="ahli-grid" id="ahli-grid"></div></div>
+  <div id="al-add" class="tab-content admin-only block">
+    <div class="nota-form">
+      <div class="form-row">
+        <div class="fg"><label>Nama</label><input id="al-name" placeholder="Nama / nickname"/></div>
+        <div class="fg"><label>Telegram</label><input id="al-tg" placeholder="@username"/></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Peranan</label><select id="al-role"><option>Admin</option><option>Moderator</option><option>Pengurus Nota</option><option>Ahli Biasa</option></select></div>
+        <div class="fg"><label>Emoji</label><input id="al-emoji" placeholder="👤" maxlength="4"/></div>
+      </div>
+      <div class="fg"><label>Warna Avatar</label>
+        <select id="al-color"><option value="#1a56db">Biru</option><option value="#16a34a">Hijau</option><option value="#dc2626">Merah</option><option value="#ea580c">Oren</option><option value="#7c3aed">Ungu</option><option value="#0d9488">Teal</option></select>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-p" onclick="saveAhli()">Simpan</button>
+        <button class="btn btn-o" onclick="alTab('list')">Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BOT -->
+<div id="sec-bot" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Bot Telegram</span></div>
+  <div class="ph"><h2>Bot Telegram</h2><p>Bot automatik untuk kumpulan @stpm20266</p></div>
+
+  <!-- COMING SOON CARD -->
+  <div style="background:linear-gradient(135deg,#0f172a,#1e3a6e);border-radius:16px;padding:40px 32px;color:#fff;text-align:center;margin-bottom:20px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 70%);pointer-events:none"></div>
+    <div style="font-size:52px;margin-bottom:14px">🤖</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.3);border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;color:#fbbf24;letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">⏳ Coming Soon</div>
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px">@STPM2026Bot</h2>
+    <p style="font-size:13px;opacity:.7;max-width:400px;margin:0 auto 24px;line-height:1.7">Bot Telegram untuk kumpulan ini sedang dalam pembangunan. Bot akan membantu cari nota, semak jadual, countdown peperiksaan dan banyak lagi!</p>
+
+    <!-- BOT LINK (shown when set) -->
+    <div id="bot-link-display" style="display:none;margin-bottom:16px">
+      <a id="bot-link-anchor" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2AABEE;color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:.2s">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.56-.45.7-.91.43l-2.52-1.86-1.22 1.17c-.13.13-.25.25-.51.25l.18-2.57 4.64-4.2c.2-.18-.04-.28-.31-.1L7.11 15.3l-2.48-.77c-.54-.17-.55-.54.11-.8l9.69-3.74c.45-.16.85.11.71.81z"/></svg>
+        Pergi ke Bot Telegram
+      </a>
+    </div>
+
+    <!-- Arahan preview -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;opacity:.6">
+      <span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:monospace">/nota</span>
+      <span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:monospace">/jadual</span>
+      <span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:monospace">/countdown</span>
+      <span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:monospace">/pengumuman</span>
+      <span style="background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:monospace">/bantuan</span>
+    </div>
+  </div>
+
+  <!-- ADMIN: set bot link -->
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh set link bot Telegram bila dah ready.</div>
+  <div class="admin-only block" style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:18px;margin-bottom:20px">
+    <div class="fg"><label>Link Bot Telegram</label>
+      <div style="display:flex;gap:8px">
+        <input id="bot-link-input" placeholder="https://t.me/STPM2026Bot" style="flex:1;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+        <button class="btn btn-p" onclick="saveBotLink()">Simpan</button>
+        <button class="btn btn-d" onclick="clearBotLink()" style="font-size:12px">Padam</button>
+      </div>
+    </div>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:6px">Link akan muncul sebagai butang "Pergi ke Bot Telegram" untuk semua pengunjung.</p>
+  </div>
+</div>
+</div>
+
+<!-- SETTINGS (Admin Only) -->
+<div id="sec-settings" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Settings Portal</span></div>
+  <div class="ph"><h2>⚙️ Settings Portal</h2><p>Kemaskini maklumat dan tetapan portal rasmi kumpulan</p></div>
+
+  <!-- URUS ADMIN -->
+  <div class="sec-hdr"><div class="sec-title">👥 Urus Akaun Admin</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <div class="admin-notice" style="display:flex;margin-bottom:14px"><span>🔒</span>Kena verify <strong>Super Password</strong> dulu sebelum boleh urus admin.</div>
+    
+    <!-- Super password verify for admin mgmt -->
+    <div id="admin-mgmt-locked">
+      <div class="fg"><label>Super Password</label>
+        <div style="display:flex;gap:8px">
+          <input type="password" id="sp-admin-mgmt" placeholder="Masukkan super password..." style="flex:1;border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+          <button class="btn btn-p" onclick="unlockAdminMgmt()">Verify</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-mgmt-panel" style="display:none">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Cipta akaun admin baru. Setiap akaun akan <strong>dikunci ke device pertama</strong> yang login — orang lain tak boleh guna walaupun tahu password.</p>
+      
+      <!-- Create new admin -->
+      <div style="background:var(--gray);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">➕ Cipta Admin Baharu</div>
+        <div class="form-row">
+          <div class="fg"><label>Username</label><input id="na-user" placeholder="Cth: admin2"/></div>
+          <div class="fg"><label>Password</label><input type="password" id="na-pass" placeholder="Min 8 aksara"/></div>
+        </div>
+        <div class="fg"><label>Nama Penuh / Gelaran</label><input id="na-name" placeholder="Cth: Ahmad — Moderator"/></div>
+        <button class="btn btn-p" onclick="createAdminAccount()">✨ Cipta Akaun</button>
+      </div>
+
+      <!-- Admin list -->
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px">📋 Senarai Admin</div>
+      <div id="admin-accounts-list"></div>
+    </div>
+  </div>
+
+  <!-- PORTAL INFO -->
+  <div class="sec-hdr"><div class="sec-title">Maklumat Portal</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <div class="form-row">
+      <div class="fg"><label>Nama Kumpulan</label><input id="st-groupname" placeholder="Cth: STPM 2026 Kohort Baharu"/></div>
+      <div class="fg"><label>Username Telegram</label><input id="st-tguser" placeholder="@stpm20266"/></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>Bilangan Ahli (update manual)</label><input id="st-members" type="number" placeholder="Cth: 247" min="0"/></div>
+      <div class="fg"><label>Link Telegram Group</label><input id="st-tglink" placeholder="https://t.me/stpm20266"/></div>
+    </div>
+    <div class="fg"><label>Penerangan Portal</label><textarea id="st-desc" placeholder="Penerangan ringkas tentang portal / kumpulan..." style="min-height:70px"></textarea></div>
+    <div class="form-actions"><button class="btn btn-p" onclick="savePortalInfo()">💾 Simpan Maklumat</button></div>
+  </div>
+
+  <!-- COUNTDOWN TARGET -->
+  <div class="sec-hdr"><div class="sec-title">Countdown Peperiksaan</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <div class="form-row">
+      <div class="fg"><label>Nama Peperiksaan</label><input id="st-examname" placeholder="Cth: STPM Semester 2 2026 (Bertulis)"/></div>
+      <div class="fg"><label>Tarikh Peperiksaan</label><input type="date" id="st-examdate"/></div>
+    </div>
+    <div class="fg"><label>Bilangan Semester (Hero Stats)</label><input id="st-semester" type="number" min="1" max="9" placeholder="3"/></div>
+    <div class="form-actions"><button class="btn btn-p" onclick="saveCountdown()">💾 Simpan</button></div>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">* Countdown di Laman Utama akan dikemaskini mengikut tarikh ini.</p>
+  </div>
+
+  <!-- MARQUEE TEXT -->
+  <div class="sec-hdr"><div class="sec-title">Teks Marquee (Ticker)</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Teks yang berjalan di bahagian atas portal. Satu baris = satu item ticker.</p>
+    <div class="fg"><label>Item Ticker (satu baris satu item)</label>
+      <textarea id="st-marquee" style="min-height:110px;font-size:12.5px" placeholder="📢 Portal Rasmi STPM 2026 Kohort Baharu&#10;📅 STPM Semester 2: 29 Jun 2026&#10;📚 Nota dikemaskini setiap minggu"></textarea>
+    </div>
+    <div class="form-actions"><button class="btn btn-p" onclick="saveMarquee()">💾 Simpan Marquee</button></div>
+  </div>
+
+  <!-- MUSIC SETTINGS -->
+  <div class="sec-hdr"><div class="sec-title">🎵 Lagu Background</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Tukar lagu background portal. Kena verify Super Password dulu.</p>
+    <div id="music-settings-locked">
+      <div class="fg"><label>Super Password</label>
+        <div style="display:flex;gap:8px">
+          <input type="password" id="sp-music" placeholder="Masukkan super password..." style="flex:1;border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+          <button class="btn btn-p" onclick="unlockMusicSettings()">Verify</button>
+        </div>
+      </div>
+    </div>
+    <div id="music-settings-panel" style="display:none">
+      <div class="fg"><label>Link YouTube Lagu</label>
+        <input id="st-music-url" placeholder="https://www.youtube.com/watch?v=..." style="border:1.5px solid var(--gray3);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;width:100%"/>
+        <p style="font-size:11px;color:var(--muted);margin-top:5px">Paste link YouTube biasa atau YouTube Music. Contoh: https://youtu.be/cuSR3a409Tc</p>
+      </div>
+      <div id="music-current" style="font-size:12px;color:var(--muted);margin-bottom:10px"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-p" onclick="saveMusic()">🎵 Simpan Lagu</button>
+        <button class="btn btn-o" onclick="lockMusicSettings()">🔒 Kunci</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELCOME MESSAGE -->
+  <div class="sec-hdr"><div class="sec-title">Welcome Message</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Mesej sambutan yang muncul bila pengunjung pertama kali buka portal.</p>
+    <div class="fg">
+      <label>Tunjuk Welcome Message?</label>
+      <select id="st-welcome-enabled" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+        <option value="1">Ya — Tunjuk kepada pengunjung baru</option>
+        <option value="0">Tidak — Sembunyi</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>Emoji</label><input id="st-welcome-emoji" placeholder="🎓" maxlength="4"/></div>
+      <div class="fg"><label>Tajuk</label><input id="st-welcome-title" placeholder="Selamat Datang!"/></div>
+    </div>
+    <div class="fg"><label>Mesej</label><textarea id="st-welcome-msg" placeholder="Tulis mesej sambutan..." style="min-height:80px"></textarea></div>
+    <div class="form-actions">
+      <button class="btn btn-p" onclick="saveWelcome()">💾 Simpan Welcome</button>
+      <button class="btn btn-o" onclick="previewWelcome()">👁 Preview</button>
+    </div>
+  </div>
+
+  <!-- ADMIN CREDENTIALS -->
+  <div class="sec-hdr"><div class="sec-title">Tukar Password Admin</div></div>
+  <div class="nota-form" style="margin-bottom:22px">
+    <div class="admin-notice" style="display:flex;margin-bottom:14px"><span>🔒</span>Kena verify dengan <strong>Super Password</strong> dulu sebelum boleh tukar password admin.</div>
+    <div class="fg"><label>Super Password (Untuk Verify)</label>
+      <input type="password" id="st-superpass" placeholder="Masukkan super password untuk teruskan..."/>
+      <p style="font-size:11px;color:var(--muted);margin-top:4px">Super password ditetapkan oleh pemilik portal. Simpan elok-elok!</p>
+    </div>
+    <div id="st-newpass-wrap" style="display:none">
+      <div class="form-row">
+        <div class="fg"><label>Username Baharu</label><input id="st-newuser" placeholder="Username baru"/></div>
+        <div class="fg"><label>Password Baharu</label><input type="password" id="st-newpass" placeholder="Password baru"/></div>
+      </div>
+      <div class="fg"><label>Sahkan Password</label><input type="password" id="st-confpass" placeholder="Taip semula password"/></div>
+      <div class="form-actions"><button class="btn btn-p" onclick="savePassword()">🔒 Tukar Password</button></div>
+    </div>
+    <div style="margin-top:10px" id="st-verify-btn-wrap">
+      <button class="btn btn-p" onclick="verifySuperPass()">Verify Super Password</button>
+    </div>
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="sec-hdr"><div class="sec-title" style="color:var(--red)">⚠️ Zon Bahaya</div></div>
+  <div class="nota-form" style="border:1.5px solid var(--red);margin-bottom:22px">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Tindakan ini <strong>tidak boleh diundur</strong>. Kena verify Super Password dulu.</p>
+    
+    <!-- Locked state -->
+    <div id="danger-locked">
+      <div class="fg">
+        <label>Super Password</label>
+        <div style="display:flex;gap:8px">
+          <input type="password" id="sp-danger" placeholder="Masukkan super password untuk buka akses..." style="flex:1;border:1.5px solid var(--red);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/>
+          <button class="btn btn-d" onclick="unlockDanger()">🔓 Verify</button>
+        </div>
+      </div>
+      <p style="font-size:11.5px;color:var(--red);margin-top:6px">⚠️ Bahagian ini dilindungi — hanya Super Admin yang boleh akses.</p>
+    </div>
+
+    <!-- Unlocked state -->
+    <div id="danger-unlocked" style="display:none">
+      <div style="background:var(--red2);border-radius:10px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;color:var(--red);font-weight:600">
+        ⚠️ Zon Bahaya dibuka. Berhati-hati — semua tindakan di bawah TIDAK BOLEH diundur!
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-d" onclick="clearAllNota()">🗑️ Padam Semua Nota</button>
+        <button class="btn btn-d" onclick="clearAllAnn()">🗑️ Padam Semua Pengumuman</button>
+        <button class="btn btn-d" onclick="clearAllData()">⚠️ Reset Semua Data Portal</button>
+      </div>
+      <button onclick="lockDanger()" style="background:none;border:none;color:var(--muted);font-size:12px;margin-top:12px;cursor:pointer;font-family:'Outfit',sans-serif">🔒 Kunci semula</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FEEDBACK -->
+<div id="sec-feedback" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Feedback & Cadangan</span></div>
+  <div class="ph"><h2>💬 Feedback & Cadangan</h2><p>Hantar maklum balas, cadangan atau pertanyaan kepada admin</p></div>
+
+  <!-- PUBLIC: SUBMIT FORM -->
+  <div id="fb-form-wrap" style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:22px;margin-bottom:20px">
+    <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px">✍️ Hantar Feedback</div>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Feedback kamu akan dihantar kepada admin. Boleh letak nama atau anonymous.</p>
+    <div class="form-row">
+      <div class="fg"><label>Nama (optional)</label><input id="fb-name" placeholder="Nama kamu / Anonymous"/></div>
+      <div class="fg"><label>Jenis</label>
+        <select id="fb-type" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+          <option>💡 Cadangan</option>
+          <option>🐛 Laporan Masalah</option>
+          <option>❓ Pertanyaan</option>
+          <option>👍 Pujian</option>
+          <option>📝 Lain-lain</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label>Mesej</label><textarea id="fb-msg" placeholder="Tulis feedback atau cadangan kamu di sini..."></textarea></div>
+    <!-- RATING -->
+    <div class="fg"><label>Rating Portal (optional)</label>
+      <div style="display:flex;gap:8px;margin-top:4px" id="fb-stars">
+        <span onclick="setRating(1)" style="font-size:26px;cursor:pointer;transition:.2s" class="fb-star">⭐</span>
+        <span onclick="setRating(2)" style="font-size:26px;cursor:pointer;transition:.2s" class="fb-star">⭐</span>
+        <span onclick="setRating(3)" style="font-size:26px;cursor:pointer;transition:.2s" class="fb-star">⭐</span>
+        <span onclick="setRating(4)" style="font-size:26px;cursor:pointer;transition:.2s" class="fb-star">⭐</span>
+        <span onclick="setRating(5)" style="font-size:26px;cursor:pointer;transition:.2s" class="fb-star">⭐</span>
+      </div>
+      <div id="fb-rating-label" style="font-size:11.5px;color:var(--muted);margin-top:5px">Tiada rating</div>
+    </div>
+    <div class="form-actions"><button class="btn btn-p" onclick="submitFeedback()">📨 Hantar Feedback</button></div>
+    <div id="fb-success" style="display:none;background:var(--green2);border:1px solid var(--green);border-radius:8px;padding:11px 14px;font-size:13px;font-weight:600;color:var(--green);margin-top:12px">✅ Feedback berjaya dihantar! Terima kasih.</div>
+  </div>
+
+  <!-- ADMIN: VIEW FEEDBACKS -->
+  <div class="admin-notice"><span>👑</span>Admin Mode — boleh tengok, balas dan padam semua feedback.</div>
+  <div class="admin-only block">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div class="sec-title">Semua Feedback</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <select id="fb-filter-type" onchange="renderFeedback()" style="border:1.5px solid var(--gray3);border-radius:8px;padding:6px 10px;font-size:12px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+          <option value="">Semua Jenis</option>
+          <option>💡 Cadangan</option>
+          <option>🐛 Laporan Masalah</option>
+          <option>❓ Pertanyaan</option>
+          <option>👍 Pujian</option>
+          <option>📝 Lain-lain</option>
+        </select>
+        <select id="fb-filter-status" onchange="renderFeedback()" style="border:1.5px solid var(--gray3);border-radius:8px;padding:6px 10px;font-size:12px;font-family:'Outfit',sans-serif;outline:none;background:#fff">
+          <option value="">Semua Status</option>
+          <option value="baru">🔵 Baru</option>
+          <option value="dibaca">✅ Dibaca</option>
+          <option value="dibalas">💬 Dibalas</option>
+        </select>
+      </div>
+    </div>
+    <div id="fb-admin-list" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+</div>
+</div>
+
+<!-- ACTIVITY LOG (Admin Only) -->
+<div id="sec-activitylog" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Log Aktiviti</span></div>
+  <div class="ph"><h2>📋 Log Aktiviti Admin</h2><p>Rekod semua tindakan yang dilakukan oleh admin portal</p></div>
+  <div class="admin-notice"><span>👑</span>Hanya admin yang boleh melihat log aktiviti ini.</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+    <div class="sw" style="flex:1;min-width:160px;margin-bottom:0"><span class="si">🔍</span><input placeholder="Cari aktiviti..." oninput="filterLog(this.value)"/></div>
+    <button class="btn btn-d btn-sm" onclick="promptClearLog()">🗑️ Kosongkan Log</button>
+  </div>
+  <div id="activity-log-list" style="display:flex;flex-direction:column;gap:7px"></div>
+</div>
+</div>
+
+<!-- WELCOME MODAL -->
+<div id="welcome-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)" onclick="closeWelcome()">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:18px;width:100%;max-width:420px;padding:32px;text-align:center;animation:mi .25s ease;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <div id="wm-emoji" style="font-size:52px;margin-bottom:12px">🎓</div>
+    <h2 id="wm-title" style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px"></h2>
+    <p id="wm-msg" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px"></p>
+    <button onclick="closeWelcome()" style="background:linear-gradient(135deg,var(--gold4),var(--gold));color:var(--dark);border:none;padding:11px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;width:100%">Masuk ke Portal →</button>
+  </div>
+</div>
+
+<!-- DRAFT PENGUMUMAN (Admin) -->
+<div id="sec-drafts" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span onclick="goTo('pengumuman')" style="cursor:pointer;color:var(--blue)">Pengumuman</span>›<span style="color:var(--text)">Draft</span></div>
+  <div class="ph"><h2>📝 Draft Pengumuman</h2><p>Simpan draf pengumuman — boleh edit dan publish bila dah ready</p></div>
+  <div class="admin-notice"><span>👑</span>Hanya admin yang boleh lihat dan urus draft.</div>
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button class="sbtn primary" onclick="openDraftForm()">+ Tambah Draft</button>
+    <button class="sbtn" onclick="goTo('pengumuman')">← Balik ke Pengumuman</button>
+  </div>
+  <div id="draft-list" style="display:flex;flex-direction:column;gap:10px"></div>
+</div>
+</div>
+
+<!-- STATISTIK (Admin) -->
+<div id="sec-stats" class="section">
+<div class="con">
+  <div class="bc"><span>Laman Utama</span>›<span style="color:var(--text)">Statistik Portal</span></div>
+  <div class="ph"><h2>📊 Statistik Portal</h2><p>Ringkasan aktiviti dan penggunaan portal</p></div>
+  <div class="admin-notice"><span>👑</span>Data statistik dikira secara automatik.</div>
+
+  <!-- STAT CARDS -->
+  <div class="stats-row" id="stats-cards" style="margin-bottom:22px"></div>
+
+  <!-- CHARTS ROW -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px" class="gap-2">
+    <!-- Nota by Subjek -->
+    <div style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:18px">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">📚 Nota Mengikut Subjek</div>
+      <div id="stats-subj-chart"></div>
+    </div>
+    <!-- Feedback by Type -->
+    <div style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:18px">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">💬 Feedback Mengikut Jenis</div>
+      <div id="stats-fb-chart"></div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+  <div style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:18px;margin-bottom:22px">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">🕐 Aktiviti Terkini (5 Terakhir)</div>
+    <div id="stats-recent-activity"></div>
+  </div>
+
+  <!-- POPULAR NOTA -->
+  <div style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:18px">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">🔥 Nota Terkini</div>
+    <div id="stats-popular-nota"></div>
+  </div>
+</div>
+</div>
+
+<!-- BACKGROUND MUSIC (hidden) -->
+<iframe id="yt-player" width="0" height="0" style="position:absolute;opacity:0;pointer-events:none;top:-9999px" src="" allow="autoplay" frameborder="0"></iframe>
+<div id="search-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:700;display:none;align-items:flex-start;justify-content:center;padding:60px 16px 16px;backdrop-filter:blur(4px)" onclick="closeSearch(event)">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:16px;width:100%;max-width:580px;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden;animation:mi .2s ease">
+    <div style="padding:16px;border-bottom:1px solid var(--gray3);display:flex;gap:10px;align-items:center">
+      <span style="font-size:18px">🔍</span>
+      <input id="global-search-input" placeholder="Cari nota, pengumuman, pautan..." style="flex:1;border:none;outline:none;font-size:15px;font-family:'Outfit',sans-serif;color:var(--text)" oninput="globalSearch(this.value)" onkeydown="if(event.key==='Enter')globalSearch(this.value)" autocomplete="off"/>
+      <button onclick="closeSearch()" style="background:var(--gray2);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px">✕</button>
+    </div>
+    <div id="search-results" style="max-height:420px;overflow-y:auto;padding:8px">
+      <div style="text-align:center;padding:32px;color:var(--muted)">
+        <div style="font-size:32px;margin-bottom:8px">🔍</div>
+        <p style="font-size:13px">Taip untuk mencari nota, pengumuman dan pautan</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QR CODE MODAL -->
+<div id="qr-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:700;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)" onclick="closeQR(event)">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:16px;width:100%;max-width:340px;padding:28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:mi .2s ease">
+    <h3 style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">📲 QR Code Portal</h3>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:18px">Imbas untuk buka portal ini</p>
+    <div id="qr-container" style="display:flex;justify-content:center;margin-bottom:16px"></div>
+    <div id="qr-url" style="font-size:11px;color:var(--muted);word-break:break-all;background:var(--gray2);padding:8px 12px;border-radius:8px;margin-bottom:16px"></div>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button onclick="downloadQR()" class="btn btn-p btn-sm">⬇️ Download QR</button>
+      <button onclick="closeQR()" class="btn btn-o btn-sm">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--navy);color:rgba(255,255,255,.48);padding:20px;text-align:center;font-size:11px;margin-top:36px">
+  <div style="display:flex;justify-content:center;gap:16px;margin-bottom:8px;flex-wrap:wrap">
+    <a href="https://t.me/stpm20266" target="_blank" style="color:rgba(255,255,255,.6);text-decoration:none">Telegram</a>
+    <a href="https://portal.mpm.edu.my" target="_blank" style="color:rgba(255,255,255,.6);text-decoration:none">Portal MPM</a>
+    <a href="https://muet.mpm.edu.my" target="_blank" style="color:rgba(255,255,255,.6);text-decoration:none">MUET</a>
+    <a href="https://achievea.mpm.edu.my" target="_blank" style="color:rgba(255,255,255,.6);text-decoration:none">Achieve A</a>
+  </div>
+  <div>© 2026 STPM 2026 Kohort Baharu | @stpm20266 · Kandungan diurus oleh Admin sahaja</div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+// ===== ADMIN CREDENTIALS =====
+// ===== DEVICE FINGERPRINT =====
+async function getDeviceFingerprint(){
+  const ua=navigator.userAgent;
+  const lang=navigator.language;
+  const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const screen=`${window.screen.width}x${window.screen.height}x${window.screen.colorDepth}`;
+  const cores=navigator.hardwareConcurrency||'?';
+  const raw=`${ua}|${lang}|${tz}|${screen}|${cores}`;
+  return await sha256(raw);
+}
+
+// ===== ADMIN ACCOUNT MANAGEMENT =====
+// Sub-admins stored in sessionStorage (locked to device)
+// Format: [{u, h(password hash), name, deviceFp, created}]
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "AIzaSyDSKq7EyYZCkGaFYga-QcmmUJ5h7fJNdRs",
+  authDomain: "stpm2026-portal.firebaseapp.com",
+  projectId: "stpm2026-portal",
+  storageBucket: "stpm2026-portal.firebasestorage.app",
+  messagingSenderId: "288142418649",
+  appId: "1:288142418649:web:9b90f9c025183dd48554c8"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ===== FIREBASE ADMIN FUNCTIONS =====
+async function getSubAdmins(){
+  try {
+    const snap = await db.collection('admins').get();
+    return snap.docs.map(d=>({id:d.id,...d.data()}));
+  } catch(e){console.error('Firebase error:',e);return [];}
+}
+async function saveSubAdmin(admin){
+  try {
+    await db.collection('admins').doc(admin.u).set(admin);
+    return true;
+  } catch(e){console.error('Firebase error:',e);return false;}
+}
+async function deleteSubAdminFb(username){
+  try {
+    await db.collection('admins').doc(username).delete();
+    return true;
+  } catch(e){console.error('Firebase error:',e);return false;}
+}
+
+async function unlockAdminMgmt(){
+  const sp=document.getElementById('sp-admin-mgmt').value;
+  const spHash=await sha256(sp);
+  if(spHash===SUPER_HASH){
+    document.getElementById('admin-mgmt-locked').style.display='none';
+    document.getElementById('admin-mgmt-panel').style.display='block';
+    renderAdminList();
+    showToast('✓ Verified!');
+  } else {
+    alert('Super password salah!');
+    document.getElementById('sp-admin-mgmt').value='';
+  }
+}
+
+async function createAdminAccount(){
+  const u=document.getElementById('na-user').value.trim();
+  const p=document.getElementById('na-pass').value;
+  const name=document.getElementById('na-name').value.trim();
+  if(!u||!p||!name){alert('Sila isi semua maklumat!');return}
+  if(p.length<8){alert('Password mesti sekurang-kurangnya 8 aksara!');return}
+  const list=await getSubAdmins();
+  if(list.find(a=>a.u===u)){alert('Username sudah wujud!');return}
+  const ph=await sha256(p);
+  const newAdmin={u,h:ph,name,deviceFp:null,created:Date.now(),status:'Belum Login'};
+  const ok=await saveSubAdmin(newAdmin);
+  if(!ok){showToast('⚠️ Gagal simpan ke database!');return}
+  renderAdminList();
+  ['na-user','na-pass','na-name'].forEach(id=>document.getElementById(id).value='');
+  logActivity('tambah_admin','Akaun admin baru: '+u+' ('+name+')');
+  showToast('✓ Akaun admin "'+u+'" berjaya dicipta!');
+}
+
+async function renderAdminList(){
+  const c=document.getElementById('admin-accounts-list');if(!c)return;
+  c.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:13px">⏳ Memuatkan...</div>';
+  const list=await getSubAdmins();
+  if(!list.length){
+    c.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Tiada admin tambahan lagi.</div>';
+    return;
+  }
+  c.innerHTML=list.map((a,i)=>`<div style="background:#fff;border:var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <div style="width:38px;height:38px;background:var(--primary3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">👤</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:13px;font-weight:700;color:var(--navy)">${a.name}</div>
+      <div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">@${a.u}</div>
+      <div style="font-size:10.5px;margin-top:3px;display:flex;align-items:center;gap:6px">
+        <span style="background:${a.deviceFp?'var(--green2)':'var(--orange2)'};color:${a.deviceFp?'var(--green)':'var(--orange)'};padding:2px 8px;border-radius:20px;font-weight:700;font-size:10px">${a.deviceFp?'🔒 Device Terkunci':'⏳ Belum Login'}</span>
+        <span style="color:var(--muted2)">${new Date(a.created).toLocaleDateString('ms-MY')}</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-shrink:0">
+      ${a.deviceFp?`<button class="btn btn-sm" style="background:var(--orange2);color:var(--orange);border:none;font-size:11px" onclick="resetDeviceLock('${a.u}')" title="Reset device lock">🔓 Reset Lock</button>`:''}
+      <button class="btn btn-d btn-sm" onclick="deleteSubAdmin('${a.u}')">Padam</button>
+    </div>
+  </div>`).join('');
+}
+
+async function resetDeviceLock(username){
+  if(!confirm('Reset device lock untuk admin ini?'))return;
+  const list=await getSubAdmins();
+  const admin=list.find(a=>a.u===username);
+  if(!admin)return;
+  admin.deviceFp=null;admin.status='Reset';
+  await saveSubAdmin(admin);
+  renderAdminList();
+  logActivity('reset_device_lock','Reset lock untuk: '+username);
+  showToast('✓ Device lock direset!');
+}
+
+async function deleteSubAdmin(username){
+  if(!confirm('Padam akaun admin "'+username+'"?'))return;
+  await deleteSubAdminFb(username);
+  renderAdminList();
+  logActivity('padam_admin','Akaun dipadam: '+username);
+  showToast('Akaun dipadam.');
+}
+
+// ===== AUTH =====
+// Passwords disimpan dalam bentuk SHA-256 hash
+// Tiada password plaintext dalam kod ini
+const ADMINS=[
+  {u:'admin',   h:'c384d8dfffa9d633068904562cd0982c3e937e342a97aec3f369ac24652118df'},
+  {u:'stpm2026',h:'18abc2f373169f8d55cb884d6552f16a508cf279d7a36489f1918e7a9e29e709'}
+];
+// Secret keyword hash untuk buka panel login via search
+// Keyword: [TERSEMBUNYI] — taip dalam search bar untuk akses
+const SECRET_KW_HASH='3de99829cbddf91308e692b40f0dfdb0d933cbe42e14d5dbf8f8189c87384f13';
+const SUPER_HASH='3dd0bd1b14070654642935829a39a103cd44a31874853bdc1481709540c54f10';
+
+async function sha256(msg){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+// Tambah admin lain: {u:'username',p:'password'}
+
+// ===== MEMBER COUNT =====
+function getMemberCount(){return store.settings?.members||'—'}
+function updateMemberUI(){
+  const n=getMemberCount();
+  ['top-members','s-members','hs-members'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=n});
+}
+
+// ===== SUBJEK DATA =====
+const SUBJEK={
+  teras:{label:'Teras / Wajib',color:'#1a56db',icon:'⭐',items:[
+    {code:'900',name:'Pengajian Am',icon:'📖',color:'#1a56db'},
+    {code:'MUET',name:'Malaysian University English Test',icon:'🇬🇧',color:'#0d9488'},
+  ]},
+  bahasa:{label:'Bahasa & Kesusasteraan',color:'#7c3aed',icon:'📝',items:[
+    {code:'910',name:'Bahasa Melayu',icon:'🌺',color:'#7c3aed'},
+    {code:'911',name:'Bahasa Cina',icon:'🀄',color:'#dc2626'},
+    {code:'912',name:'Bahasa Tamil',icon:'🏵️',color:'#ea580c'},
+    {code:'913',name:'Bahasa Arab',icon:'☪️',color:'#16a34a'},
+    {code:'920',name:'Literature in English',icon:'📚',color:'#0d9488'},
+    {code:'922',name:'Kesusasteraan Melayu Komunikatif',icon:'✍️',color:'#7c3aed'},
+  ]},
+  islam:{label:'Pengajian Islam',color:'#16a34a',icon:'☪️',items:[
+    {code:'930',name:'Syariah',icon:'⚖️',color:'#16a34a'},
+    {code:'931',name:'Usuluddin',icon:'🕌',color:'#0d9488'},
+    {code:'932',name:'Tahfiz Al-Quran',icon:'📖',color:'#059669'},
+  ]},
+  sosial:{label:'Sains Sosial & Kemanusiaan',color:'#ea580c',icon:'🌍',items:[
+    {code:'940',name:'Sejarah',icon:'📜',color:'#9333ea'},
+    {code:'942',name:'Geografi',icon:'🌏',color:'#16a34a'},
+    {code:'944',name:'Ekonomi',icon:'📊',color:'#ea580c'},
+    {code:'946',name:'Pengajian Perniagaan',icon:'💼',color:'#d97706'},
+    {code:'948',name:'Perakaunan',icon:'🧮',color:'#0891b2'},
+    {code:'970',name:'Seni Visual',icon:'🎨',color:'#ec4899'},
+    {code:'966',name:'Sains Sukan',icon:'⚽',color:'#16a34a'},
+  ]},
+  sains:{label:'Sains & Matematik',color:'#2563eb',icon:'🔬',items:[
+    {code:'950',name:'Mathematics (M)',icon:'📏',color:'#7c3aed'},
+    {code:'954',name:'Mathematics (T)',icon:'📐',color:'#4f46e5'},
+    {code:'958',name:'ICT',icon:'💻',color:'#1d4ed8'},
+    {code:'960',name:'Physics',icon:'⚛️',color:'#2563eb'},
+    {code:'962',name:'Chemistry',icon:'⚗️',color:'#0d9488'},
+    {code:'964',name:'Biology',icon:'🧬',color:'#16a34a'},
+  ]}
+};
+const ALL_SUBJ=Object.values(SUBJEK).flatMap(g=>g.items);
+
+// ===== STATE =====
+let isAdmin=false;
+let store={ann:[],nota:[],pautan:[],ahli:[],jadual:[],activityLog:[],feedbacks:[],drafts:[],stats:{pageViews:0,lastVisits:[]},settings:{
+  members:'—',groupname:'STPM 2026 Kohort Baharu',tguser:'@stpm20266',
+  tglink:'https://t.me/stpm20266',desc:'',
+  examname:'STPM Semester 2 2026 (Bertulis)',examdate:'2026-06-29',
+  semester:'3',
+  botlink:'',
+  musicId:'cuSR3a409Tc',
+  welcomeEnabled:true,
+  welcomeTitle:'Selamat Datang ke Portal Rasmi! 👋',
+  welcomeMsg:'Portal rasmi kumpulan Telegram @stpm20266 — semua maklumat STPM 2026 di satu tempat.',
+  welcomeEmoji:'🎓',
+  marquee:['📢 Portal Rasmi STPM 2026 Kohort Baharu | @stpm20266','📅 STPM Semester 2: 29 Jun 2026 — Bersedia!','📅 STPM Semester 3: 17 November 2026','📚 Nota & bahan dikuruskan oleh admin sahaja','🤖 Bot Telegram: Coming Soon!']
+}};
+let annTxt='',annTag='';
+// Temporary attachment buffers for nota form
+let tempLinks=[],tempFiles=[],tempImages=[];
+
+// ===== FIREBASE DATA SYNC =====
+const PORTAL_DOC = 'portal_data';
+let saving = false;
+let saveTimer = null;
+
+async function save(){
+  // Debounce — tunggu 800ms sebelum save
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    if(saving)return;
+    saving=true;
+    try {
+      // Split data ikut collection supaya tak exceed 1MB limit
+      await db.collection('portal').doc('ann').set({data: store.ann});
+      await db.collection('portal').doc('nota').set({data: store.nota});
+      await db.collection('portal').doc('pautan').set({data: store.pautan});
+      await db.collection('portal').doc('ahli').set({data: store.ahli});
+      await db.collection('portal').doc('jadual').set({data: store.jadual});
+      await db.collection('portal').doc('settings').set({data: store.settings});
+      await db.collection('portal').doc('feedbacks').set({data: store.feedbacks||[]});
+      await db.collection('portal').doc('drafts').set({data: store.drafts||[]});
+      await db.collection('portal').doc('activityLog').set({data: (store.activityLog||[]).slice(0,100)});
+      await db.collection('portal').doc('stats').set({data: store.stats||{}});
+    } catch(e){console.error('Save error:',e);}
+    saving=false;
+  }, 800);
+}
+
+async function load(){
+  try {
+    const docs = ['ann','nota','pautan','ahli','jadual','settings','feedbacks','drafts','activityLog','stats'];
+    const snaps = await Promise.all(docs.map(d=>db.collection('portal').doc(d).get()));
+    snaps.forEach((snap,i)=>{
+      if(snap.exists){
+        const key=docs[i];
+        if(key==='settings'){
+          store.settings={...store.settings,...snap.data().data};
+        } else {
+          store[key]=snap.data().data||store[key];
+        }
+      }
+    });
+  } catch(e){
+    console.error('Load error:',e);
+    // Fallback ke sessionStorage kalau Firebase fail
+    const d=sessionStorage.getItem('stpm26v3');
+    if(d){
+      const parsed=JSON.parse(d);
+      store={...store,...parsed,settings:{...store.settings,...(parsed.settings||{})}};
+    }
+  }
+}
+
+// Real-time listener untuk sync antara devices
+function startRealtimeSync(){
+  const docs=['ann','nota','pautan','ahli','jadual','settings','feedbacks','drafts','activityLog'];
+  docs.forEach(key=>{
+    db.collection('portal').doc(key).onSnapshot(snap=>{
+      if(snap.exists&&!saving){
+        if(key==='settings'){
+          store.settings={...store.settings,...snap.data().data};
+        } else {
+          store[key]=snap.data().data||store[key];
+        }
+        // Re-render current section
+        renderSection(curSec);
+        updateNotifBadge();
+      }
+    });
+  });
+}
+
+// Load data then start app
+async function initApp(){
+  await load();
+  applySettings();
+  setTimeout(showWelcomeIfNeeded,800);
+  renderAll();
+  startRealtimeSync();
+}
+initApp();
+
+// ===== AUTH =====
+function openLogin(){document.getElementById('login-ov').classList.add('open');setTimeout(()=>document.getElementById('l-u').focus(),100)}
+function closeLogin(){document.getElementById('login-ov').classList.remove('open');document.getElementById('login-err').style.display='none';['l-u','l-p'].forEach(id=>document.getElementById(id).value='')}
+async function doLogin(){
+  const u=document.getElementById('l-u').value.trim();
+  const p=document.getElementById('l-p').value;
+  const ph=await sha256(p);
+  const fp=await getDeviceFingerprint();
+
+  // Check main admin (no device lock)
+  const mainAdmin=ADMINS.find(a=>a.u===u&&a.h===ph);
+  if(mainAdmin){
+    isAdmin=true;document.body.classList.add('admin');
+    document.getElementById('admin-topbtn').style.display='flex';
+    const bg=document.querySelector('.badge-gold');if(bg)bg.style.display='inline-block';
+    closeLogin();logActivity('login','Super Admin log masuk');showToast('✓ Log masuk berjaya! Selamat datang Admin.');renderAll();
+    return;
+  }
+
+  // Check sub-admins from Firebase
+  try {
+    const subDoc=await db.collection('admins').doc(u).get();
+    if(subDoc.exists){
+      const sub=subDoc.data();
+      if(sub.h!==ph){
+        document.getElementById('login-err').textContent='Username atau password tidak sah.';
+        document.getElementById('login-err').style.display='block';
+        document.getElementById('l-p').value='';
+        return;
+      }
+      // First login — lock to this device
+      if(!sub.deviceFp){
+        await db.collection('admins').doc(u).set({...sub,deviceFp:fp,status:'Aktif'});
+        isAdmin=true;document.body.classList.add('admin');
+        document.getElementById('admin-topbtn').style.display='flex';
+        const bg=document.querySelector('.badge-gold');if(bg)bg.style.display='inline-block';
+        closeLogin();logActivity('login',sub.name+' ('+u+') — Device dikunci');
+        showToast('✓ Log masuk berjaya! Device kamu telah didaftarkan.');renderAll();
+        return;
+      }
+      // Check device fingerprint
+      if(sub.deviceFp===fp){
+        isAdmin=true;document.body.classList.add('admin');
+        document.getElementById('admin-topbtn').style.display='flex';
+        const bg=document.querySelector('.badge-gold');if(bg)bg.style.display='inline-block';
+        closeLogin();logActivity('login',sub.name+' ('+u+') log masuk');
+        showToast('✓ Log masuk berjaya! Selamat datang, '+sub.name+'.');renderAll();
+        return;
+      } else {
+        document.getElementById('login-err').textContent='⚠️ Akaun ini dikunci ke device lain. Hubungi super admin.';
+        document.getElementById('login-err').style.display='block';
+        document.getElementById('l-p').value='';
+        logActivity('login_gagal','Cubaan login dari device tidak sah: '+u);
+        return;
+      }
+    }
+  } catch(e){console.error('Firebase login error:',e)}
+
+  // Wrong credentials
+  document.getElementById('login-err').textContent='Username atau password tidak sah.';
+  document.getElementById('login-err').style.display='block';
+  document.getElementById('l-p').value='';
+}
+function logoutAdmin(){
+  if(!confirm('Log keluar dari Admin Mode?'))return;
+  isAdmin=false;
+  document.body.classList.remove('admin');
+  document.getElementById('admin-topbtn').style.display='none';
+  // login button hidden by default
+  const bg=document.querySelector('.badge-gold');if(bg)bg.style.display='none';
+  // hide settings nav btn, go home
+  logActivity('logout','Admin log keluar');showToast('Log keluar berjaya.');
+  goTo('home');
+}
+
+// ===== COUNTDOWN =====
+let cdTarget=new Date((store.settings.examdate||'2026-06-29')+'T08:00:00');
+function tick(){
+  const diff=cdTarget-new Date();
+  if(diff<0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='00'});return}
+  const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=String([d,h,m,s][i]).padStart(2,'0')});
+  const sh=document.getElementById('s-hari');if(sh)sh.textContent=d;
+}
+setInterval(tick,1000);tick();
+document.getElementById('top-date').textContent=new Date().toLocaleDateString('ms-MY',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+
+// ===== APPLY SETTINGS =====
+function applySettings(){
+  const s=store.settings;
+  const ht=document.querySelector('.h-title');if(ht)ht.textContent=s.groupname||'STPM 2026 Kohort Baharu';
+  const hsub=document.querySelector('.h-sub span');if(hsub)hsub.textContent=s.tguser||'@stpm20266';
+  document.querySelectorAll('a[href*="t.me/stpm20266"]').forEach(a=>{if(s.tglink)a.href=s.tglink});
+  const heroSub=document.querySelector('.hero-sub strong');if(heroSub)heroSub.textContent=s.tguser||'@stpm20266';
+  updateMemberUI();
+  if(s.marquee&&s.marquee.length){
+    const items=[...s.marquee,...s.marquee].map(t=>`<span class="mq-item"><span class="mq-dot"></span>${t}</span>`).join('');
+    const track=document.querySelector('.mq-track');if(track)track.innerHTML=items;
+  }
+  if(s.examdate){cdTarget=new Date(s.examdate+'T08:00:00');tick();}
+  if(s.examname){
+    const nm=document.querySelector('.cd-info .nm');if(nm)nm.textContent=s.examname;
+    const dt=document.querySelector('.cd-info .dt');if(dt)dt.textContent=s.examdate||'';
+  }
+  const semEl=document.getElementById('hs-semester');if(semEl)semEl.textContent=s.semester||'3';
+}
+// initApp() handles applySettings, showWelcome, renderAll
+
+// ===== NAV =====
+let curSec='home';
+function goTo(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  const idx={home:0,pengumuman:1,nota:2,jadual:3,pautan:4,ahli:5,bot:6,feedback:7,settings:8,activitylog:9,stats:10,drafts:11}[id];
+  document.querySelectorAll('.nav-btn')[idx]?.classList.add('active');
+  curSec=id;window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main-nav').classList.remove('open');
+  renderSection(id);
+}
+function renderAll(){renderSection(curSec)}
+function renderSection(id){
+  if(id==='home')renderHome();
+  if(id==='pengumuman')renderAnnFull();
+  if(id==='nota')renderNota();
+  if(id==='pautan')renderPautan();
+  if(id==='ahli')renderAhli();
+  if(id==='settings'){loadSettingsForm();
+    const dl=document.getElementById('danger-locked');
+    const du=document.getElementById('danger-unlocked');
+    if(dl)dl.style.display='block';
+    if(du)du.style.display='none';
+    lockMusicSettings();
+  }
+  if(id==='activitylog')renderLog();
+  if(id==='bot')renderBotLink();
+  if(id==='feedback')renderFeedback();
+  if(id==='stats')renderStats();
+  if(id==='drafts'&&isAdmin)renderDrafts();
+  if(id==='home'){renderHome();trackVisit();}
+}
+
+// ===== TOAST =====
+function showToast(msg,dur=2800){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
+
+// ===== MODAL =====
+function openVM(title,bodyHTML){
+  document.getElementById('vm-title').textContent=title;
+  document.getElementById('vm-body').innerHTML=bodyHTML;
+  document.getElementById('view-modal').classList.add('open');
+}
+function closeVM(e){if(!e||e.target.id==='view-modal')document.getElementById('view-modal').classList.remove('open')}
+
+// ===== LIGHTBOX =====
+function openLB(src){document.getElementById('lb-img').src=src;document.getElementById('lightbox').classList.add('open')}
+
+// ===== HOME =====
+function renderHome(){
+  document.getElementById('hs-nota').textContent=store.nota.length;
+  document.getElementById('hs-ann').textContent=store.ann.length;
+  document.getElementById('s-nota').textContent=store.nota.length;
+  document.getElementById('s-ann').textContent=store.ann.length;
+  const c=document.getElementById('home-ann');
+  const items=[...store.ann].sort((a,b)=>(b.pinned||0)-(a.pinned||0)||(b.time-a.time)).slice(0,3);
+  c.innerHTML=items.length?items.map(a=>annHTML(a)).join(''):'<div style="text-align:center;padding:32px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📢</div><p style="font-size:13px">Belum ada pengumuman.</p></div>';
+}
+renderHome();
+
+// ===== ANN =====
+const tagCls={Umum:'blue',Penting:'red',Peperiksaan:'orange',Nota:'green',Jadual:'teal'};
+function annHTML(a){
+  return `<div class="ann-item${a.pinned?' pinned':''}" onclick="viewAnn(${a.id})">
+    <div class="ann-emoji">${a.emoji||'📢'}</div>
+    <div class="ann-body" style="min-width:0;flex:1">
+      <div class="ann-tags">${a.pinned?'<span class="pin-badge">📌 Pin</span>':''}<span class="atag ${tagCls[a.tag]||'blue'}">${a.tag}</span></div>
+      <div class="ann-title">${a.title}</div>
+      <div class="ann-preview">${a.body}</div>
+      <div class="ann-meta"><span class="ann-date">${new Date(a.time).toLocaleDateString('ms-MY',{day:'numeric',month:'short',year:'numeric'})}</span><span class="ann-views">👁 ${a.views||0}</span></div>
+    </div>
+    <div class="card-admin"><button class="btn btn-d btn-sm" onclick="event.stopPropagation();deleteAnn(${a.id})">Padam</button></div>
+  </div>`;
+}
+function renderAnnFull(){
+  let items=[...store.ann].sort((a,b)=>(b.pinned||0)-(a.pinned||0)||(b.time-a.time));
+  if(annTxt)items=items.filter(a=>a.title.toLowerCase().includes(annTxt.toLowerCase())||a.body.toLowerCase().includes(annTxt.toLowerCase()));
+  if(annTag)items=items.filter(a=>a.tag===annTag);
+  document.getElementById('ann-full').innerHTML=items.length?items.map(a=>annHTML(a)).join(''):'<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📢</div><p>Tiada pengumuman ditemui.</p></div>';
+}
+function filterAnn(v){annTxt=v;renderAnnFull()}
+function setAnnTag(t,btn){annTag=t;document.querySelectorAll('#sec-pengumuman .sbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAnnFull()}
+function openAnnForm(){
+  if(!isAdmin)return;
+  openVM('Tambah Pengumuman',`
+    <div class="fg"><label>Tajuk</label><input id="af-title" placeholder="Tajuk pengumuman..." style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0">
+      <div class="fg"><label>Tag</label><select id="af-tag" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff"><option>Umum</option><option>Penting</option><option>Peperiksaan</option><option>Nota</option><option>Jadual</option></select></div>
+      <div class="fg"><label>Pin di Atas?</label><select id="af-pin" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff"><option value="0">Tidak</option><option value="1">Ya — Pin</option></select></div>
+    </div>
+    <div class="fg"><label>Kandungan</label><textarea id="af-body" placeholder="Isi pengumuman..." style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;min-height:90px;resize:vertical;line-height:1.6"></textarea></div>
+    <div class="fg" style="margin-bottom:14px"><label>Emoji (optional)</label><input id="af-emoji" placeholder="📢" maxlength="4" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-p" onclick="saveAnn()">Simpan</button><button class="btn btn-o" onclick="closeVM()">Batal</button></div>
+  `);
+}
+function saveAnn(){
+  if(!isAdmin)return;
+  const title=document.getElementById('af-title')?.value.trim();
+  const body=document.getElementById('af-body')?.value.trim();
+  if(!title||!body){alert('Sila isi tajuk dan kandungan!');return}
+  store.ann.push({id:Date.now(),title,body,tag:document.getElementById('af-tag').value,pinned:document.getElementById('af-pin').value==='1',emoji:document.getElementById('af-emoji').value||'📢',time:Date.now(),views:0});
+  save();closeVM();renderAnnFull();renderHome();logActivity('tambah_pengumuman',title);updateNotifBadge();showToast('✓ Pengumuman disimpan!');
+}
+function deleteAnn(id){if(!isAdmin||!confirm('Padam pengumuman ini?'))return;const a=store.ann.find(x=>x.id===id);store.ann=store.ann.filter(a=>a.id!==id);save();renderAnnFull();renderHome();logActivity('padam_pengumuman',a?.title||'');showToast('Pengumuman dipadam.')}
+function viewAnn(id){
+  const a=store.ann.find(x=>x.id===id);if(!a)return;
+  a.views=(a.views||0)+1;save();
+  openVM(a.title,`<span class="atag ${tagCls[a.tag]||'blue'}" style="display:inline-block;margin-bottom:12px">${a.tag}</span>
+    <p style="white-space:pre-line;font-size:13.5px;line-height:1.8;color:var(--text)">${a.body}</p>
+    <div style="margin-top:14px;padding-top:13px;border-top:1px solid var(--gray3);font-size:11.5px;color:var(--muted2);display:flex;justify-content:space-between">
+      <span>${new Date(a.time).toLocaleString('ms-MY')}</span><span>👁 ${a.views} tontonan</span>
+    </div>`);
+}
+
+// ===== NOTA — SUBJEK LIST =====
+const SUBJ_MAP={
+  teras:['900 Pengajian Am','MUET'],
+  bahasa:['910 Bahasa Melayu','911 Bahasa Cina','912 Bahasa Tamil','913 Bahasa Arab','920 Literature in English','922 Kesusasteraan Melayu Komunikatif'],
+  islam:['930 Syariah','931 Usuluddin','932 Tahfiz Al-Quran'],
+  sosial:['940 Sejarah','942 Geografi','944 Ekonomi','946 Pengajian Perniagaan','948 Perakaunan','970 Seni Visual','966 Sains Sukan'],
+  sains:['950 Mathematics (M)','954 Mathematics (T)','958 ICT','960 Physics','962 Chemistry','964 Biology']
+};
+function updateSubjList(){
+  const cat=document.getElementById('nt-cat').value;
+  const sel=document.getElementById('nt-subj-sel');
+  sel.innerHTML=cat?SUBJ_MAP[cat].map(s=>`<option>${s}</option>`).join(''):'<option value="">-- Pilih Kategori Dulu --</option>';
+}
+
+// ===== NOTA — ATTACHMENTS =====
+function addLink(){
+  const url=document.getElementById('nt-link-url').value.trim();
+  const label=document.getElementById('nt-link-label').value.trim()||url;
+  if(!url){alert('Sila masukkan URL!');return}
+  tempLinks.push({url,label});
+  document.getElementById('nt-link-url').value='';document.getElementById('nt-link-label').value='';
+  renderLinkPreview();
+}
+function renderLinkPreview(){
+  document.getElementById('links-preview').innerHTML=tempLinks.map((l,i)=>`
+    <div class="ap-item">
+      <span style="font-size:16px">🔗</span>
+      <span class="ap-name">${l.label}</span>
+      <span class="ap-size" style="font-size:11px;color:var(--muted2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.url}</span>
+      <button onclick="removeLink(${i})">✕</button>
+    </div>`).join('');
+}
+function removeLink(i){tempLinks.splice(i,1);renderLinkPreview()}
+
+function handleFiles(input){
+  Array.from(input.files).forEach(f=>{
+    if(f.size>10*1024*1024){alert(`${f.name} terlalu besar (max 10MB)`);return}
+    const reader=new FileReader();
+    reader.onload=e=>tempFiles.push({name:f.name,size:f.size,type:f.type,data:e.target.result});
+    reader.onloadend=renderFilesPreview;
+    reader.readAsDataURL(f);
+  });
+  input.value='';
+}
+function renderFilesPreview(){
+  document.getElementById('files-preview').innerHTML=tempFiles.map((f,i)=>`
+    <div class="ap-item">
+      <span style="font-size:16px">${fileIcon(f.name)}</span>
+      <span class="ap-name">${f.name}</span>
+      <span class="ap-size">${(f.size/1024).toFixed(0)}KB</span>
+      <button onclick="removeFile(${i})">✕</button>
+    </div>`).join('');
+}
+function removeFile(i){tempFiles.splice(i,1);renderFilesPreview()}
+function fileIcon(name){const ext=name.split('.').pop().toLowerCase();return{pdf:'📄',doc:'📝',docx:'📝',ppt:'📊',pptx:'📊',xls:'📋',xlsx:'📋',txt:'📃',zip:'🗜️'}[ext]||'📎'}
+
+function handleImages(input){
+  Array.from(input.files).forEach(f=>{
+    if(f.size>5*1024*1024){alert(`${f.name} terlalu besar (max 5MB)`);return}
+    const reader=new FileReader();
+    reader.onload=e=>tempImages.push({name:f.name,data:e.target.result});
+    reader.onloadend=renderImgsPreview;
+    reader.readAsDataURL(f);
+  });
+  input.value='';
+}
+function renderImgsPreview(){
+  document.getElementById('imgs-preview').innerHTML=tempImages.map((img,i)=>`
+    <div class="img-thumb">
+      <img src="${img.data}" alt="${img.name}" onclick="openLB('${img.data}')"/>
+      <button onclick="removeImg(${i})">✕</button>
+    </div>`).join('');
+}
+function removeImg(i){tempImages.splice(i,1);renderImgsPreview()}
+
+// ===== NOTA — SAVE =====
+function saveNota(){
+  if(!isAdmin)return;
+  const subj=document.getElementById('nt-subj-sel').value;
+  const title=document.getElementById('nt-title').value.trim();
+  if(!subj){alert('Sila pilih kategori dan subjek!');return}
+  if(!title&&!document.getElementById('nt-body').value.trim()&&!tempLinks.length&&!tempFiles.length&&!tempImages.length){alert('Sila isi sekurang-kurangnya tajuk atau kandungan!');return}
+  const nota={
+    id:Date.now(),
+    subj,cat:document.getElementById('nt-cat').value,
+    title:title||'Nota '+subj,
+    type:document.getElementById('nt-type').value,
+    body:document.getElementById('nt-body').value.trim(),
+    links:[...tempLinks],
+    files:[...tempFiles],
+    images:[...tempImages],
+    author:document.getElementById('nt-author').value||'Admin',
+    time:Date.now()
+  };
+  store.nota.push(nota);save();
+  // Reset
+  ['nt-title','nt-body','nt-author','nt-link-url','nt-link-label'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nt-cat').value='';document.getElementById('nt-subj-sel').innerHTML='<option>-- Pilih Kategori Dulu --</option>';
+  tempLinks=[];tempFiles=[];tempImages=[];
+  ['links-preview','files-preview','imgs-preview'].forEach(id=>document.getElementById(id).innerHTML='');
+  ntTab('all');renderHome();logActivity('tambah_nota',nota.title+' ('+nota.subj+')');showToast('✓ Nota berjaya disimpan!');
+}
+
+// ===== NOTA — RENDER =====
+function ntTab(t){
+  document.querySelectorAll('#sec-nota .tab-btn').forEach((b,i)=>b.classList.toggle('active',['subj','all','add'][i]===t));
+  ['nt-subj','nt-all','nt-add'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('active')}});
+  const el=document.getElementById('nt-'+t);if(el)el.classList.add('active');
+  if(t==='subj')renderSubjGroups();
+  if(t==='all')renderNotaAll();
+}
+function renderSubjGroups(){
+  const c=document.getElementById('nt-subj');
+  c.innerHTML=Object.entries(SUBJEK).map(([cat,g])=>{
+    const cards=g.items.map(s=>{
+      const count=store.nota.filter(n=>n.subj&&n.subj.includes(s.code)).length;
+      return `<div class="subj-card" onclick="viewSubjNota('${s.code}','${s.name}')">
+        <div class="subj-accent" style="background:${s.color}"></div>
+        <span class="subj-icon">${s.icon}</span>
+        <div class="subj-code" style="font-size:11px;color:var(--muted2)">${s.code}</div>
+        <h3>${s.name}</h3>
+        <p>${count} bahan</p>
+        <div class="subj-footer"><span style="font-size:11px;color:var(--muted2)">${count} nota</span><span style="color:var(--blue);font-weight:700;font-size:13px">→</span></div>
+      </div>`;
+    }).join('');
+    return `<div class="subj-group">
+      <div class="subj-group-title">${g.icon} ${g.label}</div>
+      <div class="subj-grid">${cards}</div>
+    </div>`;
+  }).join('');
+}
+function viewSubjNota(code,name){
+  ntTab('all');
+  setTimeout(()=>{
+    const inp=document.querySelector('#nt-all input');
+    if(inp){inp.value=code;filterNota(code)}
+  },80);
+}
+function renderNotaAll(f=''){
+  let items=[...store.nota].reverse().filter(n=>!f||(n.subj||'').toLowerCase().includes(f.toLowerCase())||(n.title||'').toLowerCase().includes(f.toLowerCase()));
+  const c=document.getElementById('nota-list');
+  if(!items.length){
+    c.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📚</div><p style="font-size:13px">${isAdmin?'Tambah nota melalui tab "+ Tambah Nota".':'Nota akan dipaparkan di sini setelah admin menambahkannya.'}</p></div>`;
+    return;
+  }
+  c.innerHTML=items.map(n=>{
+    const s=ALL_SUBJ.find(x=>n.subj&&n.subj.includes(x.code))||{icon:'📝',color:'#6b7280'};
+    const hasAttach=[n.files?.length,n.images?.length,n.links?.length].some(Boolean);
+    return `<div class="nota-card">
+      <div class="nota-icon" style="background:${s.color}18">${s.icon}</div>
+      <div class="nota-info" onclick="viewNota(${n.id})">
+        <div class="nota-title">${n.title}</div>
+        <div class="nota-sub">${n.subj||'—'} · ${n.type} · ${n.author} · ${new Date(n.time).toLocaleDateString('ms-MY')}${hasAttach?' · 📎':''}</div>
+      </div>
+      <span class="nota-badge">${n.type}</span>
+      <div class="card-admin"><button class="btn btn-d btn-sm" onclick="deleteNota(${n.id})">Padam</button></div>
+    </div>`;
+  }).join('');
+}
+function filterNota(v){renderNotaAll(v)}
+function renderNota(){renderSubjGroups();renderNotaAll()}
+function deleteNota(id){
+  if(!isAdmin||!confirm('Padam nota ini?'))return;
+  const n=store.nota.find(x=>x.id===id);
+  store.nota=store.nota.filter(n=>n.id!==id);save();renderNotaAll();renderHome();logActivity('padam_nota',n?.title||'');showToast('Nota dipadam.');
+}
+function viewNota(id){
+  const n=store.nota.find(x=>x.id===id);if(!n)return;
+  let html=`<div class="atag blue" style="display:inline-block;margin-bottom:11px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase">${n.subj||''} · ${n.type}</div>`;
+  if(n.body){
+    html+=`<div class="nota-view-section"><div class="nota-view-body">${n.body}</div></div>`;
+  }
+  if(n.images&&n.images.length){
+    html+=`<div class="nota-view-section"><div class="nota-view-section-title">🖼️ Gambar (${n.images.length})</div>
+    <div class="nota-images">${n.images.map(img=>`<img src="${img.data}" alt="${img.name}" onclick="openLB('${img.data}')" title="${img.name}"/>`).join('')}</div></div>`;
+  }
+  if(n.files&&n.files.length){
+    html+=`<div class="nota-view-section"><div class="nota-view-section-title">📎 Fail (${n.files.length})</div>
+    <div class="attach-list">${n.files.map(f=>`<div class="attach-item"><span class="attach-icon">${fileIcon(f.name)}</span><a href="${f.data}" download="${f.name}">${f.name}</a><span class="attach-type">${(f.size/1024).toFixed(0)}KB</span></div>`).join('')}</div></div>`;
+  }
+  if(n.links&&n.links.length){
+    html+=`<div class="nota-view-section"><div class="nota-view-section-title">🔗 Link (${n.links.length})</div>
+    <div class="attach-list">${n.links.map(l=>`<div class="attach-item"><span class="attach-icon">🔗</span><a href="${l.url}" target="_blank" rel="noopener">${l.label}</a></div>`).join('')}</div></div>`;
+  }
+  html+=`<div style="margin-top:13px;padding-top:12px;border-top:1px solid var(--gray3);font-size:11px;color:var(--muted2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px">
+    <span>${n.author?'Oleh: '+n.author+' · ':''}</span><span>${new Date(n.time).toLocaleDateString('ms-MY')}</span>
+  </div>`;
+  openVM(n.title,html);
+}
+
+// ===== JADUAL =====
+function jdTab(t){
+  document.querySelectorAll('#sec-jadual .tab-btn').forEach((b,i)=>b.classList.toggle('active',['rasmi','kk','add'][i]===t));
+  ['jd-rasmi','jd-kk','jd-add'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active')});
+  const el=document.getElementById('jd-'+t);if(el)el.classList.add('active');
+  if(t==='add')renderJdCustom();
+}
+function saveJd(){
+  if(!isAdmin)return;
+  const name=document.getElementById('jd-name').value.trim(),date=document.getElementById('jd-date').value;
+  if(!name||!date){alert('Sila isi nama dan tarikh!');return}
+  store.jadual.push({id:Date.now(),name,date,time:document.getElementById('jd-time').value,cat:document.getElementById('jd-cat').value});
+  save();renderJdCustom();logActivity('tambah_jadual',name+' — '+date);showToast('✓ Jadual disimpan!');
+  ['jd-name','jd-time'].forEach(id=>document.getElementById(id).value='');document.getElementById('jd-date').value='';
+}
+function renderJdCustom(){
+  const tb=document.getElementById('jd-custom-body');if(!tb)return;
+  tb.innerHTML=store.jadual.length?store.jadual.map(j=>`<tr>
+    <td>${j.name}</td><td>${j.date}</td><td>${j.time||'—'}</td><td>${j.cat}</td>
+    <td><button class="btn btn-d btn-sm card-admin" onclick="deleteJd(${j.id})" style="display:${isAdmin?'flex':'none'}">Padam</button></td>
+  </tr>`).join(''):'<tr><td colspan="5" style="text-align:center;color:var(--muted2);padding:16px">Tiada jadual tambahan</td></tr>';
+}
+function deleteJd(id){if(!isAdmin)return;store.jadual=store.jadual.filter(j=>j.id!==id);save();renderJdCustom()}
+
+// ===== PAUTAN =====
+let plFormOpen=false;
+function togglePlForm(){plFormOpen=!plFormOpen;document.getElementById('pl-form').style.display=plFormOpen&&isAdmin?'block':'none'}
+function savePautan(){
+  if(!isAdmin)return;
+  const name=document.getElementById('pl-name').value.trim(),url=document.getElementById('pl-url').value.trim();
+  if(!name||!url){alert('Sila isi nama dan URL!');return}
+  store.pautan.push({id:Date.now(),name,url,desc:document.getElementById('pl-desc').value,icon:document.getElementById('pl-icon').value||'🔗'});
+  save();renderPautan();togglePlForm();logActivity('tambah_pautan',name+' — '+url);showToast('✓ Pautan disimpan!');
+  ['pl-name','pl-url','pl-desc','pl-icon'].forEach(id=>document.getElementById(id).value='');
+}
+function renderPautan(){
+  const c=document.getElementById('custom-pl');
+  const empty=document.getElementById('pl-empty');
+  if(!store.pautan.length){c.innerHTML='';empty.style.display='block';return}
+  empty.style.display='none';
+  c.innerHTML=store.pautan.map(p=>`<div style="position:relative">
+    <a href="${p.url}" target="_blank" class="pl-card"><div class="pl-icon" style="background:#f1f5f9">${p.icon}</div><h4>${p.name}</h4><p>${p.desc||''}</p></a>
+    <button class="card-admin" style="position:absolute;top:5px;right:5px;background:var(--red2);border:none;color:var(--red);border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:11px;align-items:center;justify-content:center" onclick="deletePl(${p.id})">✕</button>
+  </div>`).join('');
+  if(isAdmin)document.querySelectorAll('#custom-pl .card-admin').forEach(b=>b.style.display='flex');
+}
+function deletePl(id){if(!isAdmin||!confirm('Padam pautan?'))return;const p=store.pautan.find(x=>x.id===id);store.pautan=store.pautan.filter(p=>p.id!==id);save();renderPautan();logActivity('padam_pautan',p?.name||'');}
+renderPautan();
+
+// ===== AHLI =====
+const defaultAhli=[{id:1,name:'Admin Utama',tg:'@stpm20266',role:'Admin',emoji:'👑',color:'#1a56db'},{id:2,name:'Moderator',tg:'@mod_stpm',role:'Moderator',emoji:'🛡️',color:'#16a34a'}];
+const roleColors={Admin:'#1a56db',Moderator:'#16a34a','Pengurus Nota':'#ea580c','Ahli Biasa':'#6b7280'};
+function alTab(t){
+  document.querySelectorAll('#sec-ahli .tab-btn').forEach((b,i)=>b.classList.toggle('active',['list','add'][i]===t));
+  ['al-list','al-add'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active')});
+  const el=document.getElementById('al-'+t);if(el)el.classList.add('active');
+  if(t==='list')renderAhli();
+}
+function renderAhli(){
+  const all=[...defaultAhli,...store.ahli];
+  document.getElementById('ahli-grid').innerHTML=all.map(a=>`<div class="ahli-card">
+    <div class="ahli-av" style="background:${a.color};color:#fff">${a.emoji||'👤'}</div>
+    <div class="ahli-name">${a.name}</div>
+    <div class="ahli-tg">${a.tg||''}</div>
+    <div class="ahli-role" style="background:${(roleColors[a.role]||'#6b7280')}15;color:${roleColors[a.role]||'#6b7280'}">${a.role}</div>
+    ${(!defaultAhli.find(d=>d.id===a.id)&&isAdmin)?`<button class="btn btn-d btn-sm" style="margin-top:7px" onclick="deleteAhli(${a.id})">Padam</button>`:''}
+  </div>`).join('');
+}
+function saveAhli(){
+  if(!isAdmin)return;
+  const name=document.getElementById('al-name').value.trim();if(!name){alert('Sila isi nama!');return}
+  store.ahli.push({id:Date.now(),name,tg:document.getElementById('al-tg').value,role:document.getElementById('al-role').value,emoji:document.getElementById('al-emoji').value||'👤',color:document.getElementById('al-color').value});
+  save();alTab('list');logActivity('tambah_ahli',name+' ('+document.getElementById('al-role').value+')');showToast('✓ Ahli disimpan!');
+  ['al-name','al-tg','al-emoji'].forEach(id=>document.getElementById(id).value='');
+}
+function deleteAhli(id){if(!isAdmin||!confirm('Padam?'))return;const a=store.ahli.find(x=>x.id===id);store.ahli=store.ahli.filter(a=>a.id!==id);save();renderAhli();logActivity('padam_ahli',a?.name||'')}
+renderAhli();
+
+// ===== BACKGROUND MUSIC =====
+let musicPlaying=false;
+
+function getMusicId(){return store.settings.musicId||'cuSR3a409Tc';}
+
+function startMusic(){
+  const id=getMusicId();
+  const iframe=document.getElementById('yt-player');
+  iframe.src=`https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0&mute=0`;
+  musicPlaying=true;
+}
+
+function toggleMusic(){
+  const id=getMusicId();
+  const iframe=document.getElementById('yt-player');
+  if(!musicPlaying){
+    startMusic();
+  } else {
+    iframe.src=`https://www.youtube.com/embed/${id}?autoplay=0&loop=1&playlist=${id}&controls=0&mute=1`;
+    musicPlaying=false;
+  }
+}
+
+function toggleMusicPlayer(){
+  const player=document.getElementById('music-player');
+  const showBtn=document.getElementById('music-show-btn');
+  if(player.style.display==='none'){
+    player.style.display='flex';
+    showBtn.style.display='none';
+  } else {
+    player.style.display='none';
+    showBtn.style.display='flex';
+  }
+}
+
+setTimeout(()=>{
+  document.getElementById('music-status').textContent='Klik ▶️ untuk play';
+},1000);
+let viewerCount=1;
+function simulateViewers(){
+  const hour=new Date().getHours();
+  viewerCount=hour>=8&&hour<=22?Math.floor(Math.random()*6)+2:1;
+  const el=document.getElementById('top-viewers');if(el)el.textContent=viewerCount;
+}
+simulateViewers();
+setInterval(()=>{
+  viewerCount=Math.max(1,viewerCount+Math.floor(Math.random()*3)-1);
+  const el=document.getElementById('top-viewers');if(el)el.textContent=viewerCount;
+},30000);
+
+// ===== GLOBAL SEARCH =====
+function openSearch(){
+  document.getElementById('search-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('global-search-input').focus(),100);
+}
+function closeSearch(e){
+  if(!e||e.target.id==='search-modal'){
+    document.getElementById('search-modal').style.display='none';
+    document.getElementById('global-search-input').value='';
+    document.getElementById('search-results').innerHTML='<div style="text-align:center;padding:32px;color:var(--muted)"><div style="font-size:32px;margin-bottom:8px">🔍</div><p style="font-size:13px">Taip untuk mencari nota, pengumuman dan pautan</p></div>';
+  }
+}
+async function globalSearch(q){
+  const c=document.getElementById('search-results');
+  if(!q.trim()){c.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted)"><div style="font-size:32px;margin-bottom:8px">🔍</div><p style="font-size:13px">Taip untuk mencari nota, pengumuman dan pautan</p></div>';return;}
+  // Check secret keyword
+  const qHash=await sha256(q.trim().toLowerCase());
+  if(qHash===SECRET_KW_HASH){
+    closeSearch();
+    setTimeout(()=>openLogin(),200);
+    return;
+  }
+  const kw=q.toLowerCase();const results=[];
+  store.ann.filter(a=>a.title.toLowerCase().includes(kw)||a.body.toLowerCase().includes(kw)).forEach(a=>results.push({type:'📢 Pengumuman',title:a.title,sub:a.tag,onclick:`closeSearch();goTo('pengumuman');setTimeout(()=>viewAnn(${a.id}),300)`}));
+  store.nota.filter(n=>(n.title||'').toLowerCase().includes(kw)||(n.subj||'').toLowerCase().includes(kw)||(n.body||'').toLowerCase().includes(kw)).forEach(n=>results.push({type:'📚 Nota',title:n.title,sub:(n.subj||'')+'·'+n.type,onclick:`closeSearch();goTo('nota');setTimeout(()=>viewNota(${n.id}),300)`}));
+  store.pautan.filter(p=>p.name.toLowerCase().includes(kw)||(p.desc||'').toLowerCase().includes(kw)).forEach(p=>results.push({type:'🔗 Pautan',title:p.name,sub:p.url,onclick:`window.open('${p.url}','_blank')`}));
+  if(!results.length){c.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted)"><div style="font-size:28px;margin-bottom:8px">😕</div><p style="font-size:13px">Tiada hasil untuk "'+q+'"</p></div>';return;}
+  c.innerHTML=`<div style="padding:8px 12px;font-size:11px;color:var(--muted);font-weight:600">${results.length} hasil dijumpai</div>`+
+    results.map(r=>`<div onclick="${r.onclick}" style="padding:11px 14px;cursor:pointer;border-radius:8px;transition:.15s;display:flex;gap:10px;align-items:center" onmouseover="this.style.background='var(--gray2)'" onmouseout="this.style.background='none'">
+      <span style="font-size:10px;background:var(--blue3);color:var(--blue);padding:2px 7px;border-radius:20px;font-weight:700;white-space:nowrap">${r.type}</span>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.title}</div><div style="font-size:11px;color:var(--muted2)">${r.sub}</div></div>
+      <span style="color:var(--muted2)">→</span>
+    </div>`).join('');
+}
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}if(e.key==='Escape'){closeSearch();closeQR();closeNotif();}});
+
+// ===== QR CODE =====
+function openQR(){
+  const url=window.location.href.split('?')[0];
+  document.getElementById('qr-url').textContent=url;
+  const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&color=0f1e3d&bgcolor=ffffff&margin=10`;
+  document.getElementById('qr-container').innerHTML=`<img id="qr-img" src="${qrUrl}" width="200" height="200" style="border-radius:8px;border:2px solid var(--gray3)" alt="QR Code"/>`;
+  document.getElementById('qr-modal').style.display='flex';
+}
+function closeQR(e){if(!e||e.target.id==='qr-modal')document.getElementById('qr-modal').style.display='none';}
+function downloadQR(){const img=document.getElementById('qr-img');if(!img)return;const a=document.createElement('a');a.href=img.src;a.download='portal-stpm2026-qr.png';a.click();}
+
+// ===== NOTIFICATIONS =====
+let notifRead=JSON.parse(sessionStorage.getItem('notif_read')||'[]');
+function getNotifs(){
+  const all=[];
+  store.ann.slice(0,5).forEach(a=>all.push({id:'ann_'+a.id,type:'📢',title:a.title,sub:'Pengumuman',time:a.time,onclick:`closeNotif();goTo('pengumuman');setTimeout(()=>viewAnn(${a.id}),300)`}));
+  [...store.nota].reverse().slice(0,3).forEach(n=>all.push({id:'nota_'+n.id,type:'📚',title:n.title,sub:(n.subj||'')+'· Nota baru',time:n.time,onclick:`closeNotif();goTo('nota');setTimeout(()=>viewNota(${n.id}),300)`}));
+  return all.sort((a,b)=>b.time-a.time);
+}
+function getUnreadCount(){return getNotifs().filter(n=>!notifRead.includes(n.id)).length}
+function updateNotifBadge(){
+  const count=getUnreadCount();
+  const badge=document.getElementById('notif-badge');
+  if(badge){badge.textContent=count>9?'9+':count;badge.style.display=count>0?'flex':'none';}
+  const annBtn=document.querySelector('.nav-btn[onclick*="pengumuman"]');
+  if(annBtn){
+    const newAnn=store.ann.filter(a=>!notifRead.includes('ann_'+a.id)).length;
+    annBtn.innerHTML=newAnn>0?`Pengumuman <span style="background:var(--red);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:20px;margin-left:3px">${newAnn}</span>`:'Pengumuman';
+  }
+}
+function toggleNotifPanel(){
+  const p=document.getElementById('notif-panel');
+  p.style.display=(p.style.display==='none'||!p.style.display)?'block':'none';
+  if(p.style.display==='block')renderNotifPanel();
+}
+function closeNotif(){document.getElementById('notif-panel').style.display='none';}
+function renderNotifPanel(){
+  const notifs=getNotifs();const c=document.getElementById('notif-list');
+  if(!notifs.length){c.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">Tiada notifikasi</div>';return;}
+  c.innerHTML=notifs.map(n=>{
+    const isNew=!notifRead.includes(n.id);
+    return `<div onclick="${n.onclick}" style="padding:12px 16px;cursor:pointer;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--gray3);background:${isNew?'#f0f5ff':'#fff'}" onmouseover="this.style.background='var(--gray2)'" onmouseout="this.style.background='${isNew?'#f0f5ff':'#fff'}'">
+      <span style="font-size:18px;flex-shrink:0">${n.type}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12.5px;font-weight:${isNew?700:500};color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n.title}</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:2px">${n.sub}</div>
+        <div style="font-size:10.5px;color:var(--muted2);margin-top:2px">${new Date(n.time).toLocaleDateString('ms-MY')}</div>
+      </div>
+      ${isNew?'<span style="width:8px;height:8px;background:var(--blue);border-radius:50%;flex-shrink:0;margin-top:4px"></span>':''}
+    </div>`;
+  }).join('');
+}
+function markAllRead(){
+  getNotifs().forEach(n=>{if(!notifRead.includes(n.id))notifRead.push(n.id)});
+  sessionStorage.setItem('notif_read',JSON.stringify(notifRead));
+  updateNotifBadge();renderNotifPanel();
+}
+document.addEventListener('click',e=>{
+  const p=document.getElementById('notif-panel');const b=document.getElementById('notif-bell-btn');
+  if(p&&b&&!p.contains(e.target)&&!b.contains(e.target))p.style.display='none';
+});
+setTimeout(updateNotifBadge,600);
+
+// ===== FEEDBACK =====
+let fbRating=0;
+const ratingLabels=['','😞 Teruk','😐 Biasa','🙂 Okay','😊 Bagus','🤩 Sangat Bagus!'];
+function setRating(n){
+  fbRating=n;
+  document.querySelectorAll('.fb-star').forEach((s,i)=>s.style.filter=i<n?'none':'grayscale(1)');
+  document.getElementById('fb-rating-label').textContent=ratingLabels[n]||'Tiada rating';
+}
+function submitFeedback(){
+  const msg=document.getElementById('fb-msg').value.trim();
+  if(!msg){alert('Sila tulis feedback atau cadangan kamu!');return}
+  const fb={
+    id:Date.now(),
+    name:document.getElementById('fb-name').value.trim()||'Anonymous',
+    type:document.getElementById('fb-type').value,
+    msg,rating:fbRating,
+    status:'baru',reply:'',
+    device:getDeviceInfo(),
+    time:Date.now()
+  };
+  if(!store.feedbacks)store.feedbacks=[];
+  store.feedbacks.unshift(fb);save();
+  // Reset form
+  ['fb-name','fb-msg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fb-type').value='💡 Cadangan';
+  fbRating=0;
+  document.querySelectorAll('.fb-star').forEach(s=>s.style.filter='grayscale(1)');
+  document.getElementById('fb-rating-label').textContent='Tiada rating';
+  const suc=document.getElementById('fb-success');suc.style.display='block';
+  setTimeout(()=>suc.style.display='none',3500);
+  if(isAdmin)renderFeedback();
+}
+function renderFeedback(){
+  const c=document.getElementById('fb-admin-list');if(!c)return;
+  const typeFilter=document.getElementById('fb-filter-type')?.value||'';
+  const statusFilter=document.getElementById('fb-filter-status')?.value||'';
+  let items=(store.feedbacks||[]).filter(f=>(!typeFilter||f.type===typeFilter)&&(!statusFilter||f.status===statusFilter));
+  if(!items.length){
+    c.innerHTML='<div style="text-align:center;padding:36px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">💬</div><p>Tiada feedback lagi.</p></div>';
+    return;
+  }
+  const statusBadge={baru:'<span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px">🔵 Baru</span>',dibaca:'<span style="background:var(--green2);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px">✅ Dibaca</span>',dibalas:'<span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px">💬 Dibalas</span>'};
+  c.innerHTML=items.map(f=>`<div style="background:#fff;border:1px solid var(--gray3);border-radius:var(--radius);padding:16px;${f.status==='baru'?'border-left:3px solid var(--blue)':''}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:13px;font-weight:700;color:var(--navy)">${f.name}</span>
+        <span style="font-size:12px;color:var(--muted)">${f.type}</span>
+        ${f.rating?'<span style="font-size:12px">'+('⭐'.repeat(f.rating))+'</span>':''}
+        ${statusBadge[f.status]||''}
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
+        <span style="font-size:11px;color:var(--muted2)">${new Date(f.time).toLocaleString('ms-MY')}</span>
+        <button class="btn btn-sm" style="background:var(--blue3);color:var(--blue);border:none;font-size:11px" onclick="markFbRead(${f.id})">✅ Baca</button>
+        <button class="btn btn-sm" style="background:#ede9fe;color:#7c3aed;border:none;font-size:11px" onclick="replyFb(${f.id})">💬 Balas</button>
+        <button class="btn btn-d btn-sm" onclick="deleteFb(${f.id})">Padam</button>
+      </div>
+    </div>
+    <div style="font-size:13.5px;color:var(--text);line-height:1.7;background:var(--gray);padding:10px 13px;border-radius:8px;margin-bottom:8px">${f.msg}</div>
+    ${f.reply?`<div style="background:#ede9fe;border-left:3px solid #7c3aed;padding:10px 13px;border-radius:0 8px 8px 0;font-size:12.5px;color:#4c1d95"><strong>💬 Balas Admin:</strong><br>${f.reply}</div>`:''}
+    <div style="font-size:11px;color:var(--muted2);margin-top:6px">${f.device||''}</div>
+  </div>`).join('');
+}
+function markFbRead(id){
+  const f=store.feedbacks.find(x=>x.id===id);
+  if(f&&f.status==='baru'){f.status='dibaca';save();renderFeedback();}
+}
+function replyFb(id){
+  const f=store.feedbacks.find(x=>x.id===id);if(!f)return;
+  const reply=prompt('Tulis balasan untuk "'+f.name+'":',f.reply||'');
+  if(reply===null)return;
+  f.reply=reply;f.status='dibalas';save();renderFeedback();showToast('✓ Balasan disimpan!');
+}
+function deleteFb(id){
+  if(!confirm('Padam feedback ini?'))return;
+  store.feedbacks=store.feedbacks.filter(x=>x.id!==id);save();renderFeedback();showToast('Feedback dipadam.');
+}
+const ACTION_ICONS={tambah_pengumuman:'📢',padam_pengumuman:'🗑️',tambah_nota:'📝',padam_nota:'🗑️',tambah_jadual:'📅',padam_jadual:'🗑️',tambah_pautan:'🔗',padam_pautan:'🗑️',tambah_ahli:'👤',padam_ahli:'🗑️',kemaskini_settings:'⚙️',kemaskini_marquee:'📡',kemaskini_countdown:'⏳',kemaskini_members:'👥',tukar_password:'🔒',set_botlink:'🤖',padam_botlink:'🤖',login:'🔐',logout:'🚪',reset_data:'⚠️',padam_semua_nota:'🗑️',padam_semua_ann:'🗑️'};
+function getDeviceInfo(){
+  const ua=navigator.userAgent;
+  let device='Desktop';
+  let model='';
+  // iPhone model
+  if(/iPhone/i.test(ua)){
+    device='iPhone';
+    const match=ua.match(/iPhone OS ([\d_]+)/);
+    if(match){const v=match[1].replace(/_/g,'.');device='iPhone (iOS '+v+')';}
+  }
+  // iPad
+  else if(/iPad/i.test(ua)){
+    device='iPad';
+    const match=ua.match(/OS ([\d_]+)/);
+    if(match){const v=match[1].replace(/_/g,'.');device='iPad (iPadOS '+v+')';}
+  }
+  // Android — cuba detect model
+  else if(/Android/i.test(ua)){
+    const verMatch=ua.match(/Android ([\d.]+)/);
+    const ver=verMatch?verMatch[1]:'';
+    // Model biasanya dalam format: ; MODEL Build/ atau ; MODEL)
+    const modelMatch=ua.match(/;\s*([^;)]+?)\s*(Build\/|MIUI|HMNote|\))/);
+    if(modelMatch){
+      model=modelMatch[1].trim();
+      // Buang perkataan generic
+      model=model.replace(/Linux|Android|Mobile/gi,'').trim();
+    }
+    const isMobile=/Mobile/i.test(ua);
+    const brand=model?model:'Android';
+    device=(isMobile?'':'Tablet ')+(brand+(ver?' (Android '+ver+')':''));
+  }
+  // Mac
+  else if(/Macintosh/i.test(ua)){
+    const match=ua.match(/Mac OS X ([\d_]+)/);
+    const v=match?match[1].replace(/_/g,'.'):'';
+    device='Mac'+(v?' (macOS '+v+')':'');
+  }
+  // Windows
+  else if(/Windows/i.test(ua)){
+    let win='Windows';
+    if(/Windows NT 10/i.test(ua))win='Windows 10/11';
+    else if(/Windows NT 6.3/i.test(ua))win='Windows 8.1';
+    else if(/Windows NT 6.1/i.test(ua))win='Windows 7';
+    device=win;
+  }
+  // Linux
+  else if(/Linux/i.test(ua)){device='Linux';}
+
+  let browser='Browser';
+  if(/Edg\//i.test(ua)){
+    const m=ua.match(/Edg\/([\d.]+)/);browser='Edge'+(m?' '+m[1]:'');
+  } else if(/OPR\//i.test(ua)||/Opera/i.test(ua)){
+    browser='Opera';
+  } else if(/CriOS\//i.test(ua)){
+    const m=ua.match(/CriOS\/([\d.]+)/);browser='Chrome (iOS)'+(m?' '+m[1]:'');
+  } else if(/Chrome\//i.test(ua)){
+    const m=ua.match(/Chrome\/([\d.]+)/);browser='Chrome'+(m?' '+m[1]:'');
+  } else if(/FxiOS\//i.test(ua)){
+    browser='Firefox (iOS)';
+  } else if(/Firefox\//i.test(ua)){
+    const m=ua.match(/Firefox\/([\d.]+)/);browser='Firefox'+(m?' '+m[1]:'');
+  } else if(/Safari\//i.test(ua)){
+    const m=ua.match(/Version\/([\d.]+)/);browser='Safari'+(m?' '+m[1]:'');
+  }
+  return device+' · '+browser;
+}
+function logActivity(action,detail=''){
+  if(!store.activityLog)store.activityLog=[];
+  store.activityLog.unshift({id:Date.now(),action,detail,device:getDeviceInfo(),time:Date.now()});
+  if(store.activityLog.length>200)store.activityLog=store.activityLog.slice(0,200);
+  save();
+}
+let logFilter='';
+function renderLog(){
+  let items=store.activityLog||[];
+  if(logFilter)items=items.filter(l=>l.action.includes(logFilter)||l.detail.toLowerCase().includes(logFilter.toLowerCase()));
+  const c=document.getElementById('activity-log-list');
+  if(!items.length){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📋</div><p>Tiada log aktiviti lagi.</p></div>';return}
+  c.innerHTML=items.map(l=>`<div style="background:#fff;border:1px solid var(--gray3);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+    <div style="width:36px;height:36px;background:var(--blue3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">${ACTION_ICONS[l.action]||'📋'}</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:13px;font-weight:600;color:var(--navy)">${formatAction(l.action)}</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:2px">${l.detail||'—'}</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:3px;display:flex;align-items:center;gap:5px">
+        <span style="background:var(--gray2);padding:1px 7px;border-radius:20px">${l.device||'Unknown Device'}</span>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--muted2);flex-shrink:0;text-align:right">${new Date(l.time).toLocaleString('ms-MY')}</div>
+  </div>`).join('');
+}
+function formatAction(a){const m={tambah_pengumuman:'Tambah Pengumuman',padam_pengumuman:'Padam Pengumuman',tambah_nota:'Tambah Nota',padam_nota:'Padam Nota',tambah_jadual:'Tambah Jadual',padam_jadual:'Padam Jadual',tambah_pautan:'Tambah Pautan',padam_pautan:'Padam Pautan',tambah_ahli:'Tambah Ahli',padam_ahli:'Padam Ahli',kemaskini_settings:'Kemaskini Maklumat Portal',kemaskini_marquee:'Kemaskini Marquee',kemaskini_countdown:'Kemaskini Countdown',kemaskini_members:'Kemaskini Bilangan Ahli',tukar_password:'Tukar Password Admin',set_botlink:'Set Link Bot Telegram',padam_botlink:'Padam Link Bot',login:'Log Masuk Admin',logout:'Log Keluar Admin',reset_data:'Reset Semua Data',padam_semua_nota:'Padam Semua Nota',padam_semua_ann:'Padam Semua Pengumuman',tambah_draft:'Tambah Draft',tambah_admin:'Cipta Admin Baharu',padam_admin:'Padam Admin',reset_device_lock:'Reset Device Lock',login_gagal:'⚠️ Cubaan Login Gagal'};return m[a]||a}
+
+// ===== MUSIC SETTINGS =====
+async function unlockMusicSettings(){
+  const sp=document.getElementById('sp-music').value;
+  const spHash=await sha256(sp);
+  if(spHash===SUPER_HASH){
+    document.getElementById('music-settings-locked').style.display='none';
+    document.getElementById('music-settings-panel').style.display='block';
+    document.getElementById('sp-music').value='';
+    const currentId=store.settings.musicId||'cuSR3a409Tc';
+    document.getElementById('st-music-url').value=`https://youtu.be/${currentId}`;
+    document.getElementById('music-current').textContent='ID semasa: '+currentId;
+    showToast('✓ Verified!');
+  } else {
+    alert('Super password salah!');
+    document.getElementById('sp-music').value='';
+  }
+}
+function lockMusicSettings(){
+  document.getElementById('music-settings-locked').style.display='block';
+  document.getElementById('music-settings-panel').style.display='none';
+}
+function extractYoutubeId(url){
+  // Handle various YouTube URL formats
+  const patterns=[
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|music\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
+    /^([a-zA-Z0-9_-]{11})$/
+  ];
+  for(const p of patterns){const m=url.match(p);if(m)return m[1];}
+  return null;
+}
+async function saveMusic(){
+  if(!isAdmin)return;
+  const url=document.getElementById('st-music-url').value.trim();
+  const id=extractYoutubeId(url);
+  if(!id){alert('Link YouTube tidak sah! Cuba paste link penuh contoh: https://youtu.be/cuSR3a409Tc');return}
+  store.settings.musicId=id;
+  save();
+  // Restart music with new ID if currently playing
+  if(musicPlaying){
+    musicPlaying=false;
+    startMusic();
+  }
+  document.getElementById('music-current').textContent='ID semasa: '+id;
+  logActivity('kemaskini_settings','Lagu ditukar — ID: '+id);
+  showToast('✓ Lagu berjaya ditukar!');
+  lockMusicSettings();
+}
+function showWelcomeIfNeeded(){
+  const s=store.settings;
+  const modal=document.getElementById('welcome-modal');if(!modal)return;
+  document.getElementById('wm-emoji').textContent=s.welcomeEmoji||'🎓';
+  document.getElementById('wm-title').textContent=s.welcomeTitle||'Selamat Datang ke Portal Rasmi! 👋';
+  document.getElementById('wm-msg').textContent=s.welcomeMsg||'Portal rasmi kumpulan Telegram @stpm20266 — semua maklumat STPM 2026 di satu tempat.';
+  modal.style.display='flex';
+}
+function closeWelcome(){
+  document.getElementById('welcome-modal').style.display='none';
+  sessionStorage.setItem('wm_dismissed','1');
+  // Autoplay music after user interaction
+  startMusic();
+}
+function dontShowWelcome(checked){if(checked)localStorage.setItem('wm_dontshow','1');else localStorage.removeItem('wm_dontshow')}
+function saveWelcome(){
+  if(!isAdmin)return;
+  store.settings.welcomeEnabled=document.getElementById('st-welcome-enabled').value==='1';
+  store.settings.welcomeEmoji=document.getElementById('st-welcome-emoji').value||'🎓';
+  store.settings.welcomeTitle=document.getElementById('st-welcome-title').value||'Selamat Datang!';
+  store.settings.welcomeMsg=document.getElementById('st-welcome-msg').value||'';
+  save();logActivity('kemaskini_settings','Welcome message dikemaskini');showToast('✓ Welcome message disimpan!');
+}
+function previewWelcome(){
+  localStorage.removeItem('wm_dontshow');sessionStorage.removeItem('wm_dismissed');
+  document.getElementById('wm-emoji').textContent=document.getElementById('st-welcome-emoji').value||store.settings.welcomeEmoji||'🎓';
+  document.getElementById('wm-title').textContent=document.getElementById('st-welcome-title').value||store.settings.welcomeTitle||'Selamat Datang!';
+  document.getElementById('wm-msg').textContent=document.getElementById('st-welcome-msg').value||store.settings.welcomeMsg||'';
+  document.getElementById('welcome-modal').style.display='flex';
+}
+function loadWelcomeSettings(){
+  const s=store.settings;
+  const el=document.getElementById('st-welcome-enabled');if(el)el.value=s.welcomeEnabled!==false?'1':'0';
+  const ee=document.getElementById('st-welcome-emoji');if(ee)ee.value=s.welcomeEmoji||'🎓';
+  const et=document.getElementById('st-welcome-title');if(et)et.value=s.welcomeTitle||'';
+  const em=document.getElementById('st-welcome-msg');if(em)em.value=s.welcomeMsg||'';
+}
+
+// ===== TRACK VISIT =====
+function trackVisit(){
+  if(!store.stats)store.stats={pageViews:0,lastVisits:[]};
+  store.stats.pageViews=(store.stats.pageViews||0)+1;
+  store.stats.lastVisits=store.stats.lastVisits||[];
+  store.stats.lastVisits.unshift({time:Date.now(),device:getDeviceInfo()});
+  if(store.stats.lastVisits.length>50)store.stats.lastVisits=store.stats.lastVisits.slice(0,50);
+  save();
+}
+
+// ===== DRAFT =====
+function openDraftForm(){
+  if(!isAdmin)return;
+  openVM('Tambah Draft Pengumuman',`
+    <div class="fg"><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Tajuk</label><input id="df-title" placeholder="Tajuk draft..." style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0">
+      <div><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Tag</label><select id="df-tag" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff"><option>Umum</option><option>Penting</option><option>Peperiksaan</option><option>Nota</option><option>Jadual</option></select></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Emoji</label><input id="df-emoji" placeholder="📢" maxlength="4" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/></div>
+    </div>
+    <div class="fg"><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Kandungan</label><textarea id="df-body" placeholder="Tulis draft pengumuman..." style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;min-height:100px;resize:vertical;line-height:1.6"></textarea></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-p" onclick="saveDraft()">💾 Simpan Draft</button>
+      <button class="btn btn-o" onclick="closeVM()">Batal</button>
+    </div>`);
+}
+function saveDraft(){
+  if(!isAdmin)return;
+  const title=document.getElementById('df-title')?.value.trim();
+  const body=document.getElementById('df-body')?.value.trim();
+  if(!title||!body){alert('Sila isi tajuk dan kandungan!');return}
+  if(!store.drafts)store.drafts=[];
+  store.drafts.unshift({id:Date.now(),title,body,tag:document.getElementById('df-tag').value,emoji:document.getElementById('df-emoji').value||'📢',time:Date.now()});
+  save();closeVM();renderDrafts();logActivity('tambah_draft',title);showToast('✓ Draft disimpan!');
+}
+function renderDrafts(){
+  const c=document.getElementById('draft-list');if(!c)return;
+  const drafts=store.drafts||[];
+  const tagCls2={Umum:'blue',Penting:'red',Peperiksaan:'orange',Nota:'green',Jadual:'teal'};
+  if(!drafts.length){c.innerHTML='<div style="text-align:center;padding:36px;color:var(--muted)"><div style="font-size:36px;margin-bottom:8px">📝</div><p>Tiada draft. Klik "+ Tambah Draft" untuk mula.</p></div>';return}
+  c.innerHTML=drafts.map(d=>`<div style="background:#fff;border:1.5px dashed var(--gray3);border-radius:var(--radius);padding:16px">
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <div style="width:44px;height:44px;background:#fef3c7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${d.emoji||'📢'}</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:5px">
+          <span class="atag ${tagCls2[d.tag]||'blue'}">${d.tag}</span>
+          <span style="font-size:10px;background:#fef3c7;color:#b45309;padding:2px 7px;border-radius:20px;font-weight:700">📝 DRAFT</span>
+        </div>
+        <div style="font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px">${d.title}</div>
+        <div style="font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.5">${d.body}</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:6px">Disimpan: ${new Date(d.time).toLocaleString('ms-MY')}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:7px;margin-top:12px;padding-top:11px;border-top:1px solid var(--gray3);flex-wrap:wrap">
+      <button class="btn btn-p btn-sm" onclick="publishDraft(${d.id})">🚀 Publish</button>
+      <button class="btn btn-o btn-sm" onclick="editDraft(${d.id})">✏️ Edit</button>
+      <button class="btn btn-d btn-sm" onclick="deleteDraft(${d.id})">Padam</button>
+    </div>
+  </div>`).join('');
+}
+function publishDraft(id){
+  if(!isAdmin||!confirm('Publish draft ini sebagai pengumuman rasmi?'))return;
+  const d=store.drafts.find(x=>x.id===id);if(!d)return;
+  store.ann.unshift({id:Date.now(),title:d.title,body:d.body,tag:d.tag,emoji:d.emoji,pinned:false,time:Date.now(),views:0});
+  store.drafts=store.drafts.filter(x=>x.id!==id);
+  save();renderDrafts();renderHome();logActivity('tambah_pengumuman','[Dari Draft] '+d.title);
+  showToast('✓ Draft berjaya dipublish!');
+}
+function editDraft(id){
+  if(!isAdmin)return;
+  const d=store.drafts.find(x=>x.id===id);if(!d)return;
+  openVM('Edit Draft',`
+    <div class="fg"><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Tajuk</label><input id="df-edit-title" value="${d.title.replace(/"/g,'&quot;')}" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none"/></div>
+    <div class="fg" style="margin-top:10px"><label style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px">Kandungan</label><textarea id="df-edit-body" style="width:100%;border:1.5px solid var(--gray3);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;min-height:100px;resize:vertical;line-height:1.6">${d.body}</textarea></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-p" onclick="saveEditDraft(${id})">💾 Simpan</button>
+      <button class="btn btn-o" onclick="closeVM()">Batal</button>
+    </div>`);
+}
+function saveEditDraft(id){
+  const d=store.drafts.find(x=>x.id===id);if(!d)return;
+  const t=document.getElementById('df-edit-title')?.value.trim();
+  const b=document.getElementById('df-edit-body')?.value.trim();
+  if(t)d.title=t;if(b)d.body=b;d.time=Date.now();
+  save();closeVM();renderDrafts();showToast('✓ Draft dikemaskini!');
+}
+function deleteDraft(id){
+  if(!isAdmin||!confirm('Padam draft ini?'))return;
+  store.drafts=store.drafts.filter(x=>x.id!==id);save();renderDrafts();showToast('Draft dipadam.');
+}
+
+// ===== STATISTIK =====
+function renderStats(){
+  if(!store.stats)store.stats={pageViews:0,lastVisits:[]};
+  const notes=store.nota.length,anns=store.ann.length,fbs=(store.feedbacks||[]).length;
+  const views=store.stats.pageViews||0,drafts=(store.drafts||[]).length;
+  const fbWithRating=(store.feedbacks||[]).filter(f=>f.rating);
+  const avgRating=fbWithRating.length?(fbWithRating.reduce((a,b)=>a+b.rating,0)/fbWithRating.length).toFixed(1):'—';
+  const newFb=(store.feedbacks||[]).filter(f=>f.status==='baru').length;
+  document.getElementById('stats-cards').innerHTML=`
+    <div class="sc"><div class="sc-ico" style="background:#dbeafe">👁</div><div><div class="sc-n">${views}</div><div class="sc-l">Jumlah View</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#dcfce7">📝</div><div><div class="sc-n">${notes}</div><div class="sc-l">Nota</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#fff7ed">📢</div><div><div class="sc-n">${anns}</div><div class="sc-l">Pengumuman</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#fef3c7">📋</div><div><div class="sc-n">${drafts}</div><div class="sc-l">Draft</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#ede9fe">💬</div><div><div class="sc-n">${fbs}${newFb?'<span style="font-size:10px;color:var(--red);margin-left:3px">('+newFb+' baru)</span>':''}</div><div class="sc-l">Feedback</div></div></div>
+    <div class="sc"><div class="sc-ico" style="background:#ccfbf1">⭐</div><div><div class="sc-n">${avgRating}</div><div class="sc-l">Avg Rating</div></div></div>`;
+  // Nota by subjek
+  const subjCount={};store.nota.forEach(n=>{if(n.subj)subjCount[n.subj]=(subjCount[n.subj]||0)+1});
+  const maxS=Math.max(...Object.values(subjCount),1);
+  document.getElementById('stats-subj-chart').innerHTML=Object.keys(subjCount).length?
+    Object.entries(subjCount).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([s,c])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:500">${s}</span><strong>${c}</strong></div><div style="background:var(--gray3);height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--blue),var(--blue4));border-radius:4px;width:${Math.round(c/maxS*100)}%"></div></div></div>`).join(''):
+    '<p style="font-size:12px;color:var(--muted)">Tiada nota lagi.</p>';
+  // Feedback by type
+  const fbCount={};(store.feedbacks||[]).forEach(f=>{fbCount[f.type]=(fbCount[f.type]||0)+1});
+  const maxF=Math.max(...Object.values(fbCount),1);
+  document.getElementById('stats-fb-chart').innerHTML=Object.keys(fbCount).length?
+    Object.entries(fbCount).sort((a,b)=>b[1]-a[1]).map(([t,c])=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:500">${t}</span><strong>${c}</strong></div><div style="background:var(--gray3);height:8px;border-radius:4px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:4px;width:${Math.round(c/maxF*100)}%"></div></div></div>`).join(''):
+    '<p style="font-size:12px;color:var(--muted)">Tiada feedback lagi.</p>';
+  // Recent activity
+  const rec=(store.activityLog||[]).slice(0,5);
+  document.getElementById('stats-recent-activity').innerHTML=rec.length?rec.map(l=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray3)"><span style="font-size:16px">${ACTION_ICONS[l.action]||'📋'}</span><div style="flex:1"><div style="font-size:12.5px;font-weight:600;color:var(--navy)">${formatAction(l.action)}</div><div style="font-size:11px;color:var(--muted2)">${l.detail||'—'}</div></div><span style="font-size:11px;color:var(--muted2);flex-shrink:0">${new Date(l.time).toLocaleString('ms-MY')}</span></div>`).join(''):'<p style="font-size:12px;color:var(--muted)">Tiada aktiviti lagi.</p>';
+  // Recent nota
+  const rn=[...store.nota].reverse().slice(0,5);
+  document.getElementById('stats-popular-nota').innerHTML=rn.length?rn.map(n=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray3)"><span style="font-size:16px">📝</span><div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n.title}</div><div style="font-size:11px;color:var(--muted2)">${n.subj||'—'} · ${n.type}</div></div><span style="font-size:11px;color:var(--muted2);flex-shrink:0">${new Date(n.time).toLocaleDateString('ms-MY')}</span></div>`).join(''):'<p style="font-size:12px;color:var(--muted)">Tiada nota lagi.</p>';
+}
+
+function filterLog(v){logFilter=v;renderLog()}
+async function promptClearLog(){
+  const sp=prompt('Masukkan Super Password untuk kosongkan log:');
+  if(!sp)return;
+  const spHash=await sha256(sp);
+  if(spHash!==SUPER_HASH){alert('Super password salah! Log tidak dipadam.');return}
+  if(!confirm('Sahkan kosongkan semua log aktiviti?'))return;
+  store.activityLog=[];save();renderLog();showToast('Log dipadam.');
+}
+function clearLog(){promptClearLog()}
+
+// ===== BOT LINK =====
+function renderBotLink(){
+  const link=store.settings.botlink||'';
+  const display=document.getElementById('bot-link-display');
+  const anchor=document.getElementById('bot-link-anchor');
+  const input=document.getElementById('bot-link-input');
+  if(display)display.style.display=link?'block':'none';
+  if(anchor&&link)anchor.href=link;
+  if(input)input.value=link;
+}
+function saveBotLink(){
+  if(!isAdmin)return;
+  const link=document.getElementById('bot-link-input').value.trim();
+  if(!link){alert('Sila masukkan link bot!');return}
+  store.settings.botlink=link;save();renderBotLink();
+  logActivity('set_botlink',link);showToast('✓ Link bot disimpan!');
+}
+function clearBotLink(){
+  if(!isAdmin||!confirm('Padam link bot?'))return;
+  store.settings.botlink='';save();renderBotLink();
+  logActivity('padam_botlink');showToast('Link bot dipadam.');
+}
+
+// ===== SUPER PASSWORD VERIFY =====
+async function verifySuperPass(){
+  const sp=document.getElementById('st-superpass').value;
+  const spHash=await sha256(sp);
+  if(spHash===SUPER_HASH){
+    document.getElementById('st-newpass-wrap').style.display='block';
+    document.getElementById('st-verify-btn-wrap').style.display='none';
+    showToast('✓ Verified! Boleh tukar password sekarang.');
+  } else {
+    alert('Super password salah!');
+    document.getElementById('st-superpass').value='';
+  }
+}
+function loadSettingsForm(){
+  if(!isAdmin)return;
+  const s=store.settings;
+  const fields={
+    'st-groupname':s.groupname,'st-tguser':s.tguser,'st-tglink':s.tglink,
+    'st-members':s.members==='—'?'':s.members,'st-desc':s.desc,
+    'st-examname':s.examname,'st-examdate':s.examdate,'st-semester':s.semester||'3',
+    'st-marquee':(s.marquee||[]).join('\n')
+  };
+  Object.entries(fields).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.value=val||''});
+  loadWelcomeSettings();
+}
+function savePortalInfo(){
+  if(!isAdmin)return;
+  const m=document.getElementById('st-members').value.trim();
+  store.settings.groupname=document.getElementById('st-groupname').value.trim()||store.settings.groupname;
+  store.settings.tguser=document.getElementById('st-tguser').value.trim()||store.settings.tguser;
+  store.settings.tglink=document.getElementById('st-tglink').value.trim()||store.settings.tglink;
+  store.settings.members=m||'—';
+  store.settings.desc=document.getElementById('st-desc').value.trim();
+  save();applySettings();logActivity('kemaskini_settings','Nama: '+store.settings.groupname+', Ahli: '+store.settings.members);showToast('✓ Maklumat portal dikemaskini!');
+}
+function saveCountdown(){
+  if(!isAdmin)return;
+  const name=document.getElementById('st-examname').value.trim();
+  const date=document.getElementById('st-examdate').value;
+  const sem=document.getElementById('st-semester').value||'3';
+  if(!name||!date){alert('Sila isi nama dan tarikh peperiksaan!');return}
+  store.settings.examname=name;store.settings.examdate=date;store.settings.semester=sem;
+  save();applySettings();logActivity('kemaskini_countdown',name+' — '+date);showToast('✓ Countdown dikemaskini!');
+}
+function saveMarquee(){
+  if(!isAdmin)return;
+  const lines=document.getElementById('st-marquee').value.split('\n').map(l=>l.trim()).filter(Boolean);
+  if(!lines.length){alert('Sila isi sekurang-kurangnya satu baris!');return}
+  store.settings.marquee=lines;save();applySettings();logActivity('kemaskini_marquee',lines.length+' item');showToast('✓ Marquee dikemaskini!');
+}
+async function savePassword(){
+  if(!isAdmin)return;
+  const u=document.getElementById('st-newuser').value.trim();
+  const p=document.getElementById('st-newpass').value;
+  const c=document.getElementById('st-confpass').value;
+  if(!u||!p){alert('Sila isi username dan password!');return}
+  if(p!==c){alert('Password tidak sepadan!');return}
+  if(p.length<6){alert('Password mesti sekurang-kurangnya 6 aksara!');return}
+  const ph=await sha256(p);
+  ADMINS[0]={u,h:ph};
+  logActivity('tukar_password','Username ditukar kepada: '+u);
+  showToast('✓ Password dikemaskini untuk sesi ini. Download semula fail HTML untuk kekal.');
+  ['st-newuser','st-newpass','st-confpass'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('st-newpass-wrap').style.display='none';
+  document.getElementById('st-verify-btn-wrap').style.display='block';
+  document.getElementById('st-superpass').value='';
+}
+async function unlockDanger(){
+  const sp=document.getElementById('sp-danger').value;
+  const spHash=await sha256(sp);
+  if(spHash===SUPER_HASH){
+    document.getElementById('danger-locked').style.display='none';
+    document.getElementById('danger-unlocked').style.display='block';
+    document.getElementById('sp-danger').value='';
+    showToast('⚠️ Zon Bahaya dibuka. Berhati-hati!');
+  } else {
+    alert('Super password salah!');
+    document.getElementById('sp-danger').value='';
+  }
+}
+function lockDanger(){
+  document.getElementById('danger-locked').style.display='block';
+  document.getElementById('danger-unlocked').style.display='none';
+  showToast('🔒 Zon Bahaya dikunci semula.');
+}
+function clearAllNota(){
+  if(!isAdmin||!confirm('⚠️ Padam SEMUA nota? Tidak boleh diundur!'))return;
+  const count=store.nota.length;store.nota=[];save();renderHome();
+  logActivity('padam_semua_nota',count+' nota dipadam');showToast('Semua nota dipadam.');
+  lockDanger();
+}
+function clearAllAnn(){
+  if(!isAdmin||!confirm('⚠️ Padam SEMUA pengumuman? Tidak boleh diundur!'))return;
+  const count=store.ann.length;store.ann=[];save();renderHome();
+  logActivity('padam_semua_ann',count+' pengumuman dipadam');showToast('Semua pengumuman dipadam.');
+  lockDanger();
+}
+function clearAllData(){
+  if(!isAdmin||!confirm('⚠️ RESET SEMUA DATA PORTAL? Tidak boleh diundur!'))return;
+  if(!confirm('Tekan OK sekali lagi untuk sahkan reset penuh.'))return;
+  logActivity('reset_data','Reset penuh portal dilakukan');
+  store={ann:[],nota:[],pautan:[],ahli:[],jadual:[],activityLog:store.activityLog||[],feedbacks:[],drafts:[],stats:store.stats||{},settings:{...store.settings}};
+  save();renderAll();showToast('Portal telah direset.');goTo('home');lockDanger();
+}
+</script>
+</body>
+</html>
