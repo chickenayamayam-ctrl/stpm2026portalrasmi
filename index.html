@@ -702,13 +702,17 @@ document.head.appendChild(s);
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
         <div class="sec-title">📅 Jadual Belajar Minggu Ini</div>
         <div style="display:flex;gap:8px">
-          <button class="btn btn-o btn-sm" onclick="screenshotSchedule()">📸 Screenshot</button>
-          <button class="btn btn-p btn-sm" onclick="generateSchedule()">🔄 Jana Semula</button>
+          <button class="btn btn-p btn-sm" onclick="downloadScheduleImage()">⬇️ Download Gambar</button>
+          <button class="btn btn-o btn-sm" onclick="generateSchedule()">🔄 Jana Semula</button>
         </div>
       </div>
-      <div id="schedule-grid" style="display:grid;gap:10px"></div>
+      <!-- Canvas for image generation -->
+      <canvas id="schedule-canvas" style="display:none"></canvas>
+      <!-- Preview image -->
+      <div id="schedule-img-wrap" style="margin-bottom:14px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow2)"></div>
+      <div id="schedule-grid" style="display:none;gap:10px"></div>
       <div style="margin-top:14px;background:var(--primary3);border-radius:10px;padding:13px 16px;font-size:12.5px;color:var(--primary)">
-        💡 <strong>Tips:</strong> Jadual ini dicadangkan berdasarkan kesusahan subjek STPM. Sesuaikan ikut keperluan kamu!
+        💡 <strong>Tips:</strong> Klik <strong>"⬇️ Download Gambar"</strong> untuk simpan jadual sebagai gambar!
       </div>
     </div>
   </div>
@@ -1934,29 +1938,142 @@ function generateSchedule(){
   });
 
   // Render
+  lastSchedule=schedule;
   document.getElementById('schedule-result').style.display='block';
-  document.getElementById('schedule-grid').innerHTML=schedule.map(d=>`
-    <div style="background:#fff;border:var(--border);border-radius:var(--radius);overflow:hidden">
-      <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:10px 16px;display:flex;align-items:center;gap:8px">
-        <span style="font-size:16px">${d.icon}</span>
-        <span style="font-size:13px;font-weight:700">${d.day}</span>
-      </div>
-      <div style="padding:12px;display:flex;flex-direction:column;gap:7px">
-        ${d.slots.map(s=>`<div style="background:${s.color};border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:8px">
-          <span style="font-size:16px">${s.icon}</span>
-          <div style="flex:1">
-            <div style="font-size:12.5px;font-weight:700;color:${s.textColor}">${s.name}</div>
-            <div style="font-size:10.5px;color:var(--muted2);margin-top:1px">${s.duration} minit${s.diff?` · Kesusahan: ${'⭐'.repeat(s.diff)}`:''}</div>
-          </div>
-        </div>`).join('')}
-      </div>
-    </div>`).join('');
-
+  drawScheduleCanvas(schedule);
   document.getElementById('schedule-result').scrollIntoView({behavior:'smooth'});
 }
 
 function screenshotSchedule(){
-  alert('Tips: Tekan Cmd+Shift+4 (Mac) atau Windows+Shift+S (Windows) untuk screenshot jadual belajar kamu!');
+  downloadScheduleImage();
+}
+
+// Store last generated schedule globally
+let lastSchedule=[];
+
+function drawScheduleCanvas(schedule){
+  const canvas=document.getElementById('schedule-canvas');
+  const days=schedule;
+  const cols=days.length;
+  const colW=160;
+  const rowH=52;
+  const headerH=56;
+  const topPad=80;
+  const sidePad=20;
+  const maxSlots=Math.max(...days.map(d=>d.slots.length));
+  const W=sidePad*2+cols*colW+(cols-1)*8;
+  const H=topPad+headerH+maxSlots*rowH+60;
+
+  canvas.width=W;
+  canvas.height=H;
+  const ctx=canvas.getContext('2d');
+
+  // Background gradient
+  const grad=ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#1a1a2e');
+  grad.addColorStop(1,'#0f3460');
+  ctx.fillStyle=grad;
+  ctx.roundRect(0,0,W,H,20);
+  ctx.fill();
+
+  // Title
+  ctx.fillStyle='#ffffff';
+  ctx.font='bold 22px Outfit,Arial,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('📅 Jadual Belajar Minggu Ini', W/2, 40);
+
+  // Subtitle
+  ctx.fillStyle='rgba(255,255,255,0.5)';
+  ctx.font='13px Outfit,Arial,sans-serif';
+  ctx.fillText('STPM 2026 Kohort Baharu | stpm2026portalrasmi.pages.dev', W/2, 62);
+
+  const slotColors=[
+    {bg:'#6c63ff22',border:'#6c63ff',text:'#a89dff'},
+    {bg:'#10b98122',border:'#10b981',text:'#6ee7b7'},
+    {bg:'#f59e0b22',border:'#f59e0b',text:'#fcd34d'},
+    {bg:'#3b82f622',border:'#3b82f6',text:'#93c5fd'},
+    {bg:'#ec489922',border:'#ec4899',text:'#f9a8d4'},
+  ];
+  const restColor={bg:'rgba(255,255,255,0.05)',border:'rgba(255,255,255,0.1)',text:'rgba(255,255,255,0.4)'};
+
+  days.forEach((d,di)=>{
+    const x=sidePad+di*(colW+8);
+    const y=topPad;
+
+    // Day header
+    const hGrad=ctx.createLinearGradient(x,y,x,y+headerH);
+    hGrad.addColorStop(0,'rgba(108,99,255,0.4)');
+    hGrad.addColorStop(1,'rgba(108,99,255,0.1)');
+    ctx.fillStyle=hGrad;
+    ctx.strokeStyle='rgba(108,99,255,0.5)';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.roundRect(x,y,colW,headerH,10);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle='#ffffff';
+    ctx.font='bold 15px Outfit,Arial,sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText(d.icon+' '+d.day, x+colW/2, y+22);
+
+    // Slots
+    d.slots.forEach((s,si)=>{
+      const sy=y+headerH+si*rowH+6;
+      const isRest=s.name==='Rehat'||s.name.includes('Rehat');
+      const col=isRest?restColor:slotColors[si%slotColors.length];
+
+      ctx.fillStyle=col.bg;
+      ctx.strokeStyle=col.border;
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.roundRect(x,sy,colW,rowH-4,8);
+      ctx.fill();
+      ctx.stroke();
+
+      // Slot icon
+      ctx.font='14px Arial';
+      ctx.textAlign='left';
+      ctx.fillText(s.icon, x+8, sy+20);
+
+      // Slot name
+      ctx.fillStyle=col.text;
+      ctx.font='bold 11px Outfit,Arial,sans-serif';
+      ctx.textAlign='left';
+      const nameShort=s.name.length>16?s.name.substring(0,14)+'...':s.name;
+      ctx.fillText(nameShort, x+28, sy+20);
+
+      // Duration
+      ctx.fillStyle='rgba(255,255,255,0.35)';
+      ctx.font='10px Outfit,Arial,sans-serif';
+      ctx.fillText(s.duration+' min', x+28, sy+36);
+    });
+  });
+
+  // Footer
+  ctx.fillStyle='rgba(255,255,255,0.25)';
+  ctx.font='11px Outfit,Arial,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('© 2026 STPM 2026 Kohort Baharu — Dijana automatik', W/2, H-18);
+
+  // Show preview
+  const imgWrap=document.getElementById('schedule-img-wrap');
+  const img=document.createElement('img');
+  img.src=canvas.toDataURL('image/png');
+  img.style.cssText='width:100%;border-radius:16px;display:block';
+  imgWrap.innerHTML='';
+  imgWrap.appendChild(img);
+}
+
+function downloadScheduleImage(){
+  if(!lastSchedule.length){alert('Jana jadual dulu!');return}
+  drawScheduleCanvas(lastSchedule);
+  const canvas=document.getElementById('schedule-canvas');
+  const a=document.createElement('a');
+  a.href=canvas.toDataURL('image/png');
+  a.download='jadual-belajar-stpm2026.png';
+  a.click();
+  showToast('✓ Jadual berjaya didownload!');
 }
 
 function renderNota(){toolTab('cgpa');buildCgpaSubjects();}
