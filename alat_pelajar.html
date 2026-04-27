@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Alat Pelajar STPM 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#6c63ff;--p2:#4f46e5;--p3:#ede9fe;--p4:#a89dff;
+  --navy:#1a1a2e;--navy2:#16213e;
+  --green:#10b981;--green2:#d1fae5;
+  --red:#ef4444;--red2:#fee2e2;
+  --orange:#f59e0b;--orange2:#fef3c7;
+  --gray:#f7f8fc;--gray2:#eef0f8;--gray3:#dde1f0;
+  --text:#1a1a2e;--muted:#6b7280;
+  --shadow:0 4px 24px rgba(108,99,255,.12);
+  --r:14px;--border:1px solid var(--gray3);
+}
+body{font-family:'Outfit',sans-serif;background:var(--gray);color:var(--text);min-height:100vh}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:20px 24px;color:#fff;display:flex;align-items:center;gap:12px}
+.hdr-logo{width:44px;height:44px;background:rgba(108,99,255,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(108,99,255,.4)}
+.hdr h1{font-size:17px;font-weight:800}
+.hdr p{font-size:12px;opacity:.6;margin-top:2px}
+
+/* TABS */
+.tabs{display:flex;gap:0;background:#fff;border-bottom:var(--border);position:sticky;top:0;z-index:10}
+.tab{flex:1;padding:14px;text-align:center;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;border:none;background:none;font-family:'Outfit',sans-serif;border-bottom:3px solid transparent;transition:.2s}
+.tab.active{color:var(--p);border-bottom-color:var(--p)}
+.tab-panel{display:none;padding:20px}
+.tab-panel.active{display:block}
+
+/* CARDS */
+.card{background:#fff;border:var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.card-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.card-sub{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+
+/* SEM TABS */
+.sem-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.sem-btn{padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--gray3);background:#fff;color:var(--muted);font-family:'Outfit',sans-serif;transition:.2s}
+.sem-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
+.sem-btn.dark{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* FORM */
+.fg{margin-bottom:10px}
+.fg label{font-size:10.5px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select{width:100%;border:1.5px solid var(--gray3);border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:.2s;background:#fff;color:var(--text)}
+.fg input:focus,.fg select:focus{border-color:var(--p4);box-shadow:0 0 0 3px rgba(108,99,255,.1)}
+.row{display:grid;grid-template-columns:1fr 130px;gap:8px;margin-bottom:8px;align-items:end}
+.row input,.row select{margin-bottom:0}
+
+/* BUTTONS */
+.btn{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{opacity:.9;transform:translateY(-1px)}
+.btn-p{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff}
+.btn-o{background:var(--p3);color:var(--p);border:1.5px solid var(--p3)}
+.btn-d{background:var(--red2);color:var(--red)}
+.btn-sm{padding:7px 13px;font-size:12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+
+/* RESULT */
+.result{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:24px;color:#fff;text-align:center;margin-bottom:16px;display:none}
+.result.show{display:block}
+.result-label{font-size:10px;opacity:.5;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.result-val{font-size:58px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--p4);line-height:1}
+.result-grade{font-size:15px;font-weight:700;margin-top:8px}
+.result-breakdown{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;text-align:left}
+.result-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07);opacity:.8}
+.result-row.top{opacity:1;font-weight:700}
+.result-row.formula{opacity:.4;font-size:11px;font-style:italic;border:none;margin-top:4px}
+
+/* OVERALL */
+.sem-card{background:var(--gray2);border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sem-card-n{width:36px;height:36px;background:var(--p3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--p);flex-shrink:0}
+.sem-card-val{font-size:20px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--p);margin-left:auto}
+
+/* SUBJ PICKER */
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:14px}
+.subj-pill{background:#fff;border:1.5px solid var(--gray3);border-radius:10px;padding:10px 12px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;user-select:none;-webkit-user-select:none}
+.subj-pill:hover{border-color:var(--p4);background:var(--p3)}
+.subj-pill.selected{background:var(--p3);border-color:var(--p);color:var(--p)}
+.subj-pill-icon{font-size:18px;flex-shrink:0}
+.subj-pill-info{flex:1;min-width:0}
+.subj-pill-name{font-size:12px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.subj-pill-diff{font-size:10px;color:var(--muted);margin-top:1px}
+.subj-pill.selected .subj-pill-name{color:var(--p)}
+.check{font-size:14px;flex-shrink:0;display:none}
+.subj-pill.selected .check{display:block}
+
+/* JADUAL IMAGE */
+#schedule-preview{width:100%;border-radius:var(--r);display:block;margin-bottom:12px;box-shadow:var(--shadow)}
+canvas{display:none}
+
+/* GRED TABLE */
+.gred-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.gred-tbl th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.gred-tbl td{padding:8px 12px;border-bottom:var(--border)}
+.gred-tbl tr:hover td{background:var(--gray2)}
+.gv{font-weight:800;font-family:'JetBrains Mono',monospace}
+.gv.a{color:var(--green)}.gv.b{color:var(--p)}.gv.c{color:var(--orange)}.gv.d{color:var(--red)}.gv.f{color:var(--red)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;font-weight:600;display:none;z-index:999;white-space:nowrap;box-shadow:var(--shadow)}
+.toast.show{display:block}
+
+@media(max-width:480px){
+  .row{grid-template-columns:1fr}.subj-grid{grid-template-columns:1fr 1fr}
+  .result-val{font-size:44px}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">🎓</div>
+  <div>
+    <h1>Alat Pelajar STPM 2026</h1>
+    <p>Kalkulator PNGK & Penjana Jadual Belajar</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('cgpa',this)">🧮 Kalkulator PNGK</button>
+  <button class="tab" onclick="switchTab('jadual',this)">📅 Jana Jadual</button>
+</div>
+
+<!-- CGPA TAB -->
+<div id="tab-cgpa" class="tab-panel active">
+
+  <!-- SEM SELECTOR -->
+  <div class="sem-tabs">
+    <button class="sem-btn active" id="sbtn-1" onclick="setSem(1,this)">📚 Semester 1</button>
+    <button class="sem-btn" id="sbtn-2" onclick="setSem(2,this)">📚 Semester 2</button>
+    <button class="sem-btn" id="sbtn-3" onclick="setSem(3,this)">📚 Semester 3</button>
+    <button class="sem-btn dark" id="sbtn-all" onclick="setSem('all',this)">🎓 Keseluruhan</button>
+  </div>
+
+  <!-- SEM INPUT -->
+  <div id="sem-input">
+    <div class="card">
+      <div class="card-title">🧮 Kalkulator PNGK — <span id="sem-label">Semester 1</span></div>
+      <div class="card-sub">Formula: <strong>Jumlah NGMP 4 Mata Pelajaran Terbaik ÷ 4</strong><br>Masuk semua subjek — sistem akan ambil 4 terbaik secara automatik.</div>
+      <div id="subj-rows"></div>
+      <div class="btn-row" style="margin-top:10px;margin-bottom:0">
+        <button class="btn btn-o btn-sm" onclick="addRow()">+ Tambah Subjek</button>
+        <button class="btn btn-d btn-sm" onclick="removeRow()">− Kurang</button>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="calcPNGK()">🧮 Kira PNGK</button>
+      <button class="btn btn-o" onclick="resetCalc()">↺ Reset</button>
+    </div>
+  </div>
+
+  <!-- SEM RESULT -->
+  <div class="result" id="sem-result">
+    <div class="result-label">PNGK <span id="result-sem-label">Semester 1</span></div>
+    <div class="result-val" id="result-val">0.00</div>
+    <div class="result-grade" id="result-grade"></div>
+    <div class="result-breakdown" id="result-breakdown"></div>
+    <button class="btn" onclick="saveSem()" style="margin-top:14px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)">💾 Simpan untuk Kira Keseluruhan</button>
+  </div>
+
+  <!-- OVERALL -->
+  <div id="overall-panel" style="display:none">
+    <div class="card">
+      <div class="card-title">🎓 PNGK Keseluruhan</div>
+      <div class="card-sub">Kira PNGK setiap semester dulu, lepas tu klik "Kira Keseluruhan".</div>
+      <div id="overall-list"></div>
+      <div class="btn-row">
+        <button class="btn btn-p" onclick="calcOverall()">🧮 Kira PNGK Keseluruhan</button>
+      </div>
+    </div>
+    <div class="result" id="overall-result">
+      <div class="result-label">PNGK Keseluruhan STPM</div>
+      <div class="result-val" id="overall-val">0.00</div>
+      <div class="result-grade" id="overall-grade"></div>
+      <div class="result-breakdown" id="overall-breakdown"></div>
+    </div>
+  </div>
+
+  <!-- GRED TABLE -->
+  <div class="card">
+    <div class="card-title">📊 Jadual Gred STPM</div>
+    <div style="overflow-x:auto;margin-top:10px">
+      <table class="gred-tbl">
+        <thead><tr><th>Gred</th><th>Nilai (NGMP)</th><th>Tafsiran</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td><span class="gv a">4.00</span></td><td>Cemerlang</td></tr>
+          <tr><td><strong>A-</strong></td><td><span class="gv a">3.67</span></td><td>Cemerlang</td></tr>
+          <tr><td><strong>B+</strong></td><td><span class="gv b">3.33</span></td><td>Baik</td></tr>
+          <tr><td><strong>B</strong></td><td><span class="gv b">3.00</span></td><td>Baik</td></tr>
+          <tr><td><strong>B-</strong></td><td><span class="gv b">2.67</span></td><td>Baik</td></tr>
+          <tr><td><strong>C+</strong></td><td><span class="gv c">2.33</span></td><td>Kepujian (Lulus Penuh)</td></tr>
+          <tr><td><strong>C</strong></td><td><span class="gv c">2.00</span></td><td>Kepujian (Lulus Penuh)</td></tr>
+          <tr><td><strong>C-</strong></td><td><span class="gv d">1.67</span></td><td>Lulus Sebahagian</td></tr>
+          <tr><td><strong>D+</strong></td><td><span class="gv d">1.33</span></td><td>Lulus Sebahagian</td></tr>
+          <tr><td><strong>D</strong></td><td><span class="gv d">1.00</span></td><td>Lulus Sebahagian</td></tr>
+          <tr><td><strong>F</strong></td><td><span class="gv f">0.00</span></td><td>Gagal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- JADUAL TAB -->
+<div id="tab-jadual" class="tab-panel">
+  <div class="card">
+    <div class="card-title">📅 Penjana Jadual Belajar</div>
+    <div class="card-sub">Pilih 4–5 subjek kamu. Sistem akan jana jadual 7 hari berdasarkan kesusahan subjek.</div>
+
+    <div class="fg"><label>Pilih Subjek (min 4, max 5)</label>
+      <div class="subj-grid" id="subj-picker"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="fg">
+        <label>Masa Belajar Sehari</label>
+        <select id="sp-hours">
+          <option value="2">2 jam</option>
+          <option value="3" selected>3 jam</option>
+          <option value="4">4 jam</option>
+          <option value="5">5 jam</option>
+          <option value="6">6 jam</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Fokus Utama</label>
+        <select id="sp-focus">
+          <option value="balance">Seimbang</option>
+          <option value="weak">Fokus Subjek Susah</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="generateSchedule()">✨ Jana Jadual Belajar</button>
+    </div>
+  </div>
+
+  <div id="jadual-result" style="display:none">
+    <div class="btn-row" style="margin-bottom:12px">
+      <button class="btn btn-p btn-sm" onclick="downloadJadual()">⬇️ Download Gambar</button>
+      <button class="btn btn-o btn-sm" onclick="generateSchedule()">🔄 Jana Semula</button>
+    </div>
+    <img id="schedule-preview" src="" alt="Jadual Belajar">
+    <canvas id="schedule-canvas"></canvas>
+    <div style="background:var(--p3);border-radius:10px;padding:12px 15px;font-size:12.5px;color:var(--p)">
+      💡 <strong>Tips:</strong> Klik Download untuk simpan jadual sebagai gambar PNG!
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== TABS =====
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if(id === 'jadual') buildSubjPicker();
+}
+
+// ===== TOAST =====
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===== CGPA =====
+const GRADS = {'A':4.00,'A-':3.67,'B+':3.33,'B':3.00,'B-':2.67,'C+':2.33,'C':2.00,'C-':1.67,'D+':1.33,'D':1.00,'F':0.00};
+const GRAD_KEYS = Object.keys(GRADS);
+let rowCount = 5;
+let curSem = 1;
+let semData = {1:null, 2:null, 3:null};
+
+function buildRows() {
+  const c = document.getElementById('subj-rows');
+  c.innerHTML = '';
+  for(let i = 0; i < rowCount; i++) {
+    const div = document.createElement('div');
+    div.className = 'row';
+    div.innerHTML = `
+      <input placeholder="Nama subjek (cth: Pengajian Am)" id="sn-${i}" style="border:1.5px solid #dde1f0;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;width:100%;background:#fff;color:#1a1a2e"/>
+      <select id="sg-${i}" style="border:1.5px solid #dde1f0;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Outfit',sans-serif;outline:none;background:#fff;color:#1a1a2e;width:100%">
+        ${GRAD_KEYS.map(g=>`<option value="${g}">${g} — ${GRADS[g].toFixed(2)}</option>`).join('')}
+      </select>`;
+    c.appendChild(div);
+  }
+}
+buildRows();
+
+function addRow() { if(rowCount < 8){rowCount++;buildRows();} }
+function removeRow() { if(rowCount > 4){rowCount--;buildRows();} }
+
+function setSem(sem, btn) {
+  curSem = sem;
+  document.querySelectorAll('.sem-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains('dark') && sem === 'all') b.classList.add('active');
+  });
+  btn.classList.add('active');
+
+  const inp = document.getElementById('sem-input');
+  const overall = document.getElementById('overall-panel');
+  const res = document.getElementById('sem-result');
+
+  if(sem === 'all') {
+    inp.style.display = 'none';
+    overall.style.display = 'block';
+    res.style.display = 'none';
+    renderOverall();
+  } else {
+    inp.style.display = 'block';
+    overall.style.display = 'none';
+    res.classList.remove('show');
+    document.getElementById('sem-label').textContent = 'Semester ' + sem;
+    document.getElementById('result-sem-label').textContent = 'Semester ' + sem;
+    buildRows();
+  }
+}
+
+function gradeLabel(v) {
+  if(v >= 3.67) return '🌟 Cemerlang';
+  if(v >= 2.67) return '✅ Baik';
+  if(v >= 2.00) return '📜 Kepujian (Lulus Penuh)';
+  if(v >= 1.00) return '⚠️ Lulus Sebahagian';
+  return '❌ Gagal';
+}
+
+function calcPNGK() {
+  const all = [];
+  for(let i = 0; i < rowCount; i++) {
+    const name = (document.getElementById('sn-'+i)?.value.trim()) || ('Subjek '+(i+1));
+    const grade = document.getElementById('sg-'+i)?.value || 'C';
+    const val = GRADS[grade] ?? 0;
+    all.push({name, grade, val});
+  }
+  const sorted = [...all].sort((a,b) => b.val - a.val);
+  const top4 = sorted.slice(0,4);
+  const pngk = (top4.reduce((a,b)=>a+b.val,0)/4).toFixed(2);
+
+  document.getElementById('result-val').textContent = pngk;
+  document.getElementById('result-grade').textContent = gradeLabel(parseFloat(pngk));
+
+  const bd = document.getElementById('result-breakdown');
+  bd.innerHTML =
+    '<div class="result-row" style="opacity:.4;font-size:10px;text-transform:uppercase;letter-spacing:.5px;border:none;margin-bottom:4px"><span>4 Terbaik Dikira:</span></div>' +
+    top4.map(b=>`<div class="result-row top"><span>✅ ${b.name}</span><span style="font-family:'JetBrains Mono',monospace">${b.grade} — ${b.val.toFixed(2)}</span></div>`).join('') +
+    (sorted.slice(4).length ? `<div class="result-row" style="opacity:.4;font-size:11px;border:none;margin-top:4px"><span>Tidak dikira: ${sorted.slice(4).map(b=>b.name).join(', ')}</span></div>` : '') +
+    `<div class="result-row formula"><span>Jumlah ÷ 4 = ${top4.reduce((a,b)=>a+b.val,0).toFixed(2)} ÷ 4 = ${pngk}</span></div>`;
+
+  document.getElementById('sem-result').classList.add('show');
+  semData[curSem] = {pngk: parseFloat(pngk), top4};
+  toast('✓ PNGK Semester ' + curSem + ': ' + pngk);
+}
+
+function resetCalc() {
+  document.getElementById('sem-result').classList.remove('show');
+  semData[curSem] = null;
+  buildRows();
+}
+
+function saveSem() {
+  if(!semData[curSem]) { calcPNGK(); }
+  toast('✓ Semester ' + curSem + ' disimpan! Pergi tab Keseluruhan.');
+}
+
+function renderOverall() {
+  const c = document.getElementById('overall-list');
+  c.innerHTML = [1,2,3].map(s => `
+    <div class="sem-card">
+      <div class="sem-card-n">${s}</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">Semester ${s}</div>
+        <div style="font-size:11.5px;color:var(--muted)">${semData[s] ? '4 subjek terbaik dikira' : 'Belum dikira'}</div>
+      </div>
+      <div class="sem-card-val">${semData[s] ? semData[s].pngk.toFixed(2) : '—'}</div>
+      ${!semData[s] ? `<button class="btn btn-o btn-sm" onclick="setSem(${s},document.getElementById('sbtn-${s}'))">Kira →</button>` : '<span style="color:var(--green);font-size:18px">✅</span>'}
+    </div>`).join('');
+}
+
+function calcOverall() {
+  const filled = Object.entries(semData).filter(([,v])=>v!==null);
+  if(!filled.length){toast('⚠️ Kira sekurang-kurangnya 1 semester!');return;}
+  const total = filled.reduce((a,[,v])=>a+v.pngk,0);
+  const overall = (total/filled.length).toFixed(2);
+
+  document.getElementById('overall-val').textContent = overall;
+  document.getElementById('overall-grade').textContent = gradeLabel(parseFloat(overall));
+  document.getElementById('overall-breakdown').innerHTML =
+    filled.map(([s,v])=>`<div class="result-row"><span>Semester ${s}</span><span style="font-family:'JetBrains Mono',monospace">${v.pngk.toFixed(2)}</span></div>`).join('') +
+    `<div class="result-row top" style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.15)"><span>PNGK Keseluruhan</span><span style="font-family:'JetBrains Mono',monospace">${overall}</span></div>` +
+    `<div class="result-row formula"><span>(${filled.map(([,v])=>v.pngk.toFixed(2)).join(' + ')}) ÷ ${filled.length} = ${overall}</span></div>`;
+  document.getElementById('overall-result').classList.add('show');
+}
+
+// ===== STUDY PLANNER =====
+const SUBJEK = [
+  {code:'900',name:'Pengajian Am',diff:3,icon:'📖'},
+  {code:'MUET',name:'MUET',diff:3,icon:'🇬🇧'},
+  {code:'910',name:'Bahasa Melayu',diff:2,icon:'🌺'},
+  {code:'920',name:'Literature in English',diff:3,icon:'📚'},
+  {code:'940',name:'Sejarah',diff:4,icon:'📜'},
+  {code:'942',name:'Geografi',diff:3,icon:'🌏'},
+  {code:'944',name:'Ekonomi',diff:4,icon:'📊'},
+  {code:'946',name:'Peng. Perniagaan',diff:3,icon:'💼'},
+  {code:'948',name:'Perakaunan',diff:5,icon:'🧮'},
+  {code:'950',name:'Mathematics (M)',diff:4,icon:'📏'},
+  {code:'954',name:'Mathematics (T)',diff:5,icon:'📐'},
+  {code:'958',name:'ICT',diff:3,icon:'💻'},
+  {code:'960',name:'Physics',diff:5,icon:'⚛️'},
+  {code:'962',name:'Chemistry',diff:5,icon:'⚗️'},
+  {code:'964',name:'Biology',diff:4,icon:'🧬'},
+  {code:'930',name:'Syariah',diff:3,icon:'⚖️'},
+  {code:'931',name:'Usuluddin',diff:3,icon:'🕌'},
+  {code:'966',name:'Sains Sukan',diff:3,icon:'⚽'},
+  {code:'970',name:'Seni Visual',diff:2,icon:'🎨'},
+];
+const DAYS = ['Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu','Ahad'];
+let selected = [];
+
+function buildSubjPicker() {
+  const c = document.getElementById('subj-picker');
+  if(c.children.length > 0) return;
+  c.innerHTML = SUBJEK.map(s => `
+    <div class="subj-pill" id="pill-${s.code}" onclick="toggleSubj('${s.code}')">
+      <span class="subj-pill-icon">${s.icon}</span>
+      <div class="subj-pill-info">
+        <div class="subj-pill-name">${s.name}</div>
+        <div class="subj-pill-diff">${'⭐'.repeat(s.diff)} Kesusahan</div>
+      </div>
+      <span class="check">✅</span>
+    </div>`).join('');
+}
+
+function toggleSubj(code) {
+  const idx = selected.indexOf(code);
+  if(idx >= 0) {
+    selected.splice(idx,1);
+    document.getElementById('pill-'+code).classList.remove('selected');
+  } else {
+    if(selected.length >= 5){toast('⚠️ Max 5 subjek!');return;}
+    selected.push(code);
+    document.getElementById('pill-'+code).classList.add('selected');
+  }
+}
+
+function generateSchedule() {
+  if(selected.length < 4){toast('⚠️ Pilih sekurang-kurangnya 4 subjek!');return;}
+  const hours = parseInt(document.getElementById('sp-hours').value)||3;
+  const focus = document.getElementById('sp-focus').value;
+  const subjs = selected.map(code=>SUBJEK.find(s=>s.code===code)).filter(Boolean);
+  const cols = ['#6c63ff','#10b981','#f59e0b','#3b82f6','#ec4899','#0d9488'];
+  
+  const schedule = DAYS.map((day,di) => {
+    if(di===6) return {day,slots:[{name:'Rehat & Ulang Kaji Ringkas',icon:'😴',mins:60,color:'#9ca3af'}]};
+    const dayH = di===4 ? Math.max(1,hours-1) : hours;
+    const perDay = di===4 ? 2 : Math.min(subjs.length, 3);
+    const sorted = [...subjs].sort((a,b)=> focus==='weak' ? b.diff-a.diff : (a.diff+di)%subjs.length-(b.diff+di)%subjs.length);
+    const todaySubjs = sorted.slice(0,perDay);
+    const minsPerSubj = Math.floor(dayH*60/todaySubjs.length);
+    const slots = [];
+    todaySubjs.forEach((s,i) => {
+      slots.push({name:s.name,icon:s.icon,mins:minsPerSubj,color:cols[i%cols.length],diff:s.diff});
+      if(i===Math.floor(todaySubjs.length/2)-1 && dayH>=3) slots.push({name:'Rehat',icon:'☕',mins:15,color:'#9ca3af'});
+    });
+    return {day,slots};
+  });
+
+  drawCanvas(schedule, subjs);
+}
+
+function drawCanvas(schedule, subjs) {
+  const canvas = document.getElementById('schedule-canvas');
+  const colW = 148;
+  const rowH = 54;
+  const headerH = 52;
+  const padTop = 72;
+  const padSide = 16;
+  const cols = schedule.length;
+  const maxSlots = Math.max(...schedule.map(d=>d.slots.length));
+  const W = padSide*2 + cols*colW + (cols-1)*6;
+  const H = padTop + headerH + maxSlots*rowH + 50;
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // BG
+  const bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#1a1a2e');
+  bg.addColorStop(1,'#0f3460');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Title
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 18px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('📅 Jadual Belajar Minggu Ini — STPM 2026', W/2, 32);
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.font = '11px Arial';
+  ctx.fillText('stpm2026portalrasmi.pages.dev | @stpm20266', W/2, 52);
+
+  const dayIcons = ['📅','📅','📅','📅','🕌','📚','😴'];
+  const slotCols = ['#6c63ff','#10b981','#f59e0b','#3b82f6','#ec4899','#0d9488'];
+
+  schedule.forEach((d,di) => {
+    const x = padSide + di*(colW+6);
+    const y = padTop;
+
+    // Day header
+    ctx.fillStyle = 'rgba(108,99,255,0.25)';
+    ctx.strokeStyle = 'rgba(108,99,255,0.5)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, x, y, colW, headerH, 10);
+    ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 13px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(dayIcons[di] + ' ' + d.day, x+colW/2, y+20);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = '10px Arial';
+    ctx.fillText(d.slots.reduce((a,b)=>a+b.mins,0)+' min', x+colW/2, y+38);
+
+    d.slots.forEach((s,si) => {
+      const sy = y + headerH + si*rowH + 4;
+      const isRest = s.name==='Rehat'||s.name.includes('Rehat');
+      const col = isRest ? '#374151' : slotCols[si%slotCols.length];
+      
+      ctx.fillStyle = col+'33';
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1;
+      roundRect(ctx, x, sy, colW, rowH-2, 8);
+      ctx.fill(); ctx.stroke();
+
+      ctx.fillStyle = '#fff';
+      ctx.font = '14px Arial';
+      ctx.textAlign = 'left';
+      ctx.fillText(s.icon, x+7, sy+20);
+
+      ctx.fillStyle = isRest ? 'rgba(255,255,255,0.4)' : '#fff';
+      ctx.font = 'bold 10.5px Arial';
+      const nm = s.name.length>16 ? s.name.substring(0,14)+'…' : s.name;
+      ctx.fillText(nm, x+26, sy+20);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.font = '10px Arial';
+      ctx.fillText(s.mins+' min', x+26, sy+36);
+    });
+  });
+
+  // Footer
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.font = '10px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('© 2026 STPM 2026 Kohort Baharu — Dijana automatik', W/2, H-14);
+
+  // Show preview
+  const img = document.getElementById('schedule-preview');
+  img.src = canvas.toDataURL('image/png');
+  document.getElementById('jadual-result').style.display = 'block';
+  img.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h);
+  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r);
+  ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.closePath();
+}
+
+function downloadJadual() {
+  const canvas = document.getElementById('schedule-canvas');
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'jadual-belajar-stpm2026.png';
+  a.click();
+  toast('✓ Jadual didownload!');
+}
+</script>
+</body>
+</html>
