@@ -371,19 +371,7 @@ p,h1,h2,h3,h4,h5,span:not(button span),.hero-sub,.ann-preview,.ann-title,.nota-t
 </style>
 </head>
 <body>
-<script>
-// ===== ANTI-COPY PROTECTION =====
-document.addEventListener('contextmenu',e=>e.preventDefault());
-document.addEventListener('copy',e=>e.preventDefault());
-document.addEventListener('cut',e=>e.preventDefault());
-document.addEventListener('keydown',e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key==='u'){e.preventDefault();return false;}
-  if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();return false;}
-  if((e.ctrlKey||e.metaKey)&&e.key==='c'){e.preventDefault();return false;}
-  if(e.key==='F12'){e.preventDefault();return false;}
-  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C')){e.preventDefault();return false;}
-});
-</script>
+
 
 <!-- LOGIN -->
 <div class="login-ov" id="login-ov">
@@ -1267,8 +1255,24 @@ document.addEventListener('keydown',e=>{
   <div style="color:rgba(255,255,255,.25);font-size:10px">Karya ini dilindungi di bawah Akta Hak Cipta 1987 (Akta 332). Sebarang peniruan tanpa kebenaran adalah tidak dibenarkan.</div>
 </footer>
 
+
+
+
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+// ===== ANTI-COPY PROTECTION =====
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('copy',e=>e.preventDefault());
+document.addEventListener('cut',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='u'){e.preventDefault();return false;}
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();return false;}
+  if((e.ctrlKey||e.metaKey)&&e.key==='c'){e.preventDefault();return false;}
+  if(e.key==='F12'){e.preventDefault();return false;}
+  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C')){e.preventDefault();return false;}
+});
+</script>
 <script>
 // ===== ADMIN CREDENTIALS =====
 // ===== DEVICE FINGERPRINT =====
@@ -1294,24 +1298,30 @@ const firebaseConfig = {
   messagingSenderId: "288142418649",
   appId: "1:288142418649:web:9b90f9c025183dd48554c8"
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+let db = null;
+try {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.firestore();
+} catch(e) { console.warn('Firebase init failed:', e); }
 
 // ===== FIREBASE ADMIN FUNCTIONS =====
 async function getSubAdmins(){
   try {
+    if(!db)return [];
     const snap = await db.collection('admins').get();
     return snap.docs.map(d=>({id:d.id,...d.data()}));
   } catch(e){console.error('Firebase error:',e);return [];}
 }
 async function saveSubAdmin(admin){
   try {
+    if(!db)return false;
     await db.collection('admins').doc(admin.u).set(admin);
     return true;
   } catch(e){console.error('Firebase error:',e);return false;}
 }
 async function deleteSubAdminFb(username){
   try {
+    if(!db)return false;
     await db.collection('admins').doc(username).delete();
     return true;
   } catch(e){console.error('Firebase error:',e);return false;}
@@ -1483,13 +1493,16 @@ let saving = false;
 let saveTimer = null;
 
 async function save(){
-  // Debounce — tunggu 800ms sebelum save
+  if(!db){
+    // Fallback to sessionStorage
+    sessionStorage.setItem('stpm26v3', JSON.stringify(store));
+    return;
+  }
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async ()=>{
     if(saving)return;
     saving=true;
     try {
-      // Split data ikut collection supaya tak exceed 1MB limit
       await db.collection('portal').doc('ann').set({data: store.ann});
       await db.collection('portal').doc('nota').set({data: store.nota});
       await db.collection('portal').doc('pautan').set({data: store.pautan});
@@ -1506,6 +1519,17 @@ async function save(){
 }
 
 async function load(){
+  if(!db){
+    // Fallback to sessionStorage
+    const d=sessionStorage.getItem('stpm26v3');
+    if(d){
+      try{
+        const parsed=JSON.parse(d);
+        store={...store,...parsed,settings:{...store.settings,...(parsed.settings||{})}};
+      }catch(e){}
+    }
+    return;
+  }
   try {
     const docs = ['ann','nota','pautan','ahli','jadual','settings','feedbacks','drafts','activityLog','stats'];
     const snaps = await Promise.all(docs.map(d=>db.collection('portal').doc(d).get()));
@@ -1521,7 +1545,6 @@ async function load(){
     });
   } catch(e){
     console.error('Load error:',e);
-    // Fallback ke sessionStorage kalau Firebase fail
     const d=sessionStorage.getItem('stpm26v3');
     if(d){
       const parsed=JSON.parse(d);
@@ -1530,8 +1553,8 @@ async function load(){
   }
 }
 
-// Real-time listener untuk sync antara devices
 function startRealtimeSync(){
+  if(!db)return;
   const docs=['ann','nota','pautan','ahli','jadual','settings','feedbacks','drafts','activityLog'];
   docs.forEach(key=>{
     db.collection('portal').doc(key).onSnapshot(snap=>{
@@ -1541,7 +1564,6 @@ function startRealtimeSync(){
         } else {
           store[key]=snap.data().data||store[key];
         }
-        // Re-render current section
         renderSection(curSec);
         updateNotifBadge();
       }
@@ -2806,7 +2828,12 @@ async function saveMusic(){
   lockMusicSettings();
 }
 function showWelcomeIfNeeded(){
+  // Check if already dismissed this session
+  if(sessionStorage.getItem('wm_dismissed')==='1')return;
+  // Check if user chose don't show again
+  if(localStorage.getItem('wm_dontshow')==='1')return;
   const s=store.settings;
+  if(s.welcomeEnabled===false)return;
   const modal=document.getElementById('welcome-modal');if(!modal)return;
   document.getElementById('wm-emoji').textContent=s.welcomeEmoji||'🎓';
   document.getElementById('wm-title').textContent=s.welcomeTitle||'Selamat Datang ke Portal Rasmi! 👋';
