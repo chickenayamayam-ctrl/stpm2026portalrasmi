@@ -346,7 +346,8 @@ body.admin .admin-notice{display:flex}
 /* GAP-2 */
 .gap-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-/* FEEDBACK STARS */
+/* Prevent text selection but keep interactions */
+p,h1,h2,h3,h4,h5,span:not(button span),.hero-sub,.ann-preview,.ann-title,.nota-title,.ph p{-webkit-user-select:none;user-select:none}
 .fb-star{filter:grayscale(1);transition:.2s}
 .fb-star:hover{transform:scale(1.2)}
 
@@ -379,9 +380,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='F12'){e.preventDefault();return false;}
   if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C')){e.preventDefault();return false;}
 });
-const _s=document.createElement('style');
-_s.textContent='*{-webkit-user-select:none;user-select:none}input,textarea,select{-webkit-user-select:text!important;user-select:text!important}button,a,.btn,.sbtn,.hbtn,.tab-btn,.nav-btn,.quick-card,.ann-item,.subj-card,.nota-card,.pl-card,.ahli-card,.sc{pointer-events:auto!important;cursor:pointer!important}';
-document.head.appendChild(_s);
 </script>
 
 <!-- LOGIN -->
