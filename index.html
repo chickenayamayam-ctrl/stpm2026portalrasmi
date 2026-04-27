@@ -1017,12 +1017,12 @@ p,h1,h2,h3,h4,h5,span:not(button span),.hero-sub,.ann-preview,.ann-title,.nota-t
 </div>
 
 <!-- WELCOME MODAL -->
-<div id="welcome-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)" onclick="closeWelcome()">
+<div id="welcome-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)" onclick="if(event.target===this){document.getElementById('welcome-modal').style.display='none';sessionStorage.setItem('wm_dismissed','1');if(typeof startMusic==='function')startMusic();if(typeof launchFlowers==='function')launchFlowers();}">
   <div onclick="event.stopPropagation()" style="background:#fff;border-radius:18px;width:100%;max-width:420px;padding:32px;text-align:center;animation:mi .25s ease;box-shadow:0 20px 60px rgba(0,0,0,.2)">
     <div id="wm-emoji" style="font-size:52px;margin-bottom:12px">🎓</div>
-    <h2 id="wm-title" style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px"></h2>
-    <p id="wm-msg" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px"></p>
-    <button onclick="closeWelcome()" style="background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border:none;padding:11px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;width:100%">Masuk ke Portal →</button>
+    <h2 id="wm-title" style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:8px">Selamat Datang ke Portal Rasmi! 👋</h2>
+    <p id="wm-msg" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px">Portal rasmi kumpulan Telegram @stpm20266 — semua maklumat STPM 2026 di satu tempat.</p>
+    <button onclick="document.getElementById('welcome-modal').style.display='none';sessionStorage.setItem('wm_dismissed','1');if(typeof startMusic==='function')startMusic();if(typeof launchFlowers==='function')launchFlowers();" style="background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border:none;padding:11px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;width:100%">Masuk ke Portal →</button>
   </div>
 </div>
 
@@ -2482,7 +2482,7 @@ function closeWelcome(){
 }
 
 function launchFlowers(){
-  const flowers=['🌸','🌺','🌼','🌻','💮','🏵️','🌹','🌷'];
+  const flowers=['🌸','🌺','🌼','🌻','💮','🌹','🌷','🌸'];
   const container=document.createElement('div');
   container.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden';
   document.body.appendChild(container);
@@ -2492,36 +2492,29 @@ function launchFlowers(){
       const flower=flowers[Math.floor(Math.random()*flowers.length)];
       const left=Math.random()*100;
       const size=16+Math.random()*20;
-      const duration=2+Math.random()*3;
-      const delay=Math.random()*0.5;
-      const rotation=Math.random()*360;
+      const duration=(2+Math.random()*3)*1000;
       const drift=(Math.random()-0.5)*200;
+      const rotation=Math.random()*720;
       el.textContent=flower;
-      el.style.cssText=`
-        position:absolute;
-        left:${left}%;
-        top:-60px;
-        font-size:${size}px;
-        animation:flowerFall ${duration}s ${delay}s ease-in forwards;
-        --drift:${drift}px;
-        --rotation:${rotation}deg;
-      `;
+      el.style.cssText=`position:absolute;left:${left}%;top:-60px;font-size:${size}px;opacity:1;transition:none`;
       container.appendChild(el);
+      // Animate using JS
+      const start=Date.now();
+      function animate(){
+        const elapsed=Date.now()-start;
+        const progress=elapsed/duration;
+        if(progress>=1){el.remove();return;}
+        const y=progress*window.innerHeight*1.1;
+        const x=drift*progress;
+        const r=rotation*progress;
+        const opacity=progress>0.8?1-(progress-0.8)/0.2:1;
+        el.style.transform=`translateY(${y}px) translateX(${x}px) rotate(${r}deg)`;
+        el.style.opacity=opacity;
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
     },i*80);
   }
-  // Add CSS animation
-  if(!document.getElementById('flower-style')){
-    const s=document.createElement('style');
-    s.id='flower-style';
-    s.textContent=`
-      @keyframes flowerFall{
-        0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:1}
-        100%{transform:translateY(110vh) translateX(var(--drift)) rotate(var(--rotation));opacity:0}
-      }
-    `;
-    document.head.appendChild(s);
-  }
-  // Remove container after 10 seconds
   setTimeout(()=>container.remove(),10000);
 }
 function dontShowWelcome(checked){if(checked)localStorage.setItem('wm_dontshow','1');else localStorage.removeItem('wm_dontshow')}
